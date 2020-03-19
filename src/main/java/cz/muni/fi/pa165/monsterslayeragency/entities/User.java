@@ -56,10 +56,10 @@ public class User {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		User user = (User) o;
-		return Objects.equals(getEmail(), user.getEmail()) &&
-				Objects.equals(getPassword(), user.getPassword()) &&
-				Objects.equals(getUserName(), user.getUserName()) &&
-				Objects.equals(getImage(), user.getImage());
+		return getEmail().equals(user.getEmail()) &&
+				getPassword().equals(user.getPassword()) &&
+				getUserName().equals(user.getUserName()) &&
+				getImage().equals(user.getImage());
 	}
 
 	@Override
