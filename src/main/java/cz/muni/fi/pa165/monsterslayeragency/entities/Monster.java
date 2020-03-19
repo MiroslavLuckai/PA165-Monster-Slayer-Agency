@@ -12,9 +12,9 @@ public class Monster {
     private int size;
     private Food food;
     private Resistance[] resistances;
-    private byte[] image;
+    private String image;
 
-    public Monster(int id, String name, int size, Food food, Resistance[] resistances, byte[] image) {
+    public Monster(int id, String name, int size, Food food, Resistance[] resistances, String image) {
         this.id = id;
         this.name = name;
         this.size = size;
@@ -63,11 +63,11 @@ public class Monster {
         this.resistances = resistances;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -81,14 +81,14 @@ public class Monster {
                 getName().equals(monster.getName()) &&
                 getFood() == monster.getFood() &&
                 Arrays.equals(getResistances(), monster.getResistances()) &&
-                Arrays.equals(getImage(), monster.getImage());
+                getImage().equals(monster.getImage());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(getId(), getName(), getSize(), getFood());
         result = 31 * result + Arrays.hashCode(getResistances());
-        result = 31 * result + Arrays.hashCode(getImage());
+        result = 31 * result + getImage().hashCode();
         return result;
     }
 }
