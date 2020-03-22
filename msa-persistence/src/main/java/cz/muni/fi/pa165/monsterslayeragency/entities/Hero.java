@@ -2,24 +2,41 @@ package cz.muni.fi.pa165.monsterslayeragency.entities;
 
 import cz.muni.fi.pa165.monsterslayeragency.enums.Skill;
 
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
  * @author Ludovit Kopcsanyi
  */
+@Entity
 public class Hero {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
+	@Column(nullable = false)
+	@ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
 	private User user;
-	private String name;
+
+	@Column(nullable = false, unique = true)
+	private String heroName;
 	private Skill[] skills;
 	private String image;
 
-	public Hero(User user, String name, Skill[] skills, String image) {
+	public Hero(User user, String heroName, Skill[] skills, String image) {
 		this.user = user;
-		this.name = name;
+		this.heroName = heroName;
 		this.skills = skills;
 		this.image = image;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public User getUser() {
@@ -30,12 +47,12 @@ public class Hero {
 		this.user = user;
 	}
 
-	public String getName() {
-		return name;
+	public String getHeroName() {
+		return heroName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setHeroName(String heroName) {
+		this.heroName = heroName;
 	}
 
 	public Skill[] getSkills() {
@@ -60,14 +77,14 @@ public class Hero {
 		if (o == null || getClass() != o.getClass()) return false;
 		Hero hero = (Hero) o;
 		return getUser().equals(hero.getUser()) &&
-				getName().equals(hero.getName()) &&
+				getHeroName().equals(hero.getHeroName()) &&
 				Arrays.equals(getSkills(), hero.getSkills()) &&
 				getImage().equals(hero.getImage());
 	}
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(getUser(), getName(), getImage());
+		int result = Objects.hash(getUser(), getHeroName(), getImage());
 		result = 31 * result + Arrays.hashCode(getSkills());
 		return result;
 	}
