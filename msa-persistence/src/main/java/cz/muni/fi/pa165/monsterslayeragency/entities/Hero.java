@@ -20,14 +20,21 @@ public class Hero {
 	private User user;
 
 	@Column(nullable = false, unique = true)
-	private String heroName;
+	private String name;
+	/*
+	 Commented this one out as hibernate cannot map array
+	 either change it to list and add annotation @ElementCollection (create separate table for it)
+	 or map it according to this: https://vladmihalcea.com/how-to-map-java-and-sql-arrays-with-jpa-and-hibernate/
 	private Skill[] skills;
+	 */
 	private String image;
 
-	public Hero(User user, String heroName, Skill[] skills, String image) {
+	public Hero() {}
+
+	public Hero(User user, String name, Skill[] skills, String image) {
 		this.user = user;
-		this.heroName = heroName;
-		this.skills = skills;
+		this.name = name;
+		//this.skills = skills;
 		this.image = image;
 	}
 
@@ -47,14 +54,14 @@ public class Hero {
 		this.user = user;
 	}
 
-	public String getHeroName() {
-		return heroName;
+	public String getName() {
+		return name;
 	}
 
-	public void setHeroName(String heroName) {
-		this.heroName = heroName;
+	public void setName(String heroName) {
+		this.name = heroName;
 	}
-
+/*
 	public Skill[] getSkills() {
 		return skills;
 	}
@@ -62,7 +69,7 @@ public class Hero {
 	public void setSkills(Skill[] skills) {
 		this.skills = skills;
 	}
-
+*/
 	public String getImage() {
 		return image;
 	}
@@ -77,15 +84,15 @@ public class Hero {
 		if (o == null || getClass() != o.getClass()) return false;
 		Hero hero = (Hero) o;
 		return getUser().equals(hero.getUser()) &&
-				getHeroName().equals(hero.getHeroName()) &&
-				Arrays.equals(getSkills(), hero.getSkills()) &&
+				getName().equals(hero.getName()) &&
+				//Arrays.equals(getSkills(), hero.getSkills()) &&
 				getImage().equals(hero.getImage());
 	}
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(getUser(), getHeroName(), getImage());
-		result = 31 * result + Arrays.hashCode(getSkills());
+		int result = Objects.hash(getUser(), getName(), getImage());
+		//result = 31 * result + Arrays.hashCode(getSkills());
 		return result;
 	}
 }

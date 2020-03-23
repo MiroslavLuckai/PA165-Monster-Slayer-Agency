@@ -1,16 +1,22 @@
 package cz.muni.fi.pa165.monsterslayeragency.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * @author Ludovit Kopcsanyi
  */
+@Entity
 public class User {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	private String email;
 	private String password;
 	private String userName;
 	private String image;
+
+	public User() {}
 
 	public User(String email, String password, String userName, String image) {
 		this.email = email;
