@@ -3,6 +3,10 @@ package cz.muni.fi.pa165.monsterslayeragency.dao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Monster;
 import org.springframework.data.repository.CrudRepository;
 
+/**
+ * @author Filip Daniel Fedin
+ */
+
 public interface MonsterRepository extends CrudRepository<Monster, Long> {
 
     /**
