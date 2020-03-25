@@ -2,10 +2,8 @@ package cz.muni.fi.pa165.monsterslayeragency.entities;
 
 import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
 import cz.muni.fi.pa165.monsterslayeragency.enums.Resistance;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -17,8 +15,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @Entity
 public class Monster {
@@ -36,9 +32,20 @@ public class Monster {
     @Column(nullable = false)
     private MonsterType monsterType;
 
-
     @ElementCollection
     private List<Resistance> resitances;
 
+    @Column(nullable = false)
     private String image;
+
+    public Monster() {
+    }
+
+    public Monster(String name, int size, MonsterType monsterType, List<Resistance> resistances, String image) {
+        this.name = name;
+        this.size = size;
+        this.monsterType = monsterType;
+        this.resitances = resistances;
+        this.image = image;
+    }
 }
