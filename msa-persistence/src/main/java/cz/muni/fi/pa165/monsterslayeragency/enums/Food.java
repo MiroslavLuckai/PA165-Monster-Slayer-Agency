@@ -7,5 +7,8 @@ public enum Food {
     PLANTS,
     ENERGY,
     NONE,
-    OTHER
+    OTHER,
+    MEAT,
+    CORPSE,
+    BLOOD,
 }
