@@ -2,8 +2,8 @@ package cz.muni.fi.pa165.monsterslayeragency.enums;
 
 public enum JobStatus {
     ASSIGNED,
-    INPROGRESS,
-    NOTASSIGNED,
+    IN_PROGRESS,
+    NOT_ASSIGNED,
     CANCELED,
-    CLOSED
+    DONE,
 }
