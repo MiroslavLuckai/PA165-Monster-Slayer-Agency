@@ -22,29 +22,26 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void addRequest(Request request) throws IllegalArgumentException{
-        if (request != null) {
-            em.persist(request);
-            return;
+        if (request == null) {
+            throw new IllegalArgumentException("Request is null");
         }
-        throw new IllegalArgumentException("Request is null");
+        em.persist(request);
     }
 
     @Override
     public void removeRequest(Request request) throws IllegalArgumentException{
-        if (request != null) {
-            em.remove(request);
-            return;
+        if (request == null) {
+            throw new IllegalArgumentException("Request is null");
         }
-        throw new IllegalArgumentException("Request is null");
+        em.remove(request);
     }
 
     @Override
     public void updateRequest(Request request) throws IllegalArgumentException{
-        if (request != null) {
-            em.merge(request);
-            return;
+        if (request == null) {
+            throw new IllegalArgumentException("Request is null");
         }
-        throw new IllegalArgumentException("Request is null");
+        em.merge(request);
     }
 
     @Override
