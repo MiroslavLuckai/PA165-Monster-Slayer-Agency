@@ -5,6 +5,10 @@ import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 
 import java.util.List;
 
+/**
+ * @author Filip Daniel Fedin
+ */
+
 public interface RequestDao {
 
     /**

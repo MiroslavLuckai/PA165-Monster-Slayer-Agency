@@ -10,6 +10,10 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * @author Filip Daniel Fedin
+ */
+
 @Repository
 @Transactional
 public class RequestDaoImpl implements RequestDao {
