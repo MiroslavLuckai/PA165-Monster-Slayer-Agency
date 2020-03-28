@@ -21,7 +21,7 @@ public class RequestDaoImpl implements RequestDao {
     private EntityManager em;
 
     @Override
-    public void addRequest(Request request) {
+    public void addRequest(Request request) throws IllegalArgumentException{
         if (request != null) {
             em.persist(request);
             return;
@@ -30,7 +30,7 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public void removeRequest(Request request) {
+    public void removeRequest(Request request) throws IllegalArgumentException{
         if (request != null) {
             em.remove(request);
             return;
@@ -39,7 +39,7 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public void updateRequest(Request request) {
+    public void updateRequest(Request request) throws IllegalArgumentException{
         if (request != null) {
             em.merge(request);
             return;
@@ -48,7 +48,7 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public Request findRequestById(Long id) {
+    public Request findRequestById(Long id) throws IllegalArgumentException{
         if (id == null) {
             throw new IllegalArgumentException("Id is null");
         }
@@ -56,7 +56,7 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public Request findRequestByCustomer(User user) {
+    public Request findRequestByCustomer(User user) throws IllegalArgumentException{
         if (user == null) {
             throw new IllegalArgumentException("User is null");
         }
