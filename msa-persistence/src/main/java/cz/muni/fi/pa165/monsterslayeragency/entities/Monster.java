@@ -2,24 +2,15 @@ package cz.muni.fi.pa165.monsterslayeragency.entities;
 
 import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
 import cz.muni.fi.pa165.monsterslayeragency.enums.Resistance;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Filip Daniel Fedin
  */
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 public class Monster {
 
@@ -41,4 +32,73 @@ public class Monster {
 
     @Column
     private String image;
+
+    public Monster() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public List<Resistance> getResistances() {
+        return resistances;
+    }
+
+    public MonsterType getMonsterType() {
+        return monsterType;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setResistances(List<Resistance> resistances) {
+        this.resistances = resistances;
+    }
+
+    public void setMonsterType(MonsterType monsterType) {
+        this.monsterType = monsterType;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Monster)) return false;
+        Monster monster = (Monster) o;
+        return getSize() == monster.getSize() &&
+                Objects.equals(getId(), monster.getId()) &&
+                Objects.equals(getName(), monster.getName()) &&
+                Objects.equals(getResistances(), monster.getResistances()) &&
+                getMonsterType() == monster.getMonsterType() &&
+                Objects.equals(getImage(), monster.getImage());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getSize(), getResistances(), getMonsterType(), getImage());
+    }
 }
