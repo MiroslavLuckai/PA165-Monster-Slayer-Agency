@@ -34,9 +34,9 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
-    public void findHero(Long id) {
+    public Hero findHero(Long id) {
         validate(id, "Cannot search for hero with null hero ID!");
-        em.find(Hero.class, id);
+        return em.find(Hero.class, id);
     }
 
     @Override
