@@ -1,21 +1,14 @@
 package cz.muni.fi.pa165.monsterslayeragency.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Skill;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Ludovit Kopcsanyi
  */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 public class Hero {
 	@Id
@@ -27,11 +20,77 @@ public class Hero {
 
 	@Column(nullable = false, unique = true)
 	private String name;
-	/*
-	 Commented this one out as hibernate cannot map array
-	 either change it to list and add annotation @ElementCollection (create separate table for it)
-	 or map it according to this: https://vladmihalcea.com/how-to-map-java-and-sql-arrays-with-jpa-and-hibernate/
-	private Skill[] skills;
-	 */
+
+	@ElementCollection
+	private List<Skill> skills;
+
 	private String image;
+
+
+	public Hero(User user, String name, List<Skill> skills, String image) {
+		this.user = user;
+		this.name = name;
+		this.skills = skills;
+		this.image = image;
+	}
+
+	public Hero() {
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Skill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Hero hero = (Hero) o;
+		return getId() == hero.getId() &&
+				Objects.equals(getUser(), hero.getUser()) &&
+				Objects.equals(getName(), hero.getName()) &&
+				Objects.equals(getSkills(), hero.getSkills()) &&
+				Objects.equals(getImage(), hero.getImage());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId(), getUser(), getName(), getSkills(), getImage());
+	}
 }
