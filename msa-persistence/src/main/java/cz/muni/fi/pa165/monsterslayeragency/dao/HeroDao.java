@@ -5,13 +5,33 @@ import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * Hero repository extends CrudRepository
- * CrudRepository should take care of all the basic crud operations and it should also be able
- * make your custom method works if named properly
- * Doc: https://docs.spring.io/spring-data/jpa/docs/1.7.2.RELEASE/reference/html/#repositories.custom-implementations
  * @author Miroslav Luckai
  */
-public interface HeroRepository extends CrudRepository<Hero, Long> {
+public interface HeroDao {
+    /**
+     * Adds hero into database
+     * @param hero hero to be added into database
+     */
+    void addHero(Hero hero);
+
+    /**
+     * Update hero in database
+     * @param hero hero to be updated
+     */
+    void updateHero(Hero hero);
+
+    /**
+     * Remove hero from the database
+     * @param hero hero which should be removed
+     */
+    void removeHero(Hero hero);
+
+    /**
+     * find hero by requested id
+     * @param id id of the hero we are looking for
+     */
+    void findHero(Long id);
+
     /**
      * finds hero by its hero nick-name(hero nick-name have to be unique)
      * @param heroName hero nick-name of the user
@@ -21,9 +41,9 @@ public interface HeroRepository extends CrudRepository<Hero, Long> {
 
     /**
      * finds hero profile by its underlying user
-     * @param user user whose hero profile we are looking for
+     * @param userId Id of the user whose hero profile we are looking for
      * @return instance of class Hero with wanted underlying user, hopefully null otherwise
      */
-    Hero findByUser(User user);
+    Hero findByUser(Long userId);
 
 }
