@@ -15,26 +15,26 @@ public interface RequestDao {
      * Adds request to database
      * @param request entity to be added to database
      */
-    void addRequest(Request request);
+    void addRequest(Request request) throws IllegalArgumentException;
 
     /**
      * Removes request from database
      * @param request entity to be removed from database
      */
-    void removeRequest(Request request);
+    void removeRequest(Request request) throws IllegalArgumentException;
 
     /**
      * Updates request in database
      * @param request entity to be updated in database
      */
-    void updateRequest(Request request);
+    void updateRequest(Request request) throws IllegalArgumentException;
 
     /**
      * Finds request in database by ID
      * @param id of the request
      * @return request with the id
      */
-    Request findRequestById(Long id);
+    Request findRequestById(Long id) throws IllegalArgumentException;
 
     /**
      * Finds request in database by customer who created it
