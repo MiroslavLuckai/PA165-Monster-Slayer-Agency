@@ -44,7 +44,7 @@ public class JobDaoImpl implements JobDao {
     }
 
     @Override
-    public List<Job> getAllJobs() {
+    public List<Job> findAll() {
         return em.createQuery("select job from Job job", Job.class).getResultList();
     }
 

@@ -73,7 +73,7 @@ public class MonsterDaoImpl implements MonsterDao {
         }
         try {
             return entityManager
-                    .createQuery("select monster from Monster monster where monster.type = :type", Monster.class)
+                    .createQuery("select monster from Monster monster where monster.monsterType = :type", Monster.class)
                     .setParameter("type", monsterType)
                     .getResultList();
         } catch (NoResultException nrf) {
@@ -89,22 +89,6 @@ public class MonsterDaoImpl implements MonsterDao {
         try {
             return entityManager
                     .createQuery("select monster from Monster monster where monster.size = :size", Monster.class)
-                    .setParameter("size", size)
-                    .getResultList();
-        } catch (NoResultException nrf) {
-            return null;
-        }
-    }
-
-    @Override
-    public List<Monster> findByMonsterTypeAndSize(MonsterType monsterType, int size) {
-        if (monsterType == null || size < 0) {
-            throw new IllegalArgumentException("Monster type is null or size is below 0");
-        }
-        try {
-            return entityManager
-                    .createQuery("select monster from Monster monster where monster.type = :type and monster.size = :size", Monster.class)
-                    .setParameter("type", monsterType)
                     .setParameter("size", size)
                     .getResultList();
         } catch (NoResultException nrf) {

@@ -16,57 +16,49 @@ public interface MonsterDao {
 	 *
 	 * @param monster monster do be added
 	 */
-	public void addMonster(Monster monster);
+	public void addMonster(Monster monster) throws IllegalArgumentException;
 
 	/**
 	 * Removes a monster from the database
 	 *
 	 * @param monster monster to be removed
 	 */
-	public void removeMonster(Monster monster);
+	public void removeMonster(Monster monster) throws IllegalArgumentException;
 
 	/**
 	 * Updates a monster in the database
 	 *
 	 * @param monster monster to be updated
 	 */
-	public void updateMonster(Monster monster);
+	public void updateMonster(Monster monster) throws IllegalArgumentException;
 
 	/**
 	 * Finds monster by its id
 	 * @param id id of Monster
 	 * @return instance of Monster
 	 */
-	Monster findById(Long id);
+	Monster findById(Long id) throws IllegalArgumentException;
 
 	/**
 	 * Finds monster by its name
 	 * @param name name of Monster
 	 * @return instance of Monster
 	 */
-	Monster findByName(String name);
+	Monster findByName(String name) throws IllegalArgumentException;
 
 	/**
 	 * Find monsters by their type
 	 * @param monsterType value of MonsterType
 	 * @return list of monsters
 	 */
-	List<Monster> findByMonsterType(MonsterType monsterType);
+	List<Monster> findByMonsterType(MonsterType monsterType) throws IllegalArgumentException;
 
 	/**
 	 * Find monsters by their size
 	 * @param size numeric size value
 	 * @return list of monsters
 	 */
-	List<Monster> findBySize(int size);
-
-	/**
-	 * Find monsters by their type and size
-	 * @param monsterType value of MonsterType
-	 * @param size numeric size value
-	 * @return list of monsters
-	 */
-	List<Monster> findByMonsterTypeAndSize(MonsterType monsterType, int size);
+	List<Monster> findBySize(int size) throws IllegalArgumentException;
 
 	/**
 	 * List all monsters
