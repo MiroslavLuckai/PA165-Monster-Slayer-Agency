@@ -2,10 +2,8 @@ package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 
 import cz.muni.fi.pa165.monsterslayeragency.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -28,7 +26,7 @@ public class UserDaoTests extends AbstractTestNGSpringContextTests{
     private EntityManager em;
 
     @Autowired
-    private UserDao dao;
+    private UserDao userDao;
 
     private User user;
 
@@ -39,13 +37,13 @@ public class UserDaoTests extends AbstractTestNGSpringContextTests{
         user.setImage("test_image");
         user.setPassword("default");
         user.setUserName("Geralt");
-        dao.addUser(user);
+        userDao.addUser(user);
     }
 
 
     @Test
     public void findUserByIdTest() {
-        User found = dao.findUserById(user.getId());
+        User found = userDao.findUserById(user.getId());
         Assert.assertEquals(user, found);
     }
 }
