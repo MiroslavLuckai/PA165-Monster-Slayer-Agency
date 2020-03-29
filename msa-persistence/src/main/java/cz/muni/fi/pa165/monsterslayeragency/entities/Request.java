@@ -1,12 +1,6 @@
 package cz.muni.fi.pa165.monsterslayeragency.entities;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +8,7 @@ import java.util.Objects;
 /**
  * @author Michaela Bajanova (469166)
  */
+@Entity
 public class Request {
 
     @Id
