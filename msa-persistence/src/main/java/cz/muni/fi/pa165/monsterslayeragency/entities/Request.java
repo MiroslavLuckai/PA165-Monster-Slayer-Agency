@@ -33,7 +33,6 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     private User customer;
 
