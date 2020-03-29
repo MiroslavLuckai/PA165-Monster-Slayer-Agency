@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.monsterslayeragency.dao.HeroDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -99,7 +100,20 @@ public class HeroTests extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(user, found.getUser());
     }
 
+    @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
+    public void addNullHero() {
+        dao.addHero(null);
+    }
 
+    @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
+    public void updateNullHero() {
+        dao.updateHero(null);
+    }
+
+    @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
+    public void removeNullHero() {
+        dao.removeHero(null);
+    }
 
 
 }
