@@ -33,6 +33,9 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
     @Autowired
     private HeroDao dao;
 
+    @Autowired
+    private UserDao dao2;
+
     private Hero hero;
     private User user;
 
@@ -43,6 +46,7 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
         user.setImage("test_image");
         user.setPassword("default");
         user.setUserName("Geralt");
+        dao2.addUser(user);
 
         hero = new Hero();
         hero.setName("Witcher");

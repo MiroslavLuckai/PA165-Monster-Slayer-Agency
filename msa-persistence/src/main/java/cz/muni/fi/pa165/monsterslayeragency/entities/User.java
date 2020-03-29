@@ -7,13 +7,23 @@ import java.util.Objects;
  * @author Ludovit Kopcsanyi
  */
 @Entity
+@Table(name = "USERS")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@Column(unique = true, nullable = false)
 	private String email;
+
+    @Column(unique = true, nullable = false)
 	private String password;
+
+    @Column(unique = true, nullable = false)
 	private String userName;
+
+    @Column
 	private String image;
 
 	public User() {
