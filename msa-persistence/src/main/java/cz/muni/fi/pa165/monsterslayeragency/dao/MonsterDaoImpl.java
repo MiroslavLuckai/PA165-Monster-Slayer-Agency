@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Repository
 @Transactional
-public class MonsterRepositoryImpl implements MonsterRepository {
+public class MonsterDaoImpl implements MonsterDao {
 
     @PersistenceContext
     private EntityManager entityManager;

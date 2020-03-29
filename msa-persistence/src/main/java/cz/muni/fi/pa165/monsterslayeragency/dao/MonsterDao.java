@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Ludovit Kopcsanyi
  */
-public interface MonsterRepository {
+public interface MonsterDao {
 
 	/**
 	 * Adds a monster to the database
