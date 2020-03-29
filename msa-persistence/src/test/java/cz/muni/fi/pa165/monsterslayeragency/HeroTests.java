@@ -53,8 +53,12 @@ public class HeroTests extends AbstractTestNGSpringContextTests {
 
 
     @Test
-    public void testFindCityById() {
+    public void findHeroByIdTest() {
         Hero found = dao.findHero(hero.getId());
         Assert.assertEquals(hero.getId(), found.getId());
+        Assert.assertEquals(hero.getName(), found.getName());
+        Assert.assertEquals(hero.getImage(), found.getImage());
+        Assert.assertEquals(hero.getUser(), found.getUser());
+        Assert.assertEquals(hero.getUser(), user);
     }
 }
