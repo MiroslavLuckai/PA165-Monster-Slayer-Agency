@@ -1,8 +1,6 @@
 package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
-import cz.muni.fi.pa165.monsterslayeragency.entities.User;
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * @author Miroslav Luckai
@@ -29,8 +27,9 @@ public interface HeroDao {
     /**
      * find hero by requested id
      * @param id id of the hero we are looking for
+     * @return
      */
-    void findHero(Long id);
+    Hero findHero(Long id);
 
     /**
      * finds hero by its hero nick-name(hero nick-name have to be unique)
