@@ -1,6 +1,7 @@
-package cz.muni.fi.pa165.monsterslayeragency;
+package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 
+import cz.muni.fi.pa165.monsterslayeragency.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.monsterslayeragency.dao.HeroDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
@@ -25,7 +26,7 @@ import javax.persistence.PersistenceContext;
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class HeroTests extends AbstractTestNGSpringContextTests {
+public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @PersistenceContext
     private EntityManager em;
