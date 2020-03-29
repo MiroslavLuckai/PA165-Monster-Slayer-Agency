@@ -15,6 +15,9 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
@@ -28,22 +31,67 @@ public class UserDaoTests extends AbstractTestNGSpringContextTests{
     @Autowired
     private UserDao userDao;
 
-    private User user;
+    private User user1, user2;
 
     @BeforeMethod
     void setUp() {
-        user = new User();
-        user.setEmail("default@mail.com");
-        user.setImage("test_image");
-        user.setPassword("default");
-        user.setUserName("Geralt");
-        userDao.addUser(user);
+        user1 = new User();
+        user1.setEmail("default@mail.com");
+        user1.setImage("test_image");
+        user1.setPassword("default");
+        user1.setUserName("Geralt");
+        userDao.addUser(user1);
+
+        user2 = new User();
+        user2.setEmail("normal@mail.com");
+        user2.setImage("image");
+        user2.setUserName("Peter");
+        user2.setPassword("password");
+        userDao.addUser(user2);
     }
 
 
     @Test
     public void findUserByIdTest() {
-        User found = userDao.findUserById(user.getId());
-        Assert.assertEquals(user, found);
+        User found = userDao.findUserById(user1.getId());
+        Assert.assertEquals(user1, found);
+    }
+
+    @Test
+    public void updateUserTest() {
+        String oldMail = user1.getEmail();
+        user1.setEmail("newMail");
+        userDao.updateUser(user1);
+        User found = userDao.findUserById(user1.getId());
+        Assert.assertEquals(found.getEmail(), user1.getEmail());
+        Assert.assertNotEquals(found.getEmail(), oldMail);
+    }
+
+    @Test
+    public void removeUserTest() {
+        userDao.removeUser(user1);
+        Assert.assertNull(userDao.findUserById(user1.getId()));
+    }
+
+    @Test
+    public void findUserByEmailTest() {
+        User found = userDao.findUserByEmail(user1.getEmail());
+        Assert.assertEquals(found, user1);
+    }
+
+    @Test
+    public void findUserByUsernameTest() {
+        User found = userDao.findUserByUsername(user1.getUserName());
+        Assert.assertEquals(found, user1);
+    }
+
+    @Test
+    public void findAllUsersTest() {
+        List<User> found = userDao.getAllUsers();
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        Assert.assertEquals(found, users);
+
     }
 }
