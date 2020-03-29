@@ -68,4 +68,19 @@ public class JobDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNull(jobDao.findJobById(job.getId()));
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void addNullJob() {
+        jobDao.addJob(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void updateNullJob() {
+        jobDao.updateJob(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeNullJob() {
+        jobDao.removeJob(null);
+    }
+
 }
