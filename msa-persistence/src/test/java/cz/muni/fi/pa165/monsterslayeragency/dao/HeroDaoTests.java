@@ -1,7 +1,7 @@
-package cz.muni.fi.pa165.monsterslayeragency;
+package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 
-import cz.muni.fi.pa165.monsterslayeragency.dao.HeroDao;
+import cz.muni.fi.pa165.monsterslayeragency.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,16 @@ import javax.persistence.PersistenceContext;
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class HeroTests extends AbstractTestNGSpringContextTests {
+public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @PersistenceContext
     private EntityManager em;
 
     @Autowired
-    private HeroDao dao;
+    private HeroDao heroDao;
+
+    @Autowired
+    private UserDao userDao;
 
     private Hero hero;
     private User user;
@@ -43,19 +46,20 @@ public class HeroTests extends AbstractTestNGSpringContextTests {
         user.setImage("test_image");
         user.setPassword("default");
         user.setUserName("Geralt");
+        userDao.addUser(user);
 
         hero = new Hero();
         hero.setName("Witcher");
         hero.setUser(user);
         hero.setImage("test");
 
-        dao.addHero(hero);
+        heroDao.addHero(hero);
     }
 
 
     @Test
     public void findHeroByIdTest() {
-        Hero found = dao.findHero(hero.getId());
+        Hero found = heroDao.findHero(hero.getId());
         Assert.assertEquals(hero, found);
     }
 
@@ -63,8 +67,8 @@ public class HeroTests extends AbstractTestNGSpringContextTests {
     public void updateHeroTest() {
         String oldName = hero.getName();
         hero.setName("Jojo");
-        dao.updateHero(hero);
-        Hero found = dao.findHero(hero.getId());
+        heroDao.updateHero(hero);
+        Hero found = heroDao.findHero(hero.getId());
         Assert.assertEquals(found.getName(), hero.getName());
         Assert.assertNotEquals(found.getName(), oldName);
     }
@@ -72,35 +76,35 @@ public class HeroTests extends AbstractTestNGSpringContextTests {
     @Test
     public void removeHeroTest() {
         Long removedId = hero.getId();
-        dao.removeHero(hero);
-        Assert.assertNull(dao.findHero(removedId));
+        heroDao.removeHero(hero);
+        Assert.assertNull(heroDao.findHero(removedId));
     }
 
     @Test
     public void findHeroByNameTest() {
-        Hero found = dao.findByHeroName(hero.getName());
+        Hero found = heroDao.findByHeroName(hero.getName());
         Assert.assertEquals(hero, found);
     }
 
     @Test
     public void findHeroByUserTest() {
-        Hero found = dao.findByUser(user.getId());
+        Hero found = heroDao.findByUser(user.getId());
         Assert.assertEquals(hero, found);
     }
 
     @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
     public void addNullHero() {
-        dao.addHero(null);
+        heroDao.addHero(null);
     }
 
     @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
     public void updateNullHero() {
-        dao.updateHero(null);
+        heroDao.updateHero(null);
     }
 
     @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
     public void removeNullHero() {
-        dao.removeHero(null);
+        heroDao.removeHero(null);
     }
 
 
