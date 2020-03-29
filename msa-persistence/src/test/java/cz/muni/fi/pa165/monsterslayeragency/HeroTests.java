@@ -59,6 +59,47 @@ public class HeroTests extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(hero.getName(), found.getName());
         Assert.assertEquals(hero.getImage(), found.getImage());
         Assert.assertEquals(hero.getUser(), found.getUser());
-        Assert.assertEquals(hero.getUser(), user);
+        Assert.assertEquals(user, found.getUser());
     }
+
+    @Test
+    public void updateHeroTest() {
+        String oldName = hero.getName();
+        hero.setName("Jojo");
+        dao.updateHero(hero);
+        Hero found = dao.findHero(hero.getId());
+        Assert.assertEquals(found.getName(), hero.getName());
+        Assert.assertNotEquals(found.getName(), oldName);
+    }
+
+    @Test
+    public void removeHeroTest() {
+        Long removedId = hero.getId();
+        dao.removeHero(hero);
+        Assert.assertNull(dao.findHero(removedId));
+    }
+
+    @Test
+    public void findHeroByNameTest() {
+        Hero found = dao.findByHeroName(hero.getName());
+        Assert.assertEquals(hero.getId(), found.getId());
+        Assert.assertEquals(hero.getName(), found.getName());
+        Assert.assertEquals(hero.getImage(), found.getImage());
+        Assert.assertEquals(hero.getUser(), found.getUser());
+        Assert.assertEquals(user, found.getUser());
+    }
+
+    @Test
+    public void findHeroByUserTest() {
+        Hero found = dao.findByUser(user.getId());
+        Assert.assertEquals(hero.getId(), found.getId());
+        Assert.assertEquals(hero.getName(), found.getName());
+        Assert.assertEquals(hero.getImage(), found.getImage());
+        Assert.assertEquals(hero.getUser(), found.getUser());
+        Assert.assertEquals(user, found.getUser());
+    }
+
+
+
+
 }
