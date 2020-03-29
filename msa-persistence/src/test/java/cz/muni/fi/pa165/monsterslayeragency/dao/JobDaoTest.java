@@ -49,7 +49,7 @@ public class JobDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindAll() {
         Job job2 = new Job();
         jobDao.addJob(job2);
-        List<Job> found = jobDao.getAllJobs();
+        List<Job> found = jobDao.findAll();
         Assert.assertEquals(found.size(), 2);
     }
 

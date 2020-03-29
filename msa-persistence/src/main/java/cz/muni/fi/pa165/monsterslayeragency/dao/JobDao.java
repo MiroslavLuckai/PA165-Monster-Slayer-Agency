@@ -42,5 +42,5 @@ public interface JobDao {
      * Lists all job entities in database.
      * @return List of all job entities in database.
      */
-    List<Job> getAllJobs();
+    List<Job> findAll();
 }
