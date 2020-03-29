@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 
 import cz.muni.fi.pa165.monsterslayeragency.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.monsterslayeragency.dao.HeroDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
