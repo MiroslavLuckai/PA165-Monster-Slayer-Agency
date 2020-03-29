@@ -22,7 +22,6 @@ public class Hero {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(nullable = false)
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
 	private User user;
 
