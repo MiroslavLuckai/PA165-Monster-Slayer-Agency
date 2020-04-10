@@ -3,31 +3,36 @@ package cz.muni.fi.pa165.monsterslayeragency.entities;
 import cz.muni.fi.pa165.monsterslayeragency.enums.Skill;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Ludovit Kopcsanyi
  */
-@Entity
+@Entity(name = "Hero")
+@Table(name = "hero")
 public class Hero {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+	@OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
 	private User user;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, name = "name")
 	private String name;
 
+	@Column(name = "skills")
 	@ElementCollection
-	private List<Skill> skills;
+    @Enumerated(EnumType.STRING)
+	private Set<Skill> skills;
 
+	@Column(name = "image")
 	private String image;
 
 
-	public Hero(User user, String name, List<Skill> skills, String image) {
+	public Hero(User user, String name, Set<Skill> skills, String image) {
 		this.user = user;
 		this.name = name;
 		this.skills = skills;
@@ -61,11 +66,11 @@ public class Hero {
 		this.name = name;
 	}
 
-	public List<Skill> getSkills() {
+	public Set<Skill> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<Skill> skills) {
+	public void setSkills(Set<Skill> skills) {
 		this.skills = skills;
 	}
 
@@ -76,6 +81,14 @@ public class Hero {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public boolean addSkill(Skill skill) {
+	    return this.skills.add(skill);
+    }
+
+    public boolean removeSkill(Skill skill) {
+        return this.skills.remove(skill);
+    }
 
 	@Override
 	public boolean equals(Object o) {

@@ -44,6 +44,15 @@ public class Monster {
     public Monster() {
     }
 
+    public Monster(String name, int size, Set<Resistance> resistances, MonsterType type, String image, Food food) {
+        this.name = name;
+        this.size = size;
+        this.resistances = resistances;
+        this.monsterType = type;
+        this.image = image;
+        this.food = food;
+    }
+
     public Long getId() {
         return id;
     }
