@@ -10,7 +10,7 @@ import java.util.Set;
  * @author Ludovit Kopcsanyi
  */
 @Entity(name = "Hero")
-@Table(name = "hero")
+@Table(name = "heroes")
 public class Hero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,7 +11,7 @@ import java.util.Set;
  * @author Miroslav Luckai
  */
 @Entity(name = "Job")
-@Table(name = "job")
+@Table(name = "jobs")
 public class Job {
 
     @Id

@@ -9,7 +9,7 @@ import java.util.Objects;
  * @author Michaela Bajanova (469166)
  */
 @Entity(name = "Request")
-@Table(name = "request")
+@Table(name = "requests")
 public class Request {
 
     @Id
