@@ -6,24 +6,24 @@ import java.util.Objects;
 /**
  * @author Ludovit Kopcsanyi
  */
-@Entity
-@Table(name = "USERS")
+@Entity(name = "User")
+@Table(name = "users")
 public class User {
 	@Id
     @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false, name = "email")
 	private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "password")
 	private String password;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "user_name")
 	private String userName;
 
-    @Column
+    @Column(name = "image")
 	private String image;
 
 	public User() {
