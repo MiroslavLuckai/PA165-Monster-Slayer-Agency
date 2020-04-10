@@ -1,17 +1,20 @@
 package cz.muni.fi.pa165.monsterslayeragency.entities;
 
+import cz.muni.fi.pa165.monsterslayeragency.enums.Food;
 import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
 import cz.muni.fi.pa165.monsterslayeragency.enums.Resistance;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Filip Daniel Fedin
  */
 
-@Entity
+@Entity(name = "Monster")
+@Table(name = "monster")
 public class Monster {
 
     @Id
@@ -21,17 +24,22 @@ public class Monster {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column
+    @Column(name = "size")
     private int size;
 
-    @ElementCollection
-    private List<Resistance> resistances;
+    @Column(name = "resistances")
+    @ElementCollection(targetClass = Resistance.class)
+    @Enumerated(EnumType.STRING)
+    private Set<Resistance> resistances = new HashSet<>();
 
-    @Column
+    @Column(name = "monster_type")
     private MonsterType monsterType;
 
-    @Column
+    @Column(name = "image")
     private String image;
+
+    @Column(name = "food")
+    private Food food;
 
     public Monster() {
     }
@@ -48,7 +56,7 @@ public class Monster {
         return size;
     }
 
-    public List<Resistance> getResistances() {
+    public Set<Resistance> getResistances() {
         return resistances;
     }
 
@@ -58,6 +66,10 @@ public class Monster {
 
     public String getImage() {
         return image;
+    }
+
+    public Food getFood() {
+        return food;
     }
 
     public void setId(Long id) {
@@ -72,7 +84,7 @@ public class Monster {
         this.size = size;
     }
 
-    public void setResistances(List<Resistance> resistances) {
+    public void setResistances(Set<Resistance> resistances) {
         this.resistances = resistances;
     }
 
@@ -82,6 +94,18 @@ public class Monster {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
+    }
+
+    public boolean addResistance(Resistance resistance) {
+        return this.resistances.add(resistance);
+    }
+
+    public boolean removeResistance(Resistance resistance) {
+        return this.resistances.remove(resistance);
     }
 
     @Override
@@ -94,11 +118,12 @@ public class Monster {
                 Objects.equals(getName(), monster.getName()) &&
                 Objects.equals(getResistances(), monster.getResistances()) &&
                 getMonsterType() == monster.getMonsterType() &&
-                Objects.equals(getImage(), monster.getImage());
+                Objects.equals(getImage(), monster.getImage()) &&
+                getFood() == monster.getFood();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getSize(), getResistances(), getMonsterType(), getImage());
+        return Objects.hash(getId(), getName(), getSize(), getResistances(), getMonsterType(), getImage(), getFood());
     }
 }
