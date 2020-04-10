@@ -8,7 +8,8 @@ import java.util.Objects;
 /**
  * @author Michaela Bajanova (469166)
  */
-@Entity
+@Entity(name = "Request")
+@Table(name = "request")
 public class Request {
 
     @Id
@@ -17,14 +18,17 @@ public class Request {
     private Long id;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
     private User customer;
 
+    @Column(name = "location")
     private String location;
 
-    // https://stackoverflow.com/questions/21059451/how-to-add-list-as-property-of-entity-in-datastore-of-google-app-engine-basic
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "monster_id")
     private List<Monster> monsters;
 
+    @Column(name = "award")
     private BigDecimal award;
 
     public Request() {}
@@ -81,11 +85,15 @@ public class Request {
         if (this == o) return true;
         if (!(o instanceof Request)) return false;
         Request request = (Request) o;
-        return getId().equals(request.getId());
+        return Objects.equals(getId(), request.getId()) &&
+                Objects.equals(getCustomer(), request.getCustomer()) &&
+                Objects.equals(getLocation(), request.getLocation()) &&
+                Objects.equals(getMonsters(), request.getMonsters()) &&
+                Objects.equals(getAward(), request.getAward());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getId(), getCustomer(), getLocation(), getMonsters(), getAward());
     }
 }
