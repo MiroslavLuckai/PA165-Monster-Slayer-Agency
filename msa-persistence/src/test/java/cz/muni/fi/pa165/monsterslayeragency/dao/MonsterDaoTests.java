@@ -41,13 +41,14 @@ public class MonsterDaoTests extends AbstractTestNGSpringContextTests{
         monster = new Monster();
         monster.setName("Beast Monster");
         monster.setSize(10);
-        monster.setResistances(new ArrayList<>(Arrays.asList(Resistance.ICE, Resistance.ROCK)));
+        monster.addResistance(Resistance.ICE);
+        monster.addResistance(Resistance.ROCK);
         monster.setMonsterType(MonsterType.BEAST);
 
         monster2 = new Monster();
         monster2.setName("Hybrid Monster");
         monster2.setSize(15);
-        monster2.setResistances(new ArrayList<>(Arrays.asList(Resistance.PSYCHIC)));
+        monster2.addResistance(Resistance.PSYCHIC);
         monster2.setMonsterType(MonsterType.HYBRID);
     }
 
@@ -64,7 +65,8 @@ public class MonsterDaoTests extends AbstractTestNGSpringContextTests{
         monsterDao.addMonster(monster);
 
         monster.setName("Beast Monster - Updated");
-        monster.setResistances(new ArrayList<>(Arrays.asList(Resistance.ICE, Resistance.PSYCHIC)));
+        monster.addResistance(Resistance.ICE);
+        monster.addResistance(Resistance.ROCK);
         monsterDao.updateMonster(monster);
 
         Monster actual = monsterDao.findById(monster.getId());

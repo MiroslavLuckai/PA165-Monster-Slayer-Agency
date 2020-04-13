@@ -1,15 +1,17 @@
 package cz.muni.fi.pa165.monsterslayeragency.entities;
 
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Miroslav Luckai
  */
-@Entity
+@Entity(name = "Job")
+@Table(name = "jobs")
 public class Job {
 
     @Id
@@ -18,12 +20,21 @@ public class Job {
     private Long id;
 
     @OneToOne(targetEntity = Request.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "request_id")
     private Request request;
 
     @OneToMany
-    private List<Hero> heroes;
+    @JoinColumn(name = "hero_id")
+    private Set<Hero> heroes;
+
+    @Column(name = "evaluation")
     private int evaluation;
+
+    @Column(name = "status")
     private JobStatus status;
+
+    @Column(name = "severity")
+    private JobSeverity severity;
 
     public Long getId() {
         return id;
@@ -41,11 +52,11 @@ public class Job {
         this.request = request;
     }
 
-    public List<Hero> getHeroes() {
+    public Set<Hero> getHeroes() {
         return heroes;
     }
 
-    public void setHeroes(List<Hero> heroes) {
+    public void setHeroes(Set<Hero> heroes) {
         this.heroes = heroes;
     }
 
@@ -61,27 +72,41 @@ public class Job {
         return status;
     }
 
+    public JobSeverity getSeverity() {
+        return severity;
+    }
+
     public void setStatus(JobStatus status) {
         this.status = status;
     }
 
+    public void setSeverity(JobSeverity severity) {
+        this.severity = severity;
+    }
+
+    public boolean addHero(Hero hero) {
+        return this.heroes.add(hero);
+    }
+
+    public boolean removeHero(Hero hero) {
+        return this.heroes.remove(hero);
+    }
+
     @Override
-    public boolean equals(Object object) {
-        if (object == null) {
-            return false;
-        }
-
-        if (!(object instanceof Job)) {
-            return false;
-        }
-
-        Job job = (Job) object;
-
-        return job.request.equals(this.request);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Job)) return false;
+        Job job = (Job) o;
+        return getEvaluation() == job.getEvaluation() &&
+                Objects.equals(getId(), job.getId()) &&
+                Objects.equals(getRequest(), job.getRequest()) &&
+                Objects.equals(getHeroes(), job.getHeroes()) &&
+                getStatus() == job.getStatus() &&
+                getSeverity() == job.getSeverity();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(request);
+        return Objects.hash(getId(), getRequest(), getHeroes(), getEvaluation(), getStatus(), getSeverity());
     }
 }
