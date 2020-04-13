@@ -11,10 +11,7 @@ import java.util.Set;
  */
 @Entity(name = "Hero")
 @Table(name = "heroes")
-public class Hero {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Hero extends AbstractEntity{
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -43,11 +40,11 @@ public class Hero {
     }
 
     public long getId() {
-        return id;
+        return super.id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        super.id = id;
     }
 
     public User getUser() {

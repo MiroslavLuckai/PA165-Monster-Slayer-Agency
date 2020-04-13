@@ -15,11 +15,7 @@ import java.util.Set;
 
 @Entity(name = "Monster")
 @Table(name = "monsters")
-public class Monster {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Monster extends AbstractEntity{
 
     @Column(unique = true, nullable = false)
     private String name;
@@ -54,7 +50,7 @@ public class Monster {
     }
 
     public Long getId() {
-        return id;
+        return super.id;
     }
 
     public String getName() {
@@ -82,7 +78,7 @@ public class Monster {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        super.id = id;
     }
 
     public void setName(String name) {

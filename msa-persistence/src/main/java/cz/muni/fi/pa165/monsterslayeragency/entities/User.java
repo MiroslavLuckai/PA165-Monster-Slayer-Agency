@@ -8,11 +8,7 @@ import java.util.Objects;
  */
 @Entity(name = "User")
 @Table(name = "users")
-public class User {
-	@Id
-    @Column(nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+public class User extends AbstractEntity{
 
 	@Column(unique = true, nullable = false, name = "email")
 	private String email;
@@ -37,11 +33,11 @@ public class User {
 	}
 
 	public long getId() {
-		return id;
+		return super.id;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		super.id = id;
 	}
 
 	public String getEmail() {
