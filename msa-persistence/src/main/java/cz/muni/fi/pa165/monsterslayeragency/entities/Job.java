@@ -15,7 +15,6 @@ import java.util.Set;
 public class Job {
 
     @Id
-    @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

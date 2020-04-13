@@ -13,7 +13,6 @@ import java.util.Objects;
 public class Request {
 
     @Id
-    @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
