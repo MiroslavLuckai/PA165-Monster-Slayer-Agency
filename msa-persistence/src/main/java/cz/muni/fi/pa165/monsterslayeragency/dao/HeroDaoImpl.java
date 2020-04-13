@@ -54,7 +54,7 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
-    public Hero findByUserId(Long userId) throws IllegalArgumentException {
+    public Hero findByUserId(Long userId) throws IllegalArgumentException, NoResultException {
         validate(userId, "Cannot search for hero with null user ID!");
         List<Hero> hero = em.createQuery("select hero from Hero hero where hero.user.id = :userId", Hero.class)
                 .setParameter("userId", userId)
