@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 import cz.muni.fi.pa165.monsterslayeragency.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
-import cz.muni.fi.pa165.monsterslayeragency.entities.Monster;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -66,6 +65,20 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
         assertThat(resultList).containsExactlyInAnyOrder(hero);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void addHeroWithNoNameTest() {
+        userDao.addUser(user);
+        hero.setName(null);
+        heroDao.addHero(hero);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void addHeroWithNoUserTest() {
+        userDao.addUser(user);
+        hero.setUser(null);
+        heroDao.addHero(hero);
+    }
+
 
     @Test
     public void findHeroByIdTest() {
@@ -74,6 +87,12 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
         Hero found = heroDao.findHero(hero.getId());
         Assert.assertEquals(hero, found);
+    }
+
+    @Test
+    public void findHeroByIdNotInDatabase() {
+        Hero found = heroDao.findHero(Long.valueOf("123"));
+        Assert.assertNull(found);
     }
 
     @Test
@@ -109,12 +128,24 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findHeroByNameNotInDatabase() {
+        Hero found = heroDao.findByHeroName("pepe");
+        Assert.assertNull(found);
+    }
+
+    @Test
     public void findHeroByUserTest() {
         userDao.addUser(user);
         heroDao.addHero(hero);
 
         Hero found = heroDao.findByUserId(user.getId());
         Assert.assertEquals(hero, found);
+    }
+
+    @Test
+    public void findHeroByUserNotInDatabase() {
+        Hero found = heroDao.findByUserId(Long.valueOf("5"));
+        Assert.assertNull(found);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -132,5 +163,14 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
         heroDao.removeHero(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findHeroByNullName() {
+        heroDao.findByHeroName(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findHeroByNullId() {
+        heroDao.findByUserId(null);
+    }
 
 }
