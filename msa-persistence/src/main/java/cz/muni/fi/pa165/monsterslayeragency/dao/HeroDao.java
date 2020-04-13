@@ -43,6 +43,6 @@ public interface HeroDao {
      * @param userId Id of the user whose hero profile we are looking for
      * @return instance of class Hero with wanted underlying user, hopefully null otherwise
      */
-    Hero findByUser(Long userId) throws IllegalArgumentException;
+    Hero findByUserId(Long userId) throws IllegalArgumentException;
 
 }

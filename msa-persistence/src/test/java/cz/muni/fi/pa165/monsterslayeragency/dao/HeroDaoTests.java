@@ -87,7 +87,7 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findHeroByUserTest() {
-        Hero found = heroDao.findByUser(user.getId());
+        Hero found = heroDao.findByUserId(user.getId());
         Assert.assertEquals(hero, found);
     }
 
