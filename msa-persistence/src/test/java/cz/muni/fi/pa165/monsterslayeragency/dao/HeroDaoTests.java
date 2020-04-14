@@ -58,7 +58,7 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void addHeroTest() {
-        userDao.addUser(user);
+        em.persist(user);
         heroDao.addHero(hero);
 
         List<Hero> resultList = em.createQuery("select h from Hero h", Hero.class).getResultList();
@@ -67,14 +67,13 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void addHeroWithNoNameTest() {
-        userDao.addUser(user);
+        em.persist(user);
         hero.setName(null);
         heroDao.addHero(hero);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void addHeroWithNoUserTest() {
-        userDao.addUser(user);
         hero.setUser(null);
         heroDao.addHero(hero);
     }
@@ -82,8 +81,8 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findHeroByIdTest() {
-        userDao.addUser(user);
-        heroDao.addHero(hero);
+        em.persist(user);
+        em.persist(hero);
 
         Hero found = heroDao.findHero(hero.getId());
         Assert.assertEquals(hero, found);
@@ -97,8 +96,8 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void updateHeroTest() {
-        userDao.addUser(user);
-        heroDao.addHero(hero);
+        em.persist(user);
+        em.persist(hero);
 
         String oldName = hero.getName();
         hero.setName("Jojo");
@@ -110,8 +109,8 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void removeHeroTest() {
-        userDao.addUser(user);
-        heroDao.addHero(hero);
+        em.persist(user);
+        em.persist(hero);
 
         Long removedId = hero.getId();
         heroDao.removeHero(hero);
@@ -120,8 +119,8 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findHeroByNameTest() {
-        userDao.addUser(user);
-        heroDao.addHero(hero);
+        em.persist(user);
+        em.persist(hero);
 
         Hero found = heroDao.findByHeroName(hero.getName());
         Assert.assertEquals(hero, found);
@@ -135,8 +134,8 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findHeroByUserTest() {
-        userDao.addUser(user);
-        heroDao.addHero(hero);
+        em.persist(user);
+        em.persist(hero);
 
         Hero found = heroDao.findByUserId(user.getId());
         Assert.assertEquals(hero, found);
