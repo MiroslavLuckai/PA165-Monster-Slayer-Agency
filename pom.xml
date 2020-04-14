@@ -25,5 +25,7 @@
 
     <modules>
         <module>msa-persistence</module>
+        <module>msa-service</module>
+        <module>msa-api</module>
     </modules>
 </project>
