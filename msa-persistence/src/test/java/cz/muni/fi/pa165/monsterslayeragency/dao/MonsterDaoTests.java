@@ -16,8 +16,6 @@ import org.assertj.core.api.Assertions;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,58 +60,82 @@ public class MonsterDaoTests extends AbstractTestNGSpringContextTests{
 
     @Test
     public void testUpdateMonster() {
-        monsterDao.addMonster(monster);
+        em.persist(monster);
 
         monster.setName("Beast Monster - Updated");
         monster.addResistance(Resistance.ICE);
         monster.addResistance(Resistance.ROCK);
         monsterDao.updateMonster(monster);
 
-        Monster actual = monsterDao.findById(monster.getId());
+        Monster actual = em.find(Monster.class, monster.getId());
         assertThat(actual).isEqualTo(monster);
     }
 
     @Test
     public void testRemoveMonster() {
-        monsterDao.addMonster(monster);
-        Monster foundMonster = monsterDao.findById(monster.getId());
+        em.persist(monster);
+        Monster foundMonster = em.find(Monster.class, monster.getId());
         assertThat(foundMonster).isNotNull();
 
         monsterDao.removeMonster(monster);
-        foundMonster = monsterDao.findById(monster.getId());
+        foundMonster = em.find(Monster.class, monster.getId());
         assertThat(foundMonster).isNull();
     }
 
     @Test
     public void testFindById() {
-        monsterDao.addMonster(monster);
+        em.persist(monster);
         Monster foundMonster = monsterDao.findById(monster.getId());
         assertThat(foundMonster).isNotNull().isEqualTo(monster);
     }
 
     @Test
+    public void testFindNonexistentMonsterById() {
+        Monster foundMonster = monsterDao.findById(12345L);
+        assertThat(foundMonster).isNull();
+    }
+
+    @Test
     public void testFindByName() {
-        monsterDao.addMonster(monster);
+        em.persist(monster);
         Monster foundMonster = monsterDao.findByName(monster.getName());
         assertThat(foundMonster).isNotNull().isEqualTo(monster);
     }
 
     @Test
+    public void testFindNonexistentMonsterByName() {
+        Monster foundMonster = monsterDao.findByName("FAKE_NAME");
+        assertThat(foundMonster).isNull();
+    }
+
+    @Test
     public void testFindByMonsterType() {
-        monsterDao.addMonster(monster);
-        monsterDao.addMonster(monster2);
+        em.persist(monster);
+        em.persist(monster2);
         List<Monster> foundMonsters = monsterDao.findByMonsterType(monster.getMonsterType());
         assertThat(foundMonsters.size()).isEqualTo(1);
         assertThat(foundMonsters.get(0)).isEqualTo(monster);
     }
 
     @Test
+    public void testFindNonexistentMonsterByType() {
+        List<Monster> foundMonsters = monsterDao.findByMonsterType(MonsterType.BEAST);
+        assertThat(foundMonsters.size()).isEqualTo(0);
+    }
+
+    @Test
     public void testFindBySize() {
-        monsterDao.addMonster(monster);
-        monsterDao.addMonster(monster2);
+        em.persist(monster);
+        em.persist(monster2);
         List<Monster> foundMonsters = monsterDao.findBySize(monster2.getSize());
         assertThat(foundMonsters.size()).isEqualTo(1);
         assertThat(foundMonsters.get(0)).isEqualTo(monster2);
+    }
+
+    @Test
+    public void testFindNonexistentMonsterBySize() {
+        List<Monster> foundMonsters = monsterDao.findBySize(8);
+        assertThat(foundMonsters.size()).isEqualTo(0);
     }
 
     @Test
