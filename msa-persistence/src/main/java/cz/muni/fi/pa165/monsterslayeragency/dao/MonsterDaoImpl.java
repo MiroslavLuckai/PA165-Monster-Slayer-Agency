@@ -22,63 +22,42 @@ public class MonsterDaoImpl implements MonsterDao {
 
     @Override
     public void addMonster(Monster monster) throws IllegalArgumentException {
-        if (monster == null) {
-            throw new IllegalArgumentException("Monster is null");
-        }
+        validate(monster, "Monster cannot be null!");
         entityManager.persist(monster);
     }
 
     @Override
     public void removeMonster(Monster monster) throws IllegalArgumentException {
-        if (monster == null) {
-            throw new IllegalArgumentException("Monster is null");
-        }
+        validate(monster, "Monster cannot be null!");
         entityManager.remove(monster);
     }
 
     @Override
     public void updateMonster(Monster monster) throws IllegalArgumentException {
-        if (monster == null) {
-            throw new IllegalArgumentException("Monster is null");
-        }
+        validate(monster, "Monster cannot be null!");
         entityManager.merge(monster);
     }
 
     public Monster findById(Long id) throws IllegalArgumentException {
-        if (id == null) {
-            throw new IllegalArgumentException("Id is null");
-        }
+        validate(id, "ID cannot be null!");
         return entityManager.find(Monster.class, id);
     }
 
     @Override
     public Monster findByName(String name) throws IllegalArgumentException {
-        if (name == null) {
-            throw new IllegalArgumentException("Monster name is null");
-        }
-        try {
-            return entityManager
-                    .createQuery("select monster from Monster monster where monster.name = :name", Monster.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
-        } catch (NoResultException nrf) {
-            return null;
-        }
+        validate(name, "Monster name cannot be null!");
+        return entityManager.createQuery("select monster from Monster monster where monster.name = :name", Monster.class)
+                .setParameter("name", name)
+                .getSingleResult();
     }
 
     @Override
     public List<Monster> findByMonsterType(MonsterType monsterType) {
-        if (monsterType == null) {
-            throw new IllegalArgumentException("Monster type is null");
-        }
-        try {
-            return entityManager
-                    .createQuery("select monster from Monster monster where monster.monsterType = :type", Monster.class)
-                    .setParameter("type", monsterType)
-                    .getResultList();
-        } catch (NoResultException nrf) {
-            return null;
-        }
+        validate(monsterType, "Monster type cannot be null!");
+        return entityManager
+                .createQuery("select monster from Monster monster where monster.monsterType = :type", Monster.class)
+                .setParameter("type", monsterType)
+                .getResultList();
     }
 
     @Override
@@ -86,14 +65,10 @@ public class MonsterDaoImpl implements MonsterDao {
         if (size < 0) {
             throw new IllegalArgumentException("Monster size is below 0");
         }
-        try {
-            return entityManager
-                    .createQuery("select monster from Monster monster where monster.size = :size", Monster.class)
-                    .setParameter("size", size)
-                    .getResultList();
-        } catch (NoResultException nrf) {
-            return null;
-        }
+        return entityManager
+                .createQuery("select monster from Monster monster where monster.size = :size", Monster.class)
+                .setParameter("size", size)
+                .getResultList();
     }
 
     @Override
@@ -101,5 +76,11 @@ public class MonsterDaoImpl implements MonsterDao {
         return entityManager
                 .createQuery("select monster from Monster monster", Monster.class)
                 .getResultList();
+    }
+
+    private void validate(Object object, String message) throws IllegalArgumentException {
+        if (object == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
 }

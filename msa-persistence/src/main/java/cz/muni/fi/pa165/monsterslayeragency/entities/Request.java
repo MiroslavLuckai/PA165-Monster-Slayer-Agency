@@ -10,12 +10,7 @@ import java.util.Objects;
  */
 @Entity(name = "Request")
 @Table(name = "requests")
-public class Request {
-
-    @Id
-    @Column(nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Request extends AbstractEntity {
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
@@ -41,7 +36,7 @@ public class Request {
     }
 
     public Long getId() {
-        return id;
+        return super.id;
     }
 
     public User getCustomer() {
@@ -61,7 +56,7 @@ public class Request {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        super.id = id;
     }
 
     public void setCustomer(User customer) {

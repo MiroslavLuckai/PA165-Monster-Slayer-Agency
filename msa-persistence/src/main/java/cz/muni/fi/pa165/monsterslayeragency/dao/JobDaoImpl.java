@@ -18,28 +18,25 @@ public class JobDaoImpl implements JobDao {
 
     @Override
     public void addJob(Job job) throws IllegalArgumentException {
-        validate(job);
+        validate(job, "Job cannot be null!");
         em.persist(job);
     }
 
     @Override
     public void updateJob(Job job) throws IllegalArgumentException {
-        validate(job);
+        validate(job, "Job cannot be null!");
         em.merge(job);
     }
 
     @Override
     public void removeJob(Job job) throws IllegalArgumentException {
-        validate(job);
+        validate(job, "Job cannot be null!");
         em.remove(job);
     }
 
     @Override
     public Job findJobById(Long id) throws IllegalArgumentException {
-        if (id == null) {
-            throw new IllegalArgumentException("Job id cannot be null.");
-        }
-
+        validate(id, "ID cannot be null!");
         return em.find(Job.class, id);
     }
 
@@ -48,9 +45,9 @@ public class JobDaoImpl implements JobDao {
         return em.createQuery("select job from Job job", Job.class).getResultList();
     }
 
-    private void validate(Job job) throws IllegalArgumentException {
-        if (job == null) {
-            throw new IllegalArgumentException("Job cannot be null.");
+    private void validate(Object object, String message) throws IllegalArgumentException {
+        if (object == null) {
+            throw new IllegalArgumentException(message);
         }
     }
 }

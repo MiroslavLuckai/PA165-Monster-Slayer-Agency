@@ -22,53 +22,45 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void addRequest(Request request) throws IllegalArgumentException{
-        if (request == null) {
-            throw new IllegalArgumentException("Request is null");
-        }
+        validate(request, "Request cannot be null!");
         em.persist(request);
     }
 
     @Override
     public void removeRequest(Request request) throws IllegalArgumentException{
-        if (request == null) {
-            throw new IllegalArgumentException("Request is null");
-        }
+        validate(request, "Request cannot be null!");
         em.remove(request);
     }
 
     @Override
     public void updateRequest(Request request) throws IllegalArgumentException{
-        if (request == null) {
-            throw new IllegalArgumentException("Request is null");
-        }
+        validate(request, "Request cannot be null!");
         em.merge(request);
     }
 
     @Override
     public Request findRequestById(Long id) throws IllegalArgumentException{
-        if (id == null) {
-            throw new IllegalArgumentException("Id is null");
-        }
+        validate(id, "ID cannot be null!");
         return em.find(Request.class, id);
     }
 
     @Override
     public Request findRequestByCustomer(User user) throws IllegalArgumentException{
-        if (user == null) {
-            throw new IllegalArgumentException("User is null");
-        }
-        try {
-            return em.createQuery("select req from Request req where req.customer = :user", Request.class)
-                    .setParameter("user", user)
-                    .getSingleResult();
-        } catch (NoResultException nrf) {
-            return null;
-        }
+        validate(user, "User cannot be null!");
+        return em.createQuery("select req from Request req where req.customer = :user", Request.class)
+                .setParameter("user", user)
+                .getSingleResult();
     }
 
     @Override
     public List<Request> findAll() {
         return em.createQuery("select req from Request req", Request.class)
                 .getResultList();
+    }
+
+    private void validate(Object object, String message) throws IllegalArgumentException {
+        if (object == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
 }

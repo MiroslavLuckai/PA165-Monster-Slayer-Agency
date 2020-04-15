@@ -16,6 +16,9 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Filip Daniel Fedin
@@ -45,25 +48,57 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
         user.setImage("test_image");
         user.setPassword("default");
         user.setUserName("Geralt");
-        userDao.addUser(user);
 
         hero = new Hero();
         hero.setName("Witcher");
         hero.setUser(user);
         hero.setImage("test");
 
+    }
+
+    @Test
+    public void addHeroTest() {
+        em.persist(user);
+        heroDao.addHero(hero);
+
+        List<Hero> resultList = em.createQuery("select h from Hero h", Hero.class).getResultList();
+        assertThat(resultList).containsExactlyInAnyOrder(hero);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void addHeroWithNoNameTest() {
+        em.persist(user);
+        hero.setName(null);
+        heroDao.addHero(hero);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void addHeroWithNoUserTest() {
+        hero.setUser(null);
         heroDao.addHero(hero);
     }
 
 
     @Test
     public void findHeroByIdTest() {
+        em.persist(user);
+        em.persist(hero);
+
         Hero found = heroDao.findHero(hero.getId());
         Assert.assertEquals(hero, found);
     }
 
     @Test
+    public void findHeroByIdNotInDatabase() {
+        Hero found = heroDao.findHero(Long.valueOf("123"));
+        Assert.assertNull(found);
+    }
+
+    @Test
     public void updateHeroTest() {
+        em.persist(user);
+        em.persist(hero);
+
         String oldName = hero.getName();
         hero.setName("Jojo");
         heroDao.updateHero(hero);
@@ -74,6 +109,9 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void removeHeroTest() {
+        em.persist(user);
+        em.persist(hero);
+
         Long removedId = hero.getId();
         heroDao.removeHero(hero);
         Assert.assertNull(heroDao.findHero(removedId));
@@ -81,14 +119,32 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findHeroByNameTest() {
+        em.persist(user);
+        em.persist(hero);
+
         Hero found = heroDao.findByHeroName(hero.getName());
         Assert.assertEquals(hero, found);
     }
 
     @Test
+    public void findHeroByNameNotInDatabase() {
+        Hero found = heroDao.findByHeroName("pepe");
+        Assert.assertNull(found);
+    }
+
+    @Test
     public void findHeroByUserTest() {
-        Hero found = heroDao.findByUser(user.getId());
+        em.persist(user);
+        em.persist(hero);
+
+        Hero found = heroDao.findByUserId(user.getId());
         Assert.assertEquals(hero, found);
+    }
+
+    @Test
+    public void findHeroByUserNotInDatabase() {
+        Hero found = heroDao.findByUserId(Long.valueOf("5"));
+        Assert.assertNull(found);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -106,5 +162,14 @@ public class HeroDaoTests extends AbstractTestNGSpringContextTests {
         heroDao.removeHero(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findHeroByNullName() {
+        heroDao.findByHeroName(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findHeroByNullId() {
+        heroDao.findByUserId(null);
+    }
 
 }
