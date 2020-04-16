@@ -21,67 +21,58 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void addUser(User user) throws IllegalArgumentException {
-        if (user == null) {
-            throw new IllegalArgumentException("User is null");
-        }
+        validate(user, "User cannot be null!");
+        validate(user.getEmail(), "User email cannot be null!");
+        validate(user.getUserName(), "Username cannot be null!");
+        validate(user.getPassword(), "User password cannot be null!");
         em.persist(user);
     }
 
     @Override
     public void updateUser(User user) throws IllegalArgumentException {
-        if (user == null) {
-            throw new IllegalArgumentException("User is null");
-        }
+        validate(user, "User cannot be null!");
         em.merge(user);
     }
 
     @Override
     public void removeUser(User user) throws IllegalArgumentException {
-        if (user == null) {
-            throw new IllegalArgumentException("User is null");
-        }
+        validate(user, "User cannot be null!");
         em.remove(user);
     }
 
     @Override
     public User findUserById(Long id) throws IllegalArgumentException {
-        if (id == null) {
-            throw new IllegalArgumentException("User ID is null");
-        }
+        validate(id, "ID cannot be null!");
         return em.find(User.class, id);
     }
 
     @Override
     public User findUserByEmail(String email) throws IllegalArgumentException {
-        if (email == null) {
-            throw new IllegalArgumentException("Email is null");
-        }
-        try {
-            return em.createQuery("select usr from User usr where usr.email = :email", User.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
-        } catch (NoResultException nrf) {
-            return null;
-        }
+        validate(email, "Email cannot be null!");
+        List<User> users = em.createQuery("select usr from User usr where usr.email = :email", User.class)
+                .setParameter("email", email)
+                .getResultList();
+        return users.isEmpty() ? null : users.get(0);
     }
 
     @Override
     public User findUserByUsername(String username) throws IllegalArgumentException {
-        if (username == null) {
-            throw new IllegalArgumentException("Username is null");
-        }
-        try {
-            return em.createQuery("select usr from User usr where usr.userName = :userName", User.class)
-                    .setParameter("userName", username)
-                    .getSingleResult();
-        } catch (NoResultException nrf) {
-            return null;
-        }
+        validate(username, "Username cannot be null!");
+        List<User> users = em.createQuery("select usr from User usr where usr.userName = :userName", User.class)
+                .setParameter("userName", username)
+                .getResultList();
+        return users.isEmpty() ? null : users.get(0);
     }
 
     @Override
     public List<User> getAllUsers() {
         return em.createQuery("select usr from User usr", User.class)
                 .getResultList();
+    }
+
+    private void validate(Object object, String message) throws IllegalArgumentException {
+        if (object == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
 }
