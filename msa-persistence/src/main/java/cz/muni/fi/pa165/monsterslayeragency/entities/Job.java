@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class Job extends AbstractEntity {
 
     @OneToMany
     @JoinColumn(name = "hero_id")
-    private Set<Hero> heroes;
+    private Set<Hero> heroes = new HashSet<>();
 
     @Column(name = "evaluation")
     private int evaluation;
