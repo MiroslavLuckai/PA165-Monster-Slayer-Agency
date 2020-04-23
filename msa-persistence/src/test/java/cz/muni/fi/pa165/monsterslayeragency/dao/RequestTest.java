@@ -49,6 +49,17 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void createRequestTest() {
+        Monster basilisk = createBasilisk();
+        em.persist(basilisk);
+        Request basiliskRequest = createBasiliskRequest();
+        basiliskRequest.getMonsters().add(basilisk);
+        requestDao.addRequest(basiliskRequest);
+
+        Assert.assertEquals(em.find(Request.class, basiliskRequest.getId()), basiliskRequest);
+    }
+
+    @Test
     public void getGhoulRequestById() {
         Request request = requestDao.findRequestById(ghoulRequest.getId());
         Assert.assertEquals(ghoulRequest, request);
@@ -70,7 +81,7 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void deleteTest() {
-        Request request = createHelpRequest();
+        Request request = createBasiliskRequest();
         em.persist(request);
         List<Request> requests = em.createQuery("SELECT r FROM Request r", Request.class).getResultList();
         Assert.assertEquals(requests.size(), 3);
@@ -116,9 +127,9 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
         golem.setMonsterType(MonsterType.ELEMENTA);
     }
 
-    private Request createHelpRequest() {
+    private Request createBasiliskRequest() {
         Request request = new Request();
-        request.setLocation("Skellige");
+        request.setLocation("Velen");
         request.setAward(new BigDecimal(1000));
         request.setMonsters(new ArrayList<>());
         return request;
@@ -138,5 +149,13 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
         golemRequest.setAward(new BigDecimal(10000));
         golemRequest.setMonsters(new ArrayList<>());
         golemRequest.getMonsters().add(golem);
+    }
+
+    private Monster createBasilisk() {
+        Monster basilisk = new Monster();
+        basilisk.setName("Basilisk");
+        basilisk.setSize(40);
+        basilisk.setMonsterType(MonsterType.DRACONID);
+        return basilisk;
     }
 }
