@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class HeroDTO {
 
+    private Long id;
+
     private UserDTO user;
 
     private String name;
@@ -14,6 +16,14 @@ public class HeroDTO {
     private Set<Skill> skills;
 
     private String image;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public UserDTO getUser() {
         return user;
@@ -52,7 +62,8 @@ public class HeroDTO {
         if (this == o) return true;
         if (!(o instanceof HeroDTO)) return false;
         HeroDTO heroDTO = (HeroDTO) o;
-        return Objects.equals(getUser(), heroDTO.getUser()) &&
+        return Objects.equals(getId(), heroDTO.getId()) &&
+                Objects.equals(getUser(), heroDTO.getUser()) &&
                 Objects.equals(getName(), heroDTO.getName()) &&
                 Objects.equals(getSkills(), heroDTO.getSkills()) &&
                 Objects.equals(getImage(), heroDTO.getImage());
@@ -66,6 +77,7 @@ public class HeroDTO {
     @Override
     public String toString() {
         return "HeroDTO{" +
+                "id=" + id +
                 "user=" + user +
                 ", name='" + name + '\'' +
                 ", skills=" + skills +

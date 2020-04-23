@@ -4,6 +4,11 @@ import cz.muni.fi.pa165.msa.dto.HeroDTO;
 
 public interface HeroFacade {
 
+    /**
+     * Creates new Hero in database
+     * @param hero new Hero to be created
+     * @return id of the newly created Hero
+     */
     Long createHero(HeroDTO hero);
 
     /**

@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface UserFacade {
 
+    /**
+     * Creates new User in database
+     * @param user user to be created
+     * @return id of the newly created User
+     */
     Long createUser(UserDTO user);
 
     /***
