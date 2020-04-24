@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RequestService {
 
-    void create(Request request);
+    Request create(Request request);
 
     void delete(Request request);
 
