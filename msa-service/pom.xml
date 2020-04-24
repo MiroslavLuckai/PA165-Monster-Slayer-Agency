@@ -54,6 +54,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>cz.muni.fi.pa165</groupId>
             <artifactId>msa-api</artifactId>
