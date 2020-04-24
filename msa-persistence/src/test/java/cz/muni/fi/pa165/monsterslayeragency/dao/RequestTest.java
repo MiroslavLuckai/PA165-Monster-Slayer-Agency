@@ -13,6 +13,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -23,11 +25,11 @@ import java.util.List;
 @Transactional
 public class RequestTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
-    private RequestDao requestDao;
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
-    private MonsterDao monsterDao;
+    private RequestDao requestDao;
 
     private Request ghoulRequest;
     private Request golemRequest;
@@ -40,10 +42,21 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
         createGolem();
         createGhoulRequest();
         createGolemRequest();
-        monsterDao.addMonster(ghoul);
-        monsterDao.addMonster(golem);
-        requestDao.addRequest(ghoulRequest);
-        requestDao.addRequest(golemRequest);
+        em.persist(ghoul);
+        em.persist(golem);
+        em.persist(ghoulRequest);
+        em.persist(golemRequest);
+    }
+
+    @Test
+    public void createRequestTest() {
+        Monster basilisk = createBasilisk();
+        em.persist(basilisk);
+        Request basiliskRequest = createBasiliskRequest();
+        basiliskRequest.getMonsters().add(basilisk);
+        requestDao.addRequest(basiliskRequest);
+
+        Assert.assertEquals(em.find(Request.class, basiliskRequest.getId()), basiliskRequest);
     }
 
     @Test
@@ -62,20 +75,22 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
     public void updateTest() {
         ghoulRequest.setLocation("Skellige");
         requestDao.updateRequest(ghoulRequest);
-        Request request = requestDao.findRequestById(ghoulRequest.getId());
+        Request request = em.find(Request.class, ghoulRequest.getId());
         Assert.assertEquals(ghoulRequest, request);
     }
 
     @Test
     public void deleteTest() {
-        Request request = createHelpRequest();
-        requestDao.addRequest(request);
-        Assert.assertEquals(requestDao.findAll().size(), 3);
+        Request request = createBasiliskRequest();
+        em.persist(request);
+        List<Request> requests = em.createQuery("SELECT r FROM Request r", Request.class).getResultList();
+        Assert.assertEquals(requests.size(), 3);
 
         requestDao.removeRequest(ghoulRequest);
-        request = requestDao.findRequestById(ghoulRequest.getId());
+        request = em.find(Request.class, ghoulRequest.getId());
         Assert.assertNull(request);
-        Assert.assertEquals(requestDao.findAll().size(), 2);
+        requests = em.createQuery("SELECT r FROM Request r", Request.class).getResultList();
+        Assert.assertEquals(requests.size(), 2);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -112,9 +127,9 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
         golem.setMonsterType(MonsterType.ELEMENTA);
     }
 
-    private Request createHelpRequest() {
+    private Request createBasiliskRequest() {
         Request request = new Request();
-        request.setLocation("Skellige");
+        request.setLocation("Velen");
         request.setAward(new BigDecimal(1000));
         request.setMonsters(new ArrayList<>());
         return request;
@@ -134,5 +149,13 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
         golemRequest.setAward(new BigDecimal(10000));
         golemRequest.setMonsters(new ArrayList<>());
         golemRequest.getMonsters().add(golem);
+    }
+
+    private Monster createBasilisk() {
+        Monster basilisk = new Monster();
+        basilisk.setName("Basilisk");
+        basilisk.setSize(40);
+        basilisk.setMonsterType(MonsterType.DRACONID);
+        return basilisk;
     }
 }
