@@ -2,9 +2,9 @@ package cz.muni.fi.pa165.msa.service;
 
 import cz.muni.fi.pa165.monsterslayeragency.dao.JobDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class JobServiceImpl implements JobService {
 
-    @Inject
+    @Autowired
     private JobDao jobDao;
     private String JOB_IS_NULL_MESSAGE = "Job cannot be null.";
 
