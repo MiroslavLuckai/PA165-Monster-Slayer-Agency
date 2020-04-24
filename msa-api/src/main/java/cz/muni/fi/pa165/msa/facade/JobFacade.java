@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.msa.facade;
 
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
+import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.dto.JobCreateDTO;
 import cz.muni.fi.pa165.msa.dto.JobDTO;
 
@@ -42,9 +45,33 @@ public interface JobFacade {
      */
     List<JobDTO> findAll();
 
-//    void addHero(HeroDTO hero);
-//    void removeHero(HeroDTO hero);
-//    void changeEvaluation(int evaluation);
-//    void changeJobStatus(JobStatus status);
-//    void changeJobSeverity(JobSeverity severity);
+    /**
+     * Adds hero to a job.
+     * @param hero hero to be added to the job
+     */
+    void addHero(HeroDTO hero);
+
+    /**
+     * Removes hero from a job.
+     * @param hero hero to be removed from the job.
+     */
+    void removeHero(HeroDTO hero);
+
+    /**
+     * Changes evaluation of a job.
+     * @param evaluation evaluation to be set to the job
+     */
+    void changeEvaluation(int evaluation);
+
+    /**
+     * Changes job status.
+     * @param status status to be set to the job.
+     */
+    void changeJobStatus(JobStatus status);
+
+    /**
+     * Changes job severity.
+     * @param severity severity to be set to the job.
+     */
+    void changeJobSeverity(JobSeverity severity);
 }
