@@ -4,9 +4,11 @@ import cz.muni.fi.pa165.monsterslayeragency.dao.RequestDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RequestServiceImpl implements RequestService {
 
     @Autowired
