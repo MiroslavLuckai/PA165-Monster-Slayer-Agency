@@ -21,12 +21,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
 
     @Override
     public Long createMonster(MonsterCreateDTO monsterCreateDTO) {
-        Monster monster = new Monster();
-        monster.setName(monsterCreateDTO.getName());
-        monster.setMonsterType(monsterCreateDTO.getMonsterType());
-        monster.setResistances(monsterCreateDTO.getResistances());
-        monster.setFood(monsterCreateDTO.getFood());
-        monster.setImage(monsterCreateDTO.getImage());
+        Monster monster = beanMappingService.mapTo(monsterCreateDTO, Monster.class);
         monsterService.create(monster);
         return monster.getId();
     }
