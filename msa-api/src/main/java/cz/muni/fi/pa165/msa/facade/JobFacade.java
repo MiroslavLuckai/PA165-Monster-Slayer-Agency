@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.msa.facade;
 
+import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
@@ -15,29 +16,33 @@ public interface JobFacade {
 
     /**
      * Creates job.
-     * @param job job to be created
+     * @param jobDto job to be created
      * @return id of the new job
+     * @throws IllegalArgumentException when jobDto is null
      */
-    Long createJob(JobCreateDTO job);
+    Long createJob(JobCreateDTO jobDto) throws IllegalArgumentException;
 
     /**
      * Updates job.
-     * @param job job to be updated
+     * @param jobDto job to be updated
+     * @throws IllegalArgumentException when jobDto is null
      */
-    void updateJob(JobDTO job);
+    void updateJob(JobDTO jobDto) throws IllegalArgumentException;
 
     /**
      * Removes job.
      * @param id if of a job to be removed
+     * @throws IllegalArgumentException when id is null
      */
-    void removeJob(Long id);
+    void removeJob(Long id) throws IllegalArgumentException;
 
     /**
      * Find job by id.
      * @param id id of a job to be found
      * @return job with selected id
+     * @throws IllegalArgumentException when id is null
      */
-    JobDTO findById(Long id);
+    JobDTO findById(Long id) throws IllegalArgumentException;
 
     /**
      * Finds all jobs.
@@ -47,31 +52,38 @@ public interface JobFacade {
 
     /**
      * Adds hero to a job.
-     * @param hero hero to be added to the job
+     * @param jobDto job to add hero to
+     * @param heroDto hero to be added to the job
+     * @throws IllegalArgumentException when jobDto or heroDto is null
      */
-    void addHero(HeroDTO hero);
+    void addHero(JobDTO jobDto, HeroDTO heroDto) throws IllegalArgumentException;
 
     /**
      * Removes hero from a job.
-     * @param hero hero to be removed from the job.
+     * @param jobDto job to remove hero from
+     * @param heroDto hero to be removed from the job.
+     * @throws IllegalArgumentException when jobDto or heroDto is null
      */
-    void removeHero(HeroDTO hero);
+    void removeHero(JobDTO jobDto, HeroDTO heroDto) throws IllegalArgumentException;
 
     /**
      * Changes evaluation of a job.
+     * @param jobDto job to change evaluation
      * @param evaluation evaluation to be set to the job
      */
-    void changeEvaluation(int evaluation);
+    void changeEvaluation(JobDTO jobDto, int evaluation);
 
     /**
      * Changes job status.
+     * @param jobDto job to change job status
      * @param status status to be set to the job.
      */
-    void changeJobStatus(JobStatus status);
+    void changeJobStatus(JobDTO jobDto, JobStatus status);
 
     /**
      * Changes job severity.
+     * @param jobDto job to change job severity
      * @param severity severity to be set to the job.
      */
-    void changeJobSeverity(JobSeverity severity);
+    void changeJobSeverity(JobDTO jobDto, JobSeverity severity);
 }
