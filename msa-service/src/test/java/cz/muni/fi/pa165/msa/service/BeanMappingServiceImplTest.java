@@ -70,6 +70,12 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
         assertEqualsHeroDTOtoEntity(heroDTO, hero);
     }
 
+    @Test
+    public void mapToMonster() {
+        MonsterDTO monsterDTO = beanMappingService.mapTo(monster, MonsterDTO.class);
+        assertEqualsMonsterDTOtoEntity(monsterDTO, monster);
+    }
+
     private void assertEqualsUserDTOtoEntity(UserDTO userDTO, User user) {
         Assert.assertEquals(userDTO.getEmail(), user.getEmail());
         Assert.assertEquals(userDTO.getPassword(), user.getPassword());
@@ -86,6 +92,13 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
         assertEqualsUserDTOtoEntity(heroDTO.getUser(), hero.getUser());
     }
 
-
+    private void assertEqualsMonsterDTOtoEntity(MonsterDTO monsterDTO, Monster monster) {
+        Assert.assertEquals(monsterDTO.getResistances(), monster.getResistances());
+        Assert.assertEquals(monsterDTO.getFood(), monster.getFood());
+        Assert.assertEquals(monsterDTO.getImage(), monster.getImage());
+        Assert.assertEquals(monsterDTO.getMonsterType(), monster.getMonsterType());
+        Assert.assertEquals(monsterDTO.getName(), monster.getName());
+        Assert.assertEquals(monsterDTO.getId(), monster.getId());
+    }
 
 }
