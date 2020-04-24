@@ -1,10 +1,7 @@
 package cz.muni.fi.pa165.msa.service;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.*;
-import cz.muni.fi.pa165.monsterslayeragency.enums.Food;
-import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
-import cz.muni.fi.pa165.monsterslayeragency.enums.Resistance;
-import cz.muni.fi.pa165.monsterslayeragency.enums.Skill;
+import cz.muni.fi.pa165.monsterslayeragency.enums.*;
 import cz.muni.fi.pa165.msa.dto.*;
 import cz.muni.fi.pa165.msa.service.config.ServiceConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests {
@@ -64,6 +62,15 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
         request.setAward(new BigDecimal(1));
         request.setId(1L);
         request.setMonsters(new ArrayList<>());
+
+        job = new Job();
+        job.setHeroes(new HashSet<>());
+        job.addHero(hero);
+        job.setStatus(JobStatus.DONE);
+        job.setSeverity(JobSeverity.MODERATE);
+        job.setRequest(request);
+        job.setEvaluation(5);
+        job.setId(2L);
     }
 
     @Test
@@ -91,11 +98,33 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
     }
 
 
-//    @Test
-//    public void mapToJob() {
-//        JobDTO jobDTO = beanMappingService.mapTo(job, JobDTO.class);
-//
-//    }
+    @Test
+    public void mapToJob() {
+        JobDTO jobDTO = beanMappingService.mapTo(job, JobDTO.class);
+        assertEqualsJobDTOtoEntity(jobDTO, job);
+    }
+
+    @Test
+    public void mapToList() {
+        User user2 = new User();
+        user2.setId(5L);
+        user2.setImage("test");
+        user2.setUserName("testname");
+        user2.setPassword("password");
+        user2.setEmail("testmail");
+        List<User> entityList = new ArrayList<>();
+        entityList.add(user);
+        entityList.add(user2);
+
+        List<UserDTO> userDTOList = beanMappingService.mapTo(entityList, UserDTO.class);
+
+        Iterator<UserDTO> dtoIterator = userDTOList.iterator();
+        Iterator<User> userIterator = entityList.iterator();
+        Assert.assertEquals(userDTOList.size(), entityList.size());
+        while (userIterator.hasNext() && dtoIterator.hasNext()) {
+            assertEqualsUserDTOtoEntity(dtoIterator.next(), userIterator.next());
+        }
+    }
 
     private void assertEqualsUserDTOtoEntity(UserDTO userDTO, User user) {
         Assert.assertEquals(userDTO.getEmail(), user.getEmail());
@@ -130,6 +159,7 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
 
         Iterator<MonsterDTO> dtoIterator = requestDTO.getMonsters().iterator();
         Iterator<Monster> monsterIterator = request.getMonsters().iterator();
+        Assert.assertEquals(requestDTO.getMonsters().size(), request.getMonsters().size());
         while (monsterIterator.hasNext() && dtoIterator.hasNext()) {
             assertEqualsMonsterDTOtoEntity(dtoIterator.next(), monsterIterator.next());
         }
@@ -137,11 +167,19 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
 
 
 
-//    private void assertEqualsJobDTOtoEntity(JobDTO jobDTO, Job job) {
-//        Assert.assertEquals(jobDTO.getStatus(), job.getStatus());
-//        Assert.assertEquals(jobDTO.getEvaluation(), job.getEvaluation());
-//        Assert.assertEquals(jobDTO.getId(), job.getId());
-//        Assert.assertEquals(jobDTO.getSeverity(), job.getSeverity());
-//    }
+    private void assertEqualsJobDTOtoEntity(JobDTO jobDTO, Job job) {
+        Assert.assertEquals(jobDTO.getStatus(), job.getStatus());
+        Assert.assertEquals(jobDTO.getEvaluation(), job.getEvaluation());
+        Assert.assertEquals(jobDTO.getId(), job.getId());
+        Assert.assertEquals(jobDTO.getSeverity(), job.getSeverity());
+        assertEqualsRequestDTOtoEntity(jobDTO.getRequest(), job.getRequest());
+
+        Iterator<HeroDTO> dtoIterator = jobDTO.getHeroes().iterator();
+        Iterator<Hero> heroIterator = job.getHeroes().iterator();
+        Assert.assertEquals(jobDTO.getHeroes().size(), job.getHeroes().size());
+        while (heroIterator.hasNext() && dtoIterator.hasNext()) {
+            assertEqualsHeroDTOtoEntity(dtoIterator.next(), heroIterator.next());
+        }
+    }
 
 }
