@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.msa.service.facade;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
+import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
 import cz.muni.fi.pa165.msa.dto.RequestDTO;
+import cz.muni.fi.pa165.msa.dto.UserDTO;
 import cz.muni.fi.pa165.msa.facade.RequestFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.RequestService;
@@ -26,22 +28,27 @@ public class RequestFacadeImpl implements RequestFacade {
     }
 
     @Override
-    public boolean removeRequest(Long id) {
-        return false;
+    public void removeRequest(Long id) {
+        Request toBeDeleted = requestService.findById(id);
+        requestService.delete(toBeDeleted);
     }
 
     @Override
     public RequestDTO findById(Long id) {
-        return null;
+        Request found = requestService.findById(id);
+        return beanMappingService.mapTo(found, RequestDTO.class);
     }
 
     @Override
     public List<RequestDTO> findAll() {
-        return null;
+        List<Request> found = requestService.findAll();
+        return beanMappingService.mapTo(found, RequestDTO.class);
     }
 
     @Override
-    public List<RequestDTO> findByCustomer(Long id) {
-        return null;
+    public RequestDTO findByCustomer(UserDTO customer) {
+        User user = beanMappingService.mapTo(customer, User.class);
+        Request found = requestService.findByCustomer(user);
+        return beanMappingService.mapTo(found, RequestDTO.class);
     }
 }

@@ -11,11 +11,11 @@ public class RequestDTO {
 
     private Long id;
 
-//    private UserDTO customer;
+    private UserDTO customer;
 
     private String location;
 
-//    private Set<MonsterDTO> heroes;
+    private Set<MonsterDTO> monsters;
 
     private BigDecimal award;
 
@@ -27,13 +27,13 @@ public class RequestDTO {
         this.id = id;
     }
 
-//    public UserDTO getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(UserDTO customer) {
-//        this.customer = customer;
-//    }
+    public UserDTO getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(UserDTO customer) {
+        this.customer = customer;
+    }
 
     public String getLocation() {
         return location;
@@ -43,13 +43,13 @@ public class RequestDTO {
         this.location = location;
     }
 
-//    public Set<MonsterDTO> getHeroes() {
-//        return heroes;
-//    }
-//
-//    public void setHeroes(Set<MonsterDTO> heroes) {
-//        this.heroes = heroes;
-//    }
+    public Set<MonsterDTO> getMonsters() {
+        return monsters;
+    }
+
+    public void setMonsters(Set<MonsterDTO> monsters) {
+        this.monsters = monsters;
+    }
 
     public BigDecimal getAward() {
         return award;
@@ -59,32 +59,32 @@ public class RequestDTO {
         this.award = award;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof RequestDTO)) return false;
-//        RequestDTO that = (RequestDTO) o;
-//        return Objects.equals(getId(), that.getId()) &&
-//                Objects.equals(getCustomer(), that.getCustomer()) &&
-//                Objects.equals(getLocation(), that.getLocation()) &&
-//                Objects.equals(getHeroes(), that.getHeroes()) &&
-//                Objects.equals(getAward(), that.getAward());
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RequestDTO)) return false;
+        RequestDTO that = (RequestDTO) o;
+        return Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getCustomer(), that.getCustomer()) &&
+                Objects.equals(getLocation(), that.getLocation()) &&
+                Objects.equals(getMonsters(), that.getMonsters()) &&
+                Objects.equals(getAward(), that.getAward());
+    }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(getId(), getCustomer(), getLocation(), getHeroes(), getAward());
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCustomer(), getLocation(), getMonsters(), getAward());
+    }
 
-//    @Override
-//    public String toString() {
-//        return "RequestDTO{" +
-//                "id=" + id +
-//                ", customer=" + customer +
-//                ", location='" + location + '\'' +
-//                ", heroes=" + heroes +
-//                ", award=" + award +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "RequestDTO{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", location='" + location + '\'' +
+                ", heroes=" + monsters +
+                ", award=" + award +
+                '}';
+    }
 
 }

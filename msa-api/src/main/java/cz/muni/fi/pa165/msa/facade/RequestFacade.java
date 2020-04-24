@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.msa.facade;
 
 import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
 import cz.muni.fi.pa165.msa.dto.RequestDTO;
+import cz.muni.fi.pa165.msa.dto.UserDTO;
 
 import java.util.List;
 
@@ -16,9 +17,9 @@ public interface RequestFacade {
 
     /**
      * Removes request.
-     * @param id if of a request to be removed
+     * @param id of a request to be removed
      */
-    boolean removeRequest(Long id);
+    void removeRequest(Long id);
 
     /**
      * Find request by id.
@@ -35,9 +36,9 @@ public interface RequestFacade {
 
     /**
      * Finds request by customer
-     * @param id of the customer
+     * @param customer customer
      * @return request with the selected customer
      */
-    List<RequestDTO> findByCustomer(Long id);
+    RequestDTO findByCustomer(UserDTO customer);
 
 }
