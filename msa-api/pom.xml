@@ -19,5 +19,12 @@
         </dependency>
     </dependencies>
 
+    <dependencies>
+        <dependency>
+            <groupId>cz.muni.fi.pa165</groupId>
+            <artifactId>msa-persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
