@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 public class DummyObjects {
 
-    User getUserDummy1() {
+    public static User getUserDummy1() {
         User user = new User();
         user.setEmail("default@mail.com");
         user.setImage("test_image");
@@ -18,7 +18,7 @@ public class DummyObjects {
         return user;
     }
 
-    User getUserDummy2() {
+    public static User getUserDummy2() {
         User user = new User();
         user.setEmail("normal@mail.com");
         user.setImage("image");
@@ -27,7 +27,7 @@ public class DummyObjects {
         return user;
     }
 
-    Monster getMonsterDummy1() {
+    public static Monster getMonsterDummy1() {
         Monster monster = new Monster();
         monster.setName("Beast Monster");
         monster.setSize(10);
@@ -37,7 +37,7 @@ public class DummyObjects {
         return monster;
     }
 
-    Monster getMonsterDummy2() {
+    public static Monster getMonsterDummy2() {
         Monster monster = new Monster();
         monster.setName("Hybrid Monster");
         monster.setSize(15);
@@ -46,7 +46,7 @@ public class DummyObjects {
         return monster;
     }
 
-    Monster getMonsterDummy3() {
+    public static Monster getMonsterDummy3() {
         Monster monster = new Monster();
         monster.setName("Ghoul");
         monster.setSize(10);
@@ -56,7 +56,7 @@ public class DummyObjects {
         return monster;
     }
 
-    Hero getHeroDummy1() {
+    public static Hero getHeroDummy1() {
         Hero hero = new Hero();
         hero.setName("Witcher");
         hero.setUser(getUserDummy1());
@@ -67,7 +67,7 @@ public class DummyObjects {
         return hero;
     }
 
-    Hero getHeroDummy2() {
+    public static Hero getHeroDummy2() {
         Hero hero = new Hero();
         hero.setName("Vesemir");
         hero.setUser(getUserDummy2());
@@ -79,7 +79,7 @@ public class DummyObjects {
         return hero;
     }
 
-    Request getRequestDummy1() {
+    public static Request getRequestDummy1() {
         Request request = new Request();
         request.setLocation("Novigrad");
         request.setAward(new BigDecimal(10000));
@@ -88,7 +88,7 @@ public class DummyObjects {
         return request;
     }
 
-    Request getRequestDummy2() {
+    public static Request getRequestDummy2() {
         Request request = new Request();
         request.setLocation("Velen");
         request.setAward(new BigDecimal(100));
@@ -98,7 +98,7 @@ public class DummyObjects {
         return request;
     }
 
-    Job getJobDummy1() {
+    public static Job getJobDummy1() {
         Job job = new Job();
         job.setHeroes(new HashSet<>());
         job.getHeroes().add(getHeroDummy2());
@@ -109,7 +109,7 @@ public class DummyObjects {
         return job;
     }
 
-    Job getJobDummy2() {
+    public static Job getJobDummy2() {
         Job job = new Job();
         job.setHeroes(new HashSet<>());
         job.getHeroes().add(getHeroDummy1());

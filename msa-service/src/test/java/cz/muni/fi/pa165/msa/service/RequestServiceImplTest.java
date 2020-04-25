@@ -55,34 +55,19 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     private void setUp() {
-        customer = new User();
-        customer.setEmail("default@mail.com");
-        customer.setImage("test_image");
-        customer.setPassword("default");
-        customer.setUserName("Geralt");
+        customer = DummyObjects.getUserDummy1();
 
-        monster1 = new Monster();
-        monster1.setName("Beast Monster");
-        monster1.setSize(10);
-        monster1.addResistance(Resistance.ICE);
-        monster1.addResistance(Resistance.ROCK);
-        monster1.setMonsterType(MonsterType.BEAST);
+        monster1 = DummyObjects.getMonsterDummy1();
 
-        monster2 = new Monster();
-        monster2.setName("Hybrid Monster");
-        monster2.setSize(15);
-        monster2.addResistance(Resistance.PSYCHIC);
-        monster2.setMonsterType(MonsterType.HYBRID);
+        monster2 = DummyObjects.getMonsterDummy2();
 
         List<Monster> monsterList = new ArrayList<>();
         monsterList.add(monster1);
         monsterList.add(monster2);
 
-        request = new Request();
-        request.setAward(new BigDecimal(1));
-        request.setLocation("Location");
-        request.setMonsters(monsterList);
+        request = DummyObjects.getRequestDummy2();
         request.setCustomer(customer);
+        request.setMonsters(monsterList);
     }
 
     @Test
