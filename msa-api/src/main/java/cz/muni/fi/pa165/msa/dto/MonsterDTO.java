@@ -15,6 +15,7 @@ public class MonsterDTO {
     private Set<Resistance> resistances = new HashSet<>();
     private MonsterType monsterType;
     private String image;
+    private int size;
     private Food food;
 
     public void setId(Long id) {
@@ -65,12 +66,22 @@ public class MonsterDTO {
         this.food = food;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof MonsterDTO)) return false;
         MonsterDTO that = (MonsterDTO) o;
-        return Objects.equals(getName(), that.getName()) &&
+        return getSize() == that.getSize() &&
+                Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getResistances(), that.getResistances()) &&
                 getMonsterType() == that.getMonsterType() &&
                 Objects.equals(getImage(), that.getImage()) &&
@@ -79,6 +90,6 @@ public class MonsterDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getResistances(), getMonsterType(), getImage(), getFood());
+        return Objects.hash(getId(), getName(), getResistances(), getMonsterType(), getImage(), getSize(), getFood());
     }
 }

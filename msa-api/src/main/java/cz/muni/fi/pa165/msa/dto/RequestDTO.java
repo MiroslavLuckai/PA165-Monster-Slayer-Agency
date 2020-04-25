@@ -82,22 +82,6 @@ public class RequestDTO {
                 "id=" + id +
                 ", customer=" + customer +
                 ", location='" + location + '\'' +
-                ", heroes=" + monsters +
-                ", award=" + award +
-                '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getCustomer(), getLocation(), getMonsters(), getAward());
-    }
-
-    @Override
-    public String toString() {
-        return "RequestDTO{" +
-                "id=" + id +
-                ", customer=" + customer +
-                ", location='" + location + '\'' +
                 ", monsters=" + monsters +
                 ", award=" + award +
                 '}';

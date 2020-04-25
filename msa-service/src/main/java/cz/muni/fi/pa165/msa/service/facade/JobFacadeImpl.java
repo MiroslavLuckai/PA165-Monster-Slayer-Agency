@@ -66,8 +66,8 @@ public class JobFacadeImpl implements JobFacade {
 
 // TODO: uncomment following methods when HeroService is done.
 
-//    @Override
-//    public void addHero(JobDTO jobDto, HeroDTO heroDto) {
+    @Override
+    public void addHero(JobDTO jobDto, HeroDTO heroDto) {
 //        validate(jobDto, "Job DTO cannot be null.");
 //        validate(heroDto, "Hero DTO cannot be null.");
 //
@@ -81,10 +81,10 @@ public class JobFacadeImpl implements JobFacade {
 //            job.setMonsters(newHeroes);
 //            jobService.updateJob(job);
 //        }
-//    }
+    }
 //
-//    @Override
-//    public void removeHero(JobDTO jobDto, HeroDTO heroDto) {
+    @Override
+    public void removeHero(JobDTO jobDto, HeroDTO heroDto) {
 //        validate(jobDto, "Job DTO cannot be null.");
 //        validate(heroDto, "Hero DTO cannot be null.");
 //
@@ -98,7 +98,7 @@ public class JobFacadeImpl implements JobFacade {
 //            job.setMonsters(newHeroes);
 //            jobService.updateJob(job);
 //        }
-//    }
+    }
 
     @Override
     public void changeEvaluation(JobDTO jobDto, int evaluation) {
