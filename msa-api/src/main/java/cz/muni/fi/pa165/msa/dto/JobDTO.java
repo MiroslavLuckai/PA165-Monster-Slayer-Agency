@@ -12,24 +12,25 @@ import java.util.Set;
 public class JobDTO {
 
     private Long id;
-     private RequestDTO request;
-
-     private Set<HeroDTO> heroes;
+  
+    private RequestDTO request;
+    
+    private Set<HeroDTO> heroes;
 
     private int evaluation;
+    
     private JobStatus status;
+    
     private JobSeverity severity;
 
     public Long getId() {
         return id;
     }
 
-    // UNCOMMENT WHEN RequestDTO IS CREATED.
     public RequestDTO getRequest() {
         return request;
     }
 
-    // UNCOMMENT WHEN HeroDTO IS CREATED.
     public Set<HeroDTO> getHeroes() {
         return heroes;
     }
@@ -50,12 +51,10 @@ public class JobDTO {
         this.id = id;
     }
 
-    // UNCOMMENT WHEN RequestDTO IS CREATED.
     public void setRequest(RequestDTO request) {
         this.request = request;
     }
 
-    // UNCOMMENT WHEN HeroDTO IS CREATED.
     public void setHeroes(Set<HeroDTO> heroes) {
         this.heroes = heroes;
     }
@@ -71,8 +70,6 @@ public class JobDTO {
     public void setSeverity(JobSeverity severity) {
         this.severity = severity;
     }
-
-    // TODO: implement equals and hash code when RequestDTO and HeroDTO are created. (maybe also toString)
 
 
     @Override
@@ -91,5 +88,17 @@ public class JobDTO {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getRequest(), getHeroes(), getEvaluation(), getStatus(), getSeverity());
+    }
+
+    @Override
+    public String toString() {
+        return "JobDTO{" +
+                "id=" + id +
+                ", request=" + request +
+                ", heroes=" + heroes +
+                ", evaluation=" + evaluation +
+                ", status=" + status +
+                ", severity=" + severity +
+                '}';
     }
 }

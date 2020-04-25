@@ -10,7 +10,7 @@ import java.util.Set;
 public class RequestDTO {
 
     private Long id;
-
+  
     private UserDTO customer;
 
     private String location;
@@ -87,4 +87,19 @@ public class RequestDTO {
                 '}';
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCustomer(), getLocation(), getMonsters(), getAward());
+    }
+
+    @Override
+    public String toString() {
+        return "RequestDTO{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", location='" + location + '\'' +
+                ", monsters=" + monsters +
+                ", award=" + award +
+                '}';
+    }
 }
