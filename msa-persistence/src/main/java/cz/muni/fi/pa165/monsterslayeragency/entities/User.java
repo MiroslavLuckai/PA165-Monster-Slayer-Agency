@@ -32,7 +32,7 @@ public class User extends AbstractEntity{
 		this.image = image;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return super.id;
 	}
 

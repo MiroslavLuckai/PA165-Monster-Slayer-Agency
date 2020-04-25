@@ -39,7 +39,7 @@ public class Hero extends AbstractEntity{
     public Hero() {
     }
 
-    public long getId() {
+    public Long getId() {
         return super.id;
     }
 
