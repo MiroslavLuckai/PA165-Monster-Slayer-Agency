@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.msa.dto.JobCreateDTO;
 import cz.muni.fi.pa165.msa.dto.JobDTO;
 import cz.muni.fi.pa165.msa.facade.JobFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
+import cz.muni.fi.pa165.msa.service.HeroService;
 import cz.muni.fi.pa165.msa.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,8 +25,8 @@ public class JobFacadeImpl implements JobFacade {
     @Autowired
     private JobService jobService;
 
-//    @Autowired
-//    private HeroService heroService;
+    @Autowired
+    private HeroService heroService;
 
     @Autowired
     private BeanMappingService beanMappingService;
@@ -41,8 +42,8 @@ public class JobFacadeImpl implements JobFacade {
     @Override
     public void updateJob(JobDTO jobDto) {
         validate(jobDto, "Job DTO cannot be null.");
-        Job job = jobService.findById(jobDto.getId());
-
+        Job job = beanMappingService.mapTo(jobDto, Job.class);
+        jobService.updateJob(job);
     }
 
     @Override
@@ -64,40 +65,38 @@ public class JobFacadeImpl implements JobFacade {
         return beanMappingService.mapTo(jobService.findAll(), JobDTO.class);
     }
 
-// TODO: uncomment following methods when HeroService is done.
-
     @Override
     public void addHero(JobDTO jobDto, HeroDTO heroDto) {
-//        validate(jobDto, "Job DTO cannot be null.");
-//        validate(heroDto, "Hero DTO cannot be null.");
-//
-//        Job job = jobService.findById(jobDto.getId());
-//        Hero hero = heroService.findById(heroDto.getId());
-//        Set<Hero> heroes = job.getMonsters();
-//
-//        if (!heroes.contains(hero)) {
-//            Set<Hero> newHeroes = new HashSet<>(heroes);
-//            newHeroes.add(hero);
-//            job.setMonsters(newHeroes);
-//            jobService.updateJob(job);
-//        }
+        validate(jobDto, "Job DTO cannot be null.");
+        validate(heroDto, "Hero DTO cannot be null.");
+
+        Job job = jobService.findById(jobDto.getId());
+        Hero hero = heroService.findHeroById(heroDto.getId());
+        Set<Hero> heroes = job.getHeroes();
+
+        if (!heroes.contains(hero)) {
+            Set<Hero> newHeroes = new HashSet<>(heroes);
+            newHeroes.add(hero);
+            job.setHeroes(newHeroes);
+            jobService.updateJob(job);
+        }
     }
-//
+
     @Override
     public void removeHero(JobDTO jobDto, HeroDTO heroDto) {
-//        validate(jobDto, "Job DTO cannot be null.");
-//        validate(heroDto, "Hero DTO cannot be null.");
-//
-//        Job job = jobService.findById(jobDto.getId());
-//        Hero hero = heroService.findById(heroDto.getId());
-//        Set<Hero> heroes = job.getMonsters();
-//
-//        if (heroes.contains(hero)) {
-//            Set<Hero> newHeroes = new HashSet<>(heroes);
-//            newHeroes.remove(hero);
-//            job.setMonsters(newHeroes);
-//            jobService.updateJob(job);
-//        }
+        validate(jobDto, "Job DTO cannot be null.");
+        validate(heroDto, "Hero DTO cannot be null.");
+
+        Job job = jobService.findById(jobDto.getId());
+        Hero hero = heroService.findHeroById(heroDto.getId());
+        Set<Hero> heroes = job.getHeroes();
+
+        if (heroes.contains(hero)) {
+            Set<Hero> newHeroes = new HashSet<>(heroes);
+            newHeroes.remove(hero);
+            job.setHeroes(newHeroes);
+            jobService.updateJob(job);
+        }
     }
 
     @Override
