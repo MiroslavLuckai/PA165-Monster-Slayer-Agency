@@ -73,12 +73,12 @@ public class JobFacadeImpl implements JobFacade {
 //
 //        Job job = jobService.findById(jobDto.getId());
 //        Hero hero = heroService.findById(heroDto.getId());
-//        Set<Hero> heroes = job.getHeroes();
+//        Set<Hero> heroes = job.getMonsters();
 //
 //        if (!heroes.contains(hero)) {
 //            Set<Hero> newHeroes = new HashSet<>(heroes);
 //            newHeroes.add(hero);
-//            job.setHeroes(newHeroes);
+//            job.setMonsters(newHeroes);
 //            jobService.updateJob(job);
 //        }
 //    }
@@ -90,12 +90,12 @@ public class JobFacadeImpl implements JobFacade {
 //
 //        Job job = jobService.findById(jobDto.getId());
 //        Hero hero = heroService.findById(heroDto.getId());
-//        Set<Hero> heroes = job.getHeroes();
+//        Set<Hero> heroes = job.getMonsters();
 //
 //        if (heroes.contains(hero)) {
 //            Set<Hero> newHeroes = new HashSet<>(heroes);
 //            newHeroes.remove(hero);
-//            job.setHeroes(newHeroes);
+//            job.setMonsters(newHeroes);
 //            jobService.updateJob(job);
 //        }
 //    }
