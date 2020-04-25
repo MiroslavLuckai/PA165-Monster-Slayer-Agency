@@ -13,8 +13,9 @@ public class RequestServiceImpl implements RequestService {
     RequestDao requestDao;
 
     @Override
-    public void create(Request request) {
+    public Request create(Request request) {
         requestDao.addRequest(request);
+        return request;
     }
 
     @Override

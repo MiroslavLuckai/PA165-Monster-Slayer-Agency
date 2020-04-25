@@ -12,11 +12,15 @@ import java.util.Set;
 public class JobDTO {
 
     private Long id;
+  
     private RequestDTO request;
+    
     private Set<HeroDTO> heroes;
 
     private int evaluation;
+    
     private JobStatus status;
+    
     private JobSeverity severity;
 
     public Long getId() {
@@ -66,6 +70,7 @@ public class JobDTO {
     public void setSeverity(JobSeverity severity) {
         this.severity = severity;
     }
+
 
     @Override
     public boolean equals(Object o) {

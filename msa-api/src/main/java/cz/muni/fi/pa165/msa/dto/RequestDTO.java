@@ -10,9 +10,13 @@ import java.util.Set;
 public class RequestDTO {
 
     private Long id;
+  
     private UserDTO customer;
+
     private String location;
+
     private Set<MonsterDTO> monsters;
+
     private BigDecimal award;
 
     public Long getId() {
@@ -65,6 +69,22 @@ public class RequestDTO {
                 Objects.equals(getLocation(), that.getLocation()) &&
                 Objects.equals(getMonsters(), that.getMonsters()) &&
                 Objects.equals(getAward(), that.getAward());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCustomer(), getLocation(), getMonsters(), getAward());
+    }
+
+    @Override
+    public String toString() {
+        return "RequestDTO{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", location='" + location + '\'' +
+                ", heroes=" + monsters +
+                ", award=" + award +
+                '}';
     }
 
     @Override
