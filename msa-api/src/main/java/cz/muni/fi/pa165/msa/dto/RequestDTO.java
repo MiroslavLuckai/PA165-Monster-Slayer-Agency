@@ -12,7 +12,7 @@ public class RequestDTO {
     private Long id;
     private UserDTO customer;
     private String location;
-    private Set<MonsterDTO> heroes;
+    private Set<MonsterDTO> monsters;
     private BigDecimal award;
 
     public Long getId() {
@@ -39,12 +39,12 @@ public class RequestDTO {
         this.location = location;
     }
 
-    public Set<MonsterDTO> getHeroes() {
-        return heroes;
+    public Set<MonsterDTO> getMonsters() {
+        return monsters;
     }
 
-    public void setHeroes(Set<MonsterDTO> heroes) {
-        this.heroes = heroes;
+    public void setMonsters(Set<MonsterDTO> monsters) {
+        this.monsters = monsters;
     }
 
     public BigDecimal getAward() {
@@ -63,13 +63,13 @@ public class RequestDTO {
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getCustomer(), that.getCustomer()) &&
                 Objects.equals(getLocation(), that.getLocation()) &&
-                Objects.equals(getHeroes(), that.getHeroes()) &&
+                Objects.equals(getMonsters(), that.getMonsters()) &&
                 Objects.equals(getAward(), that.getAward());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCustomer(), getLocation(), getHeroes(), getAward());
+        return Objects.hash(getId(), getCustomer(), getLocation(), getMonsters(), getAward());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class RequestDTO {
                 "id=" + id +
                 ", customer=" + customer +
                 ", location='" + location + '\'' +
-                ", heroes=" + heroes +
+                ", monsters=" + monsters +
                 ", award=" + award +
                 '}';
     }
