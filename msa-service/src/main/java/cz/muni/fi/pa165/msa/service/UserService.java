@@ -11,7 +11,9 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    void createUser(User user);
+    void registerUser(User user, String password);
+
+    boolean authenticate(User u, String password);
 
     void updateUser(User user);
 
