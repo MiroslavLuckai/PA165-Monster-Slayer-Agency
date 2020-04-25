@@ -49,30 +49,38 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void addMonsters(Request request, List<Monster> monsters) {
         Request found = requestDao.findRequestById(request.getId());
-        found.getMonsters().addAll(monsters);
-        requestDao.updateRequest(found);
+        if (found != null) {
+            found.getMonsters().addAll(monsters);
+            requestDao.updateRequest(found);
+        }
     }
 
     @Override
     public void removeMonsters(Request request, List<Monster> monsters) {
         validateAddedMonsters(monsters);
         Request found = requestDao.findRequestById(request.getId());
-        found.getMonsters().removeAll(monsters);
-        requestDao.updateRequest(found);
+        if (found != null) {
+            found.getMonsters().removeAll(monsters);
+            requestDao.updateRequest(found);
+        }
     }
 
     @Override
     public void changeLocation(Request request, String location) {
         Request found = requestDao.findRequestById(request.getId());
-        found.setLocation(location);
-        requestDao.updateRequest(found);
+        if (found != null) {
+            found.setLocation(location);
+            requestDao.updateRequest(found);
+        }
     }
 
     @Override
     public void changeAward(Request request, BigDecimal award) {
         Request found = requestDao.findRequestById(request.getId());
-        found.setAward(award);
-        requestDao.updateRequest(found);
+        if (found != null) {
+            found.setAward(award);
+            requestDao.updateRequest(found);
+        }
     }
 
     private void validateAddedMonsters(List<Monster> monsters) {
