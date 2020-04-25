@@ -9,9 +9,13 @@ import cz.muni.fi.pa165.msa.facade.RequestFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class RequestFacadeImpl implements RequestFacade {
 
     @Autowired
