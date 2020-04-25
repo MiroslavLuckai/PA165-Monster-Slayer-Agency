@@ -8,22 +8,22 @@ public interface UserFacade {
 
     /**
      * Creates new User in database
-     * @param user user to be created
+     * @param userDTO user to be created
      * @return id of the newly created User
      */
-    Long createUser(UserDTO user);
+    Long createUser(UserDTO userDTO);
 
     /***
      * Updates user in database.
-     * @param user user to be updated
+     * @param userDTO user to be updated
      */
-    void updateUser(UserDTO user);
+    void updateUser(UserDTO userDTO);
 
     /***
      * Removes user from database.
-     * @param user user to be removed
+     * @param userDTO user to be removed
      */
-    void removeUser(UserDTO user);
+    void removeUser(UserDTO userDTO);
 
     /***
      * Finds user in database by id.
