@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.BDDMockito.then;
 import static org.testng.Assert.*;
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
@@ -86,11 +87,13 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void create() {
-
+        requestService.create(request);
+        then(requestDao).should().addRequest(request);
     }
 
     @Test
     public void delete() {
+
     }
 
     @Test
