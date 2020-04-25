@@ -6,22 +6,22 @@ public interface HeroFacade {
 
     /**
      * Creates new Hero in database
-     * @param hero new Hero to be created
+     * @param heroDTO new Hero to be created
      * @return id of the newly created Hero
      */
-    Long createHero(HeroDTO hero);
+    Long createHero(HeroDTO heroDTO);
 
     /**
      * Update hero in database
-     * @param hero hero to be updated
+     * @param heroDTO hero to be updated
      */
-    void updateHero(HeroDTO hero);
+    void updateHero(HeroDTO heroDTO);
 
     /**
      * Remove hero from the database
-     * @param hero hero which should be removed
+     * @param heroDTO hero which should be removed
      */
-    void removeHero(HeroDTO hero);
+    void removeHero(HeroDTO heroDTO);
 
     /**
      * find hero by requested id
