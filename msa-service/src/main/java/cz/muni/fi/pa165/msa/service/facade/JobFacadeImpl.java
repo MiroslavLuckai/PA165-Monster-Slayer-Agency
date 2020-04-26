@@ -12,6 +12,8 @@ import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.HeroService;
 import cz.muni.fi.pa165.msa.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.Set;
 /**
  * @author Michaela Bajanova (469166)
  */
+@Service
+@Transactional
 public class JobFacadeImpl implements JobFacade {
 
     @Autowired
