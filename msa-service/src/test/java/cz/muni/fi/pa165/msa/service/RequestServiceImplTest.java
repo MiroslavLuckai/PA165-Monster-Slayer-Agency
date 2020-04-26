@@ -81,7 +81,7 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
         verify(requestDao, times(1)).addRequest(request);
     }
 
-    @Test(expectedExceptions = DataAccessException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNull() {
         doThrow(IllegalArgumentException.class)
                 .when(requestDao)
@@ -95,7 +95,7 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
         verify(requestDao, times(1)).removeRequest(request);
     }
 
-    @Test
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void deleteNull() {
         doThrow(IllegalArgumentException.class)
                 .when(requestDao)
@@ -119,7 +119,7 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(requestService.findById(request.getId()), request);
     }
 
-    @Test(expectedExceptions = DataAccessException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNullId() {
         doThrow(IllegalArgumentException.class)
                 .when(requestDao)
@@ -134,7 +134,7 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(requestService.findByCustomer(request.getCustomer()), request);
     }
 
-    @Test(expectedExceptions = DataAccessException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNullCustomer() {
         doThrow(IllegalArgumentException.class)
                 .when(requestDao)
