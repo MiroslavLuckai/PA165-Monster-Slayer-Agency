@@ -62,11 +62,11 @@ public class RequestFacadeImplTest {
 
     @BeforeMethod
     void setUp() {
-        customer = DummyObjects.getUserDummy1();
-        userDTO = DummyObjects.getUserDTODummy2();
 
         requestDTO1 = DummyObjects.getRequestDTODummy1();
         requestDTO2 = DummyObjects.getRequestDTODummy2();
+
+        userDTO = requestDTO1.getCustomer();
 
         requestCreateDTO = new RequestCreateDTO();
         requestCreateDTO.setCustomer(userDTO);
@@ -77,6 +77,7 @@ public class RequestFacadeImplTest {
 
 
         request1 = DummyObjects.getRequestDummy1();
+        customer = request1.getCustomer();
         request2 = DummyObjects.getRequestDummy2();
     }
 
@@ -114,6 +115,7 @@ public class RequestFacadeImplTest {
     void findRequestByCustomer() {
         when(beanMappingService.mapTo(request1, RequestDTO.class)).thenReturn(requestDTO1);
         when(requestService.findByCustomer(request1.getCustomer())).thenReturn(request1);
+        when(beanMappingService.mapTo(userDTO, User.class)).thenReturn(customer);
         RequestDTO tempRequestDTO = requestFacade.findByCustomer(requestDTO1.getCustomer());
         Assert.assertEquals(tempRequestDTO, requestDTO1);
     }
@@ -128,7 +130,7 @@ public class RequestFacadeImplTest {
         List<RequestDTO> requestDTOs = new ArrayList<>();
         requestDTOs.add(requestDTO1);
         requestDTOs.add(requestDTO2);
-        when(beanMappingService.mapTo(requestDTOs, RequestDTO.class)).thenReturn(requestDTOs);
+        when(beanMappingService.mapTo(requestList, RequestDTO.class)).thenReturn(requestDTOs);
 
         List<RequestDTO> actualRequestDTO = requestFacade.findAll();
         verify(requestService).findAll();
