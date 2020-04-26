@@ -245,4 +245,14 @@ public class DummyObjects {
         return job;
     }
 
+    public static JobCreateDTO getJobCreateDTODummy() {
+        JobCreateDTO job = new JobCreateDTO();
+        job.setHeroes(new HashSet<>());
+        job.getHeroes().add(getHeroDTODummy1());
+        job.setEvaluation(3);
+        job.setRequest(getRequestDTODummy1());
+        job.setSeverity(JobSeverity.CRITICAL);
+        job.setStatus(JobStatus.ASSIGNED);
+        return job;
+    }
 }
