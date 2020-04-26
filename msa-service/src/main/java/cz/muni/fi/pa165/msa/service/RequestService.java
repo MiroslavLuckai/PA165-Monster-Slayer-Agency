@@ -15,21 +15,15 @@ public interface RequestService {
 
     List<Request> findAll();
 
-    Request findByCustomer(User customer);
+    Request findByCustomer(User customer) throws IllegalArgumentException;
 
-    void addMonster(Request request, Monster monster);
+    void addMonster(Request request, Monster monster) throws IllegalArgumentException;
 
-    void removeMonster(Request request, Monster monster);
+    void removeMonster(Request request, Monster monster) throws IllegalArgumentException;
 
     Request findById(Long id) throws IllegalArgumentException;
 
-    void changeLocation(Request request, String location);
-
-    void changeAward(Request request, BigDecimal award);
-
-    void removeMonsters(Request request, List<Monster> monsters) throws IllegalArgumentException;
+    void changeAward(Request request, BigDecimal award) throws IllegalArgumentException;
 
     void changeLocation(Request request, String location) throws IllegalArgumentException;
-
-    void changeAward(Request request, BigDecimal award) throws IllegalArgumentException;
 }

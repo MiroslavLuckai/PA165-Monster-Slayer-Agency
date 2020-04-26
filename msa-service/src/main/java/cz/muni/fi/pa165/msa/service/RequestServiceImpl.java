@@ -22,7 +22,7 @@ public class RequestServiceImpl implements RequestService {
     MonsterDao monsterDao;
 
     private String REQUEST_IS_NULL_MESSAGE = "Request cannot be null.";
-    private String MONSTER_LIST_IS_NULL_MESSAGE = "Monster list cannot be null.";
+    private String MONSTER_IS_NULL_MESSAGE = "Monster cannot be null.";
 
     @Override
     public Request create(Request request) {
@@ -56,6 +56,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void addMonster(Request request, Monster monster) {
+        Validator.validate(request, REQUEST_IS_NULL_MESSAGE);
+        Validator.validate(monster, MONSTER_IS_NULL_MESSAGE);
         Request found = requestDao.findRequestById(request.getId());
         Monster exists = monsterDao.findById(monster.getId());
         if (found != null && exists != null) {
@@ -66,6 +68,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void removeMonster(Request request, Monster monster) {
+        Validator.validate(request, REQUEST_IS_NULL_MESSAGE);
+        Validator.validate(monster, MONSTER_IS_NULL_MESSAGE);
         Monster exists = monsterDao.findById(monster.getId());
         Request found = requestDao.findRequestById(request.getId());
         if (found != null && exists != null) {
@@ -93,15 +97,6 @@ public class RequestServiceImpl implements RequestService {
         if (found != null) {
             found.setAward(award);
             requestDao.updateRequest(found);
-        }
-    }
-
-    private void validateAddedMonsters(List<Monster> monsters) {
-        for (Monster monster: monsters) {
-            Monster found = monsterDao.findById(monster.getId());
-            if (found == null) {
-                monsterDao.addMonster(monster);
-            }
         }
     }
 }

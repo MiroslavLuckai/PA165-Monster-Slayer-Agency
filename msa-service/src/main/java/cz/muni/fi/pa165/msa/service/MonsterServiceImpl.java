@@ -35,11 +35,14 @@ public class MonsterServiceImpl implements MonsterService {
 
     @Override
     public void update(Monster monster) {
+        Validator.validate(monster, MONSTER_IS_NULL_MESSAGE);
         monsterDao.updateMonster(monster);
     }
 
     @Override
     public void changeName(Monster monster, String newName) {
+        Validator.validate(monster, MONSTER_IS_NULL_MESSAGE);
+        Validator.validate(newName, "Name cannot be null.");
         Monster foundMonster = monsterDao.findById(monster.getId());
         if (foundMonster != null) {
             foundMonster.setName(newName);

@@ -16,9 +16,9 @@ public interface MonsterService {
 
     void delete(Monster monster) throws IllegalArgumentException;
 
-    void update(Monster monster);
+    void update(Monster monster) throws IllegalArgumentException;
 
-    void changeName(Monster monster, String newName);
+    void changeName(Monster monster, String newName) throws IllegalArgumentException;
 
     List<Monster> findAll();
 
