@@ -28,6 +28,9 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * @author Filip Daniel Fedin
+ */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
 

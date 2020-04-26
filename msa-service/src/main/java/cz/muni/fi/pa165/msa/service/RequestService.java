@@ -7,6 +7,9 @@ import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @author Filip Daniel Fedin
+ */
 public interface RequestService {
 
     Request create(Request request) throws IllegalArgumentException;
