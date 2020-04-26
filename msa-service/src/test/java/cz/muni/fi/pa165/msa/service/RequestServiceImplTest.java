@@ -114,9 +114,10 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findById() {
-        when(requestDao.findRequestById(request.getId())).thenReturn(request);
 
-        Assert.assertEquals(requestService.findById(request.getId()), request);
+        when(requestDao.findRequestById(1L)).thenReturn(request);
+
+        Assert.assertEquals(requestService.findById(1L), request);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

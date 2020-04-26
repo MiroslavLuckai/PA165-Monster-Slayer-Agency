@@ -77,8 +77,8 @@ public class MonsterServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findById() {
-        when(monsterDao.findById(monster.getId())).thenReturn(monster);
-        Assert.assertEquals(monsterService.findById(monster.getId()), monster);
+        when(monsterDao.findById(1L)).thenReturn(monster);
+        Assert.assertEquals(monsterService.findById(1L), monster);
     }
 
     @Test

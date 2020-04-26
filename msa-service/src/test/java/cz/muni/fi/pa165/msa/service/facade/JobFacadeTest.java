@@ -113,7 +113,7 @@ public class JobFacadeTest {
         jobDTO.setId(1L);
         job.setId(1L);
 
-        when(beanMappingService.mapTo(jobDTO, Job.class)).thenReturn(job);
+        when(beanMappingService.mapTo(job, JobDTO.class)).thenReturn(jobDTO);
         when(jobService.findById(job.getId())).thenReturn(job);
 
         JobDTO result = jobFacade.findById(job.getId());
