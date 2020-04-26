@@ -11,7 +11,7 @@ public interface HeroFacade {
      * @param heroDTO new Hero to be created
      * @return id of the newly created Hero
      */
-    Long createHero(HeroDTO heroDTO);
+    HeroDTO createHero(HeroDTO heroDTO);
 
     /**
      * Update hero in database

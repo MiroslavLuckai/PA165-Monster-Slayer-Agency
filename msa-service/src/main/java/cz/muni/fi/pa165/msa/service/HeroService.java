@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface HeroService {
 
-    Long createHero(Hero hero);
+    Hero createHero(Hero hero);
 
     void updateHero(Hero hero);
 

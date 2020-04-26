@@ -18,9 +18,11 @@ public class HeroFacadeImpl implements HeroFacade {
     BeanMappingService mapper;
 
     @Override
-    public Long createHero(HeroDTO heroDTO) {
+    public HeroDTO createHero(HeroDTO heroDTO) {
         Hero hero = mapper.mapTo(heroDTO, Hero.class);
-        return service.createHero(hero);
+        service.createHero(hero);
+        heroDTO.setId(hero.getId());
+        return heroDTO;
     }
 
     @Override

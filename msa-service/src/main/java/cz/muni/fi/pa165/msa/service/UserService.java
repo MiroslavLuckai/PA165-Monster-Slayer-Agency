@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * @author Miroslav Luckai 469288
  */
-@Service
 public interface UserService {
 
     void createUser(User user);
