@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface MonsterService {
 
-    void create(Monster monster);
+    Monster create(Monster monster);
 
     void delete(Monster monster);
 

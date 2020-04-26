@@ -17,8 +17,9 @@ public class MonsterServiceImpl implements MonsterService {
 
 
     @Override
-    public void create(Monster monster) {
+    public Monster create(Monster monster) {
         monsterDao.addMonster(monster);
+        return monster;
     }
 
     @Override
