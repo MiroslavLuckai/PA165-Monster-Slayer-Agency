@@ -14,6 +14,10 @@ public interface MonsterService {
 
     void delete(Monster monster);
 
+    void update(Monster monster);
+
+    void changeName(Monster monster, String newName);
+
     List<Monster> findAll();
 
     Monster findById(Long id);

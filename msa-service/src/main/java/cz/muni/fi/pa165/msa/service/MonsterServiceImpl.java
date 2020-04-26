@@ -28,6 +28,20 @@ public class MonsterServiceImpl implements MonsterService {
     }
 
     @Override
+    public void update(Monster monster) {
+        monsterDao.updateMonster(monster);
+    }
+
+    @Override
+    public void changeName(Monster monster, String newName) {
+        Monster foundMonster = monsterDao.findById(monster.getId());
+        if (foundMonster != null) {
+            foundMonster.setName(newName);
+            monsterDao.updateMonster(foundMonster);
+        }
+    }
+
+    @Override
     public List<Monster> findAll() {
         return monsterDao.findAll();
     }
