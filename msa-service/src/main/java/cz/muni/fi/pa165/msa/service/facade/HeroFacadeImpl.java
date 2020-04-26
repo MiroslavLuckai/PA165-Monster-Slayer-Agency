@@ -6,7 +6,16 @@ import cz.muni.fi.pa165.msa.facade.HeroFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
+/**
+ * @author Miroslav Luckai 469288
+ */
+@Service
+@Transactional
 public class HeroFacadeImpl implements HeroFacade {
 
     @Autowired
@@ -16,9 +25,11 @@ public class HeroFacadeImpl implements HeroFacade {
     BeanMappingService mapper;
 
     @Override
-    public Long createHero(HeroDTO heroDTO) {
+    public HeroDTO createHero(HeroDTO heroDTO) {
         Hero hero = mapper.mapTo(heroDTO, Hero.class);
-        return service.createHero(hero);
+        service.createHero(hero);
+        heroDTO.setId(hero.getId());
+        return heroDTO;
     }
 
     @Override
@@ -49,5 +60,10 @@ public class HeroFacadeImpl implements HeroFacade {
     public HeroDTO findByUserId(Long userId) {
         Hero hero = service.findHeroByUserId(userId);
         return (hero == null) ? null : mapper.mapTo(hero, HeroDTO.class);
+    }
+
+    @Override
+    public List<HeroDTO> findAllHeroes() {
+        return mapper.mapTo(service.findAllHeroes(), HeroDTO.class);
     }
 }

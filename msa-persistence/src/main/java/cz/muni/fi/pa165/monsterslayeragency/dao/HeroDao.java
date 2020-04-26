@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 
+import java.util.List;
+
 /**
  * @author Miroslav Luckai
  */
@@ -44,5 +46,11 @@ public interface HeroDao {
      * @return instance of class Hero with wanted underlying user, hopefully null otherwise
      */
     Hero findByUserId(Long userId) throws IllegalArgumentException;
+
+    /**
+     * find all heroes
+     * @return list of all heroes stored in database
+     */
+    List<Hero> findAllHeroes();
 
 }
