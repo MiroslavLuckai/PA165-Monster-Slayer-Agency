@@ -1,14 +1,12 @@
 package cz.muni.fi.pa165.msa.service.facade;
 
-import cz.muni.fi.pa165.monsterslayeragency.entities.Monster;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
-import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
-import cz.muni.fi.pa165.monsterslayeragency.enums.Resistance;
-import cz.muni.fi.pa165.msa.dto.*;
+import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
+import cz.muni.fi.pa165.msa.dto.RequestDTO;
+import cz.muni.fi.pa165.msa.dto.UserDTO;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.DummyObjects;
-import cz.muni.fi.pa165.msa.service.MonsterServiceImpl;
 import cz.muni.fi.pa165.msa.service.RequestServiceImpl;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,8 +20,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
