@@ -46,9 +46,10 @@ public class MonsterDaoImpl implements MonsterDao {
     @Override
     public Monster findByName(String name) throws IllegalArgumentException {
         validate(name, "Monster name cannot be null!");
-        return entityManager.createQuery("select monster from Monster monster where monster.name = :name", Monster.class)
+        List<Monster> monsters =  entityManager.createQuery("select monster from Monster monster where monster.name = :name", Monster.class)
                 .setParameter("name", name)
-                .getSingleResult();
+                .getResultList();
+        return (monsters.size() == 0) ? null : monsters.get(0);
     }
 
     @Override
