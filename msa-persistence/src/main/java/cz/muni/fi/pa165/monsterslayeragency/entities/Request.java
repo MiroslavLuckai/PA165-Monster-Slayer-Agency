@@ -12,14 +12,14 @@ import java.util.Objects;
 @Table(name = "requests")
 public class Request extends AbstractEntity {
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private User customer;
 
     @Column(name = "location")
     private String location;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "monster_id")
     private List<Monster> monsters;
 

@@ -19,9 +19,9 @@ public interface RequestService {
 
     Request findByCustomer(User customer);
 
-    void addMonsters(Request request, List<Monster> monsters);
+    void addMonster(Request request, Monster monster);
 
-    void removeMonsters(Request request, List<Monster> monsters);
+    void removeMonster(Request request, Monster monster);
 
     void changeLocation(Request request, String location);
 

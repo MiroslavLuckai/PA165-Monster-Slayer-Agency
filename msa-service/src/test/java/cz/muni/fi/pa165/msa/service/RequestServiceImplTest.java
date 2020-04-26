@@ -10,11 +10,14 @@ import cz.muni.fi.pa165.msa.service.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -67,16 +70,37 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
         request.setMonsters(monsterList);
     }
 
+    @AfterMethod
+    private void resetMocks() {
+        Mockito.reset(requestDao, userDao, monsterDao);
+    }
+
     @Test
     public void create() {
         requestService.create(request);
         verify(requestDao, times(1)).addRequest(request);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createNull() {
+        doThrow(IllegalArgumentException.class)
+                .when(requestDao)
+                .addRequest(null);
+        requestService.create(null);
+    }
+
     @Test
     public void delete() {
         requestService.delete(request);
         verify(requestDao, times(1)).removeRequest(request);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void deleteNull() {
+        doThrow(IllegalArgumentException.class)
+                .when(requestDao)
+                .removeRequest(null);
+        requestService.delete(null);
     }
 
     @Test
@@ -95,6 +119,14 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(requestService.findById(request.getId()), request);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByNullId() {
+        doThrow(IllegalArgumentException.class)
+                .when(requestDao)
+                .findRequestById(null);
+        requestService.findById(null);
+    }
+
     @Test
     public void findByCustomer() {
         when(requestDao.findRequestByCustomer(request.getCustomer())).thenReturn(request);
@@ -102,29 +134,55 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(requestService.findByCustomer(request.getCustomer()), request);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByNullCustomer() {
+        doThrow(IllegalArgumentException.class)
+                .when(requestDao)
+                .findRequestByCustomer(null);
+        requestService.findByCustomer(null);
+    }
+
     @Test
     public void addMonsters() {
         Monster addedMonster = DummyObjects.getMonsterDummy3();
-        List<Monster> monsters = new ArrayList<>();
-        monsters.add(addedMonster);
+        when(monsterDao.findById(addedMonster.getId())).thenReturn(addedMonster);
 
         when(requestDao.findRequestById(request.getId())).thenReturn(request);
 
-        requestService.addMonsters(request, monsters);
+        requestService.addMonster(request, addedMonster);
         verify(requestDao, times(1)).updateRequest(request);
+    }
+
+    @Test
+    public void addNonExistingMonster() {
+        Monster addedMonster = DummyObjects.getMonsterDummy3();
+        when(monsterDao.findById(addedMonster.getId())).thenReturn(null);
+
+        requestService.addMonster(request, addedMonster);
+        verify(requestDao, times(0)).updateRequest(request);
+
     }
 
 
     @Test
     public void removeMonsters() {
         Monster addedMonster = DummyObjects.getMonsterDummy3();
-        List<Monster> monsters = new ArrayList<>();
-        monsters.add(addedMonster);
+        when(monsterDao.findById(addedMonster.getId())).thenReturn(addedMonster);
 
         when(requestDao.findRequestById(request.getId())).thenReturn(request);
 
-        requestService.removeMonsters(request, monsters);
+        requestService.removeMonster(request, addedMonster);
         verify(requestDao, times(1)).updateRequest(request);
+    }
+
+    @Test
+    public void removingNonExistingMonster() {
+        Monster removedMonster = DummyObjects.getMonsterDummy3();
+        when(monsterDao.findById(removedMonster.getId())).thenReturn(null);
+
+        requestService.addMonster(request, removedMonster);
+        verify(requestDao, times(0)).updateRequest(request);
+
     }
 
     @Test
@@ -149,16 +207,17 @@ public class RequestServiceImplTest extends AbstractTestNGSpringContextTests {
     public void managingNonExistingRequest() {
         when(requestDao.findRequestById(request.getId())).thenReturn(null);
 
+
         requestService.changeAward(request, new BigDecimal(5));
         verify(requestDao, times(0)).updateRequest(request);
 
         requestService.changeLocation(request, "new location");
         verify(requestDao, times(0)).updateRequest(request);
 
-        requestService.addMonsters(request, new ArrayList<>());
+        requestService.addMonster(request, DummyObjects.getMonsterDummy3());
         verify(requestDao, times(0)).updateRequest(request);
 
-        requestService.removeMonsters(request, new ArrayList<>());
+        requestService.removeMonster(request, DummyObjects.getMonsterDummy3());
         verify(requestDao, times(0)).updateRequest(request);
     }
 }

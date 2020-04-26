@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.msa.service.facade;
 
+import cz.muni.fi.pa165.monsterslayeragency.entities.Monster;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
+import cz.muni.fi.pa165.msa.dto.MonsterDTO;
 import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
 import cz.muni.fi.pa165.msa.dto.RequestDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -28,7 +31,8 @@ public class RequestFacadeImpl implements RequestFacade {
     @Override
     public Long createRequest(RequestCreateDTO request) {
         Request mappedRequest = beanMappingService.mapTo(request, Request.class);
-        return requestService.create(mappedRequest).getId();
+        Request created = requestService.create(mappedRequest);
+        return created.getId();
     }
 
     @Override
@@ -55,4 +59,31 @@ public class RequestFacadeImpl implements RequestFacade {
         Request found = requestService.findByCustomer(user);
         return beanMappingService.mapTo(found, RequestDTO.class);
     }
+
+    @Override
+    public void addMonster(RequestDTO request, MonsterDTO monster) {
+        Request mappedRequest = beanMappingService.mapTo(request, Request.class);
+        Monster mappedMonster = beanMappingService.mapTo(monster, Monster.class);
+        requestService.addMonster(mappedRequest, mappedMonster);
+    }
+
+    @Override
+    public void removeMonster(RequestDTO request, MonsterDTO monster) {
+        Request mappedRequest = beanMappingService.mapTo(request, Request.class);
+        Monster mappedMonster = beanMappingService.mapTo(monster, Monster.class);
+        requestService.removeMonster(mappedRequest, mappedMonster);
+    }
+
+    @Override
+    public void changeLocation(RequestDTO request, String location) {
+        Request mappedRequest = beanMappingService.mapTo(request, Request.class);
+        requestService.changeLocation(mappedRequest, location);
+    }
+
+    @Override
+    public void changeAward(RequestDTO request, BigDecimal award) {
+        Request mappedRequest = beanMappingService.mapTo(request, Request.class);
+        requestService.changeAward(mappedRequest, award);
+    }
+
 }

@@ -80,6 +80,20 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
     }
 
     @Test
+    public void mapFromCreateDTOTest() {
+        RequestDTO dummy = DummyObjects.getRequestDTODummy1();
+        RequestCreateDTO requestCreateDTO = new RequestCreateDTO();
+        requestCreateDTO.setLocation(dummy.getLocation());
+        requestCreateDTO.setMonsters(dummy.getMonsters());
+        requestCreateDTO.setCustomer(dummy.getCustomer());
+        requestCreateDTO.setAward(dummy.getAward());
+        Request request = beanMappingService.mapTo(requestCreateDTO, Request.class);
+        Request dummyRequest = DummyObjects.getRequestDummy1();
+        dummyRequest.setId(null);
+        Assert.assertEquals(request, dummyRequest);
+    }
+
+    @Test
     public void mapToHero() {
         HeroDTO heroDTO = beanMappingService.mapTo(hero, HeroDTO.class);
         assertEqualsHeroDTOtoEntity(heroDTO, hero);
