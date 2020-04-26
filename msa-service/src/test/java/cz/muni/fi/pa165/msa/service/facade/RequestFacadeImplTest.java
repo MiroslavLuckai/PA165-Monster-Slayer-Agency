@@ -24,7 +24,9 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-
+/**
+ * @author Filip Daniel Fedin
+ */
 public class RequestFacadeImplTest {
 
     @Autowired

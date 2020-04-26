@@ -8,6 +8,9 @@ import cz.muni.fi.pa165.msa.dto.UserDTO;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @author Filip Daniel Fedin
+ */
 public interface RequestFacade {
     /**
      * Creates request.

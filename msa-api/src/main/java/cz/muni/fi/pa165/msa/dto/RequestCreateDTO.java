@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * @author Filip Daniel Fedin
+ */
 public class RequestCreateDTO {
 
     private UserDTO customer;
