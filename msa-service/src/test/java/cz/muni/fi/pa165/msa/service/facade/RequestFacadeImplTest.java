@@ -28,9 +28,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-/**
- * @author Ludovit Kopcsanyi
- */
+
 public class RequestFacadeImplTest {
 
     @Autowired
