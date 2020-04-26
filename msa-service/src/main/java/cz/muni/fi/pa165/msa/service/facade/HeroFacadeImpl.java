@@ -6,9 +6,16 @@ import cz.muni.fi.pa165.msa.facade.HeroFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author Miroslav Luckai 469288
+ */
+@Service
+@Transactional
 public class HeroFacadeImpl implements HeroFacade {
 
     @Autowired

@@ -2,15 +2,12 @@ package cz.muni.fi.pa165.msa.service;
 
 import cz.muni.fi.pa165.monsterslayeragency.dao.HeroDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
-import cz.muni.fi.pa165.msa.service.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -20,15 +17,17 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-@ContextConfiguration(classes = ServiceConfiguration.class)
-public class HeroServiceTest extends AbstractTestNGSpringContextTests {
+/**
+ * @author Miroslav Luckai 469288
+ */
+public class HeroServiceTest {
 
     @Mock
     HeroDao heroDao;
 
     @Autowired
     @InjectMocks
-    HeroService service;
+    HeroServiceImpl service;
 
     Hero geralt;
 
