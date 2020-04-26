@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean authenticate(User u, String password) {
-        return validatePassword(password, u.getPassword());
+    public boolean authenticate(User user, String password) {
+        return validatePassword(password, user.getPassword());
     }
 
     @Override
