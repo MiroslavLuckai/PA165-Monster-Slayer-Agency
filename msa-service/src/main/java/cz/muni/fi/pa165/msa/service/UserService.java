@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.msa.service;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,19 +9,19 @@ import java.util.List;
  */
 public interface UserService {
 
-    void registerUser(User user, String password);
+    User registerUser(User user, String password) throws IllegalArgumentException;
 
-    boolean authenticate(User u, String password);
+    boolean authenticate(User u, String password) throws IllegalArgumentException;
 
-    void updateUser(User user);
+    void updateUser(User user) throws IllegalArgumentException;
 
-    void removeUser(User user);
+    void removeUser(User user) throws IllegalArgumentException;
 
-    User findUserById(Long id);
+    User findUserById(Long id) throws IllegalArgumentException;
 
     List<User> findAll();
 
-    User findUserByEmail(String email);
+    User findUserByEmail(String email) throws IllegalArgumentException;
 
-    User findUserByUsername(String name);
+    User findUserByUsername(String name) throws IllegalArgumentException;
 }

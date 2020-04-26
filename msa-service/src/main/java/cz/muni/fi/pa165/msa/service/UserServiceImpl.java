@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.msa.service;
 
 import cz.muni.fi.pa165.monsterslayeragency.dao.UserDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
+import cz.muni.fi.pa165.msa.service.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,35 +11,50 @@ import javax.crypto.spec.PBEKeySpec;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
+
+/**
+ * @author Miroslav Luckai 469288
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
 
+    private String USER_IS_NULL_MESSAGE = "User cannot be null.";
+    private String PASSWORD_IS_NULL_MESSAGE = "Password cannot be null.";
+
     @Override
-    public void registerUser(User user, String password) {
+    public User registerUser(User user, String password) {
+        Validator.validate(user, USER_IS_NULL_MESSAGE);
+        Validator.validate(password, PASSWORD_IS_NULL_MESSAGE);
         user.setPassword(createHash(password));
         userDao.addUser(user);
+        return user;
     }
 
     @Override
     public boolean authenticate(User user, String password) {
+        Validator.validate(user, USER_IS_NULL_MESSAGE);
+        Validator.validate(password, PASSWORD_IS_NULL_MESSAGE);
         return validatePassword(password, user.getPassword());
     }
 
     @Override
     public void updateUser(User user) {
+        Validator.validate(user, USER_IS_NULL_MESSAGE);
         userDao.updateUser(user);
     }
 
     @Override
     public void removeUser(User user) {
+        Validator.validate(user, USER_IS_NULL_MESSAGE);
         userDao.removeUser(user);
     }
 
     @Override
     public User findUserById(Long id) {
+        Validator.validate(id, "Id cannot be null.");
         return userDao.findUserById(id);
     }
 
@@ -49,11 +65,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
+        Validator.validate(email, "Email cannot be null.");
         return userDao.findUserByEmail(email);
     }
 
     @Override
     public User findUserByUsername(String name) {
+        Validator.validate(name, "Name cannot be null");
         return userDao.findUserByUsername(name);
     }
 

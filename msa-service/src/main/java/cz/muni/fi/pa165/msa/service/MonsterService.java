@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public interface MonsterService {
 
-    Monster create(Monster monster);
+    Monster create(Monster monster) throws IllegalArgumentException;
 
-    void delete(Monster monster);
+    void delete(Monster monster) throws IllegalArgumentException;
 
     void update(Monster monster);
 
@@ -22,11 +22,11 @@ public interface MonsterService {
 
     List<Monster> findAll();
 
-    Monster findById(Long id);
+    Monster findById(Long id) throws IllegalArgumentException;
 
-    Monster findByName(String name);
+    Monster findByName(String name) throws IllegalArgumentException;
 
-    List<Monster> findByMonsterType(MonsterType monsterType);
+    List<Monster> findByMonsterType(MonsterType monsterType) throws IllegalArgumentException;
 
     List<Monster> findBySize(int size);
 
