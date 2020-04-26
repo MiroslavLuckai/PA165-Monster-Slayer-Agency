@@ -36,6 +36,13 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
 
     @Override
+    public void changeName(MonsterDTO monsterDTO, String newName) {
+        Monster monster = monsterService.findById(monsterDTO.getId());
+        monster.setName(newName);
+        monsterService.update(monster);
+    }
+
+    @Override
     public MonsterDTO findById(Long id) {
         Monster category = monsterService.findById(id);
         return (category == null) ? null : beanMappingService.mapTo(category,MonsterDTO.class);

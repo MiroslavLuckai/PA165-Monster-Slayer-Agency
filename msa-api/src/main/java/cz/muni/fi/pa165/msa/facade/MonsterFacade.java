@@ -56,4 +56,6 @@ public interface MonsterFacade {
      * @return monsters with selected size
      */
     List<MonsterDTO> findBySize(int size);
+
+    void changeName(MonsterDTO monsterDTO, String newName);
 }
