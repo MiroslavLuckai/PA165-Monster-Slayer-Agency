@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.msa.facade;
 
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
 
+import java.util.List;
+
 public interface HeroFacade {
 
     /**
@@ -43,5 +45,11 @@ public interface HeroFacade {
      * @return instance of class Hero with wanted underlying user, hopefully null otherwise
      */
     HeroDTO findByUserId(Long userId);
+
+    /**
+     * finds all heroes stored in database and map them on HeroDTO class
+     * @return
+     */
+    List<HeroDTO> findAllHeroes();
 
 }

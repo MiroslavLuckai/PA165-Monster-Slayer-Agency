@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class HeroFacadeImpl implements HeroFacade {
 
     @Autowired
@@ -49,5 +51,10 @@ public class HeroFacadeImpl implements HeroFacade {
     public HeroDTO findByUserId(Long userId) {
         Hero hero = service.findHeroByUserId(userId);
         return (hero == null) ? null : mapper.mapTo(hero, HeroDTO.class);
+    }
+
+    @Override
+    public List<HeroDTO> findAllHeroes() {
+        return mapper.mapTo(service.findAllHeroes(), HeroDTO.class);
     }
 }

@@ -63,6 +63,12 @@ public class HeroDaoImpl implements HeroDao {
         return hero.isEmpty() ? null : hero.get(0);
     }
 
+    @Override
+    public List<Hero> findAllHeroes() {
+        return em.createQuery("SELECT hero from Hero hero", Hero.class)
+                .getResultList();
+    }
+
     private void validate(Object object, String message) throws IllegalArgumentException {
         if (object == null) {
             throw new IllegalArgumentException(message);
