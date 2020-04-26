@@ -13,6 +13,14 @@ public interface UserFacade {
      */
     Long registerUser(UserDTO user, String password);
 
+    /**
+     * Compare saved user credentials with one entered
+     * @param userDto User to be authenticated
+     * @param password entered password
+     * @return result of authentication
+     */
+    boolean authenticateUser(UserDTO userDto, String password);
+
     /***
      * Updates user in database.
      * @param user user to be updated
