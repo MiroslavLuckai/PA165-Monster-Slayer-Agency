@@ -47,20 +47,20 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void addMonsters(Request request, List<Monster> monsters) {
+    public void addMonster(Request request, Monster monster) {
         Request found = requestDao.findRequestById(request.getId());
         if (found != null) {
-            found.getMonsters().addAll(monsters);
+            found.getMonsters().add(monster);
             requestDao.updateRequest(found);
         }
     }
 
     @Override
-    public void removeMonsters(Request request, List<Monster> monsters) {
-        validateAddedMonsters(monsters);
+    public void removeMonster(Request request, Monster monster) {
+        Monster exists = monsterDao.findById(monster.getId());
         Request found = requestDao.findRequestById(request.getId());
-        if (found != null) {
-            found.getMonsters().removeAll(monsters);
+        if (found != null && exists != null) {
+            found.getMonsters().remove(monster);
             requestDao.updateRequest(found);
         }
     }
