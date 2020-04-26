@@ -18,9 +18,9 @@ public class UserFacadeImpl implements UserFacade {
     BeanMappingService mapper;
 
     @Override
-    public Long createUser(UserDTO userDto) {
+    public Long registerUser(UserDTO userDto, String password) {
         User user = mapper.mapTo(userDto, User.class);
-        service.createUser(user);
+        service.registerUser(user, password);
         return user.getId();
     }
 

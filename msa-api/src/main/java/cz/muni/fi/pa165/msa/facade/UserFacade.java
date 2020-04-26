@@ -11,7 +11,7 @@ public interface UserFacade {
      * @param user user to be created
      * @return id of the newly created User
      */
-    Long createUser(UserDTO user);
+    Long registerUser(UserDTO user, String password);
 
     /***
      * Updates user in database.
