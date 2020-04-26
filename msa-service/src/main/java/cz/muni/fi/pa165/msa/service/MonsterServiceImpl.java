@@ -4,12 +4,14 @@ import cz.muni.fi.pa165.monsterslayeragency.dao.MonsterDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Monster;
 import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @author Ludovit Kopcsanyi
  */
+@Service
 public class MonsterServiceImpl implements MonsterService {
 
     @Autowired
