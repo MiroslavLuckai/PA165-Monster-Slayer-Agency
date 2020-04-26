@@ -9,16 +9,17 @@ import java.util.List;
  */
 public interface HeroService {
 
-    Hero createHero(Hero hero);
+    Hero createHero(Hero hero) throws IllegalArgumentException;
 
-    void updateHero(Hero hero);
+    void updateHero(Hero hero) throws IllegalArgumentException;
 
-    void removeHero(Hero hero);
+    void removeHero(Hero hero) throws IllegalArgumentException;
 
-    Hero findHeroById(Long id);
+    Hero findHeroById(Long id) throws IllegalArgumentException;
 
-    Hero findHeroByName(String name);
+    Hero findHeroByName(String name) throws IllegalArgumentException;
 
-    Hero findHeroByUserId(Long id);
+    Hero findHeroByUserId(Long id) throws IllegalArgumentException;
+
     List<Hero> findAllHeroes();
 }
