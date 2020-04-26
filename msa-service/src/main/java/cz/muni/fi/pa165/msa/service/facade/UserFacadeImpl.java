@@ -25,6 +25,12 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
+    public boolean authenticateUser(UserDTO userDto, String password) {
+        User user = mapper.mapTo(userDto, User.class);
+        return service.authenticate(user, password);
+    }
+
+    @Override
     public void updateUser(UserDTO userDto) {
         User user = mapper.mapTo(userDto, User.class);
         service.updateUser(user);

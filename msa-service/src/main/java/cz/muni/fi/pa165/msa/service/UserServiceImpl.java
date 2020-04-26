@@ -43,12 +43,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         Validator.validate(user, USER_IS_NULL_MESSAGE);
+        Validator.validate(user.getId(), "Cannot update entity with null id!");
         userDao.updateUser(user);
     }
 
     @Override
     public void removeUser(User user) {
         Validator.validate(user, USER_IS_NULL_MESSAGE);
+        Validator.validate(user.getId(), "Cannot remove entity with null id!");
         userDao.removeUser(user);
     }
 
