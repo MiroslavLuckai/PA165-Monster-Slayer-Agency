@@ -12,9 +12,13 @@ import java.util.List;
 @Service
 public interface MonsterService {
 
-    void create(Monster monster);
+    Monster create(Monster monster);
 
     void delete(Monster monster);
+
+    void update(Monster monster);
+
+    void changeName(Monster monster, String newName);
 
     List<Monster> findAll();
 

@@ -19,13 +19,28 @@ public class MonsterServiceImpl implements MonsterService {
 
 
     @Override
-    public void create(Monster monster) {
+    public Monster create(Monster monster) {
         monsterDao.addMonster(monster);
+        return monster;
     }
 
     @Override
     public void delete(Monster monster) {
         monsterDao.removeMonster(monster);
+    }
+
+    @Override
+    public void update(Monster monster) {
+        monsterDao.updateMonster(monster);
+    }
+
+    @Override
+    public void changeName(Monster monster, String newName) {
+        Monster foundMonster = monsterDao.findById(monster.getId());
+        if (foundMonster != null) {
+            foundMonster.setName(newName);
+            monsterDao.updateMonster(foundMonster);
+        }
     }
 
     @Override
