@@ -14,5 +14,7 @@ public enum Resistance {
     DARK,
     PSYCHIC,
     GHOST,
-    GRASS
+    GRASS,
+    POISON,
+    BLEEDING
 }
