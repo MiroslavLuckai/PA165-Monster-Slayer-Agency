@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -31,11 +28,23 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final UserDTO getUser(@PathVariable("id") long id) {
+    public final UserDTO getUserById(@PathVariable("id") Long id) {
 
         logger.debug("Find user({})", id);
         return userFacade.findUserById(id);
+    }
 
+    @RequestMapping(value = "/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final UserDTO getUserByEmail(@PathVariable("email") String email) {
 
+        logger.debug("Find user({})", email);
+        return userFacade.findUserByEmail(email);
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final UserDTO getUserByUsername(@PathVariable("username") String username) {
+
+        logger.debug("Find user({})", username);
+        return userFacade.findUserByUsername(username);
     }
 }
