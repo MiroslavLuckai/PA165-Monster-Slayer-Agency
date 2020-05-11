@@ -54,5 +54,6 @@
         <module>msa-service</module>
         <module>msa-api</module>
         <module>msa-rest</module>
+        <module>msa-sample-data</module>
     </modules>
 </project>
