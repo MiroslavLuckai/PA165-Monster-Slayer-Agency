@@ -6,9 +6,12 @@ import cz.muni.fi.pa165.msa.facade.UserFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
-
+@Service
+@Transactional
 public class UserFacadeImpl implements UserFacade {
 
     @Autowired

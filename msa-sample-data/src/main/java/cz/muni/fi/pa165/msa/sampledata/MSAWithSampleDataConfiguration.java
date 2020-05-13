@@ -19,11 +19,11 @@ public class MSAWithSampleDataConfiguration {
     final static Logger log = LoggerFactory.getLogger(MSAWithSampleDataConfiguration.class);
 
     @Autowired
-    SampleDataLoaderImpl sampleDataLoaderImpl;
+    SampleDataLoader sampleDataLoader;
 
     @PostConstruct
     public void dataLoading() throws IOException {
         log.info("Populating database");
-        sampleDataLoaderImpl.populates();
+        sampleDataLoader.populates();
     }
 }
