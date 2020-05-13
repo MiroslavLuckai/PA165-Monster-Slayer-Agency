@@ -1,0 +1,25 @@
+.scope__HeroCard {
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 15px 20px;
+  box-shadow: 5px 5px 20px 0 #081D1E;
+
+  .top {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    .profile-picture {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    .name {
+      font-size: 20px;
+      margin-left: 15px;
+      font-weight: 800;
+    }
+  }
+}
