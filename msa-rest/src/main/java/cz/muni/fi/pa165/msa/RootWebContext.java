@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import cz.muni.fi.pa165.msa.sampledata.MSAWithSampleDataConfiguration;
+import cz.muni.fi.pa165.msa.service.config.ServiceConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +27,7 @@ import java.util.Locale;
  */
 @EnableWebMvc
 @Configuration
-//@Import({ServiceConfiguration.class, SampleDataConfiguration.class})
+@Import({ServiceConfiguration.class, MSAWithSampleDataConfiguration.class})
 @ComponentScan(basePackages = {"cz.muni.fi.pa165.msa.rest.controllers"})
 public class RootWebContext implements WebMvcConfigurer {
 
