@@ -7,15 +7,36 @@ import HeroList from 'components/HeroList'
 import JobList from 'components/JobList'
 import RequestList from 'components/RequestList'
 import Home from 'components/Home'
+import SignInPage from 'components/SignInPage'
+import ErrorNotification from 'components/ErrorNotification'
+import {connect} from 'react-redux'
+import {IStore} from 'ducks/reducers'
 
-class App extends React.Component {
+interface IStateProps {
+    isErrorDisplayed: boolean,
+}
+
+interface IProps extends IStateProps {}
+
+const mapStateToProps = (state: IStore) => {
+    return {
+        isErrorDisplayed: state.common.isErrorDisplayed,
+    }
+}
+
+class App extends React.Component<IProps> {
+
     render() {
+        const {isErrorDisplayed} = this.props
+
         return (
             <div className={''}>
                 <Router history={history}>
                     <Navigation />
+                    {isErrorDisplayed && <ErrorNotification />}
                     <Switch>
                         <Route path={'/'} exact component={Home} />
+                        <Route path={'/sign-in'} exact component={SignInPage} />
                         <Route path={'/heroes'} exact component={HeroList} />
                         <Route path={'/requests'} exact component={RequestList} />
                         <Route path={'/jobs'} exact component={JobList} />
@@ -26,4 +47,4 @@ class App extends React.Component {
     }
 }
 
-export default App
+export default connect(mapStateToProps)(App)

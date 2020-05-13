@@ -12,7 +12,7 @@ const initialState: IHeroesState = {
 
 const fetchHeroes = (state: IHeroesState, heroes: IHero[]) => {
     return produce(state, draft => {
-        draft.heroesList = [...state.heroesList, ...heroes]
+        draft.heroesList = heroes
     })
 }
 
