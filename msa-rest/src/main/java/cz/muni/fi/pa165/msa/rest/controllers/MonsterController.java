@@ -40,21 +40,21 @@ public class MonsterController {
         return monsterFacade.findById(id);
     }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final MonsterDTO getMonsterByName(@PathVariable("name") String name) {
 
         logger.debug("Find monster({})", name);
         return monsterFacade.findByName(name);
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/type/{monsterType}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<MonsterDTO> getMonstersByType(@PathVariable("monsterType") MonsterType monsterType) {
 
         logger.debug("Find monsters({})", monsterType);
         return monsterFacade.findByMonsterType(monsterType);
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/size/{size}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<MonsterDTO> getMonstersBySize(@PathVariable("size") int size) {
 
         logger.debug("Find monsters({})", size);
