@@ -27,24 +27,5 @@
 
   .sign-in-wrapper {
     margin: 0 10px 0 auto;
-
-    .sign-in {
-      background-color: #383838;
-      padding: 10px 30px;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      font-size: 14px;
-      cursor: pointer;
-      outline: none;
-
-      &:hover {
-        background-color: #2e2e2e;
-      }
-
-      &:active {
-        background-color: #242424;
-      }
-    }
   }
 }
