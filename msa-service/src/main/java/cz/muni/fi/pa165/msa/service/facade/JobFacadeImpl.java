@@ -2,18 +2,22 @@ package cz.muni.fi.pa165.msa.service.facade;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
+import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.dto.JobCreateDTO;
 import cz.muni.fi.pa165.msa.dto.JobDTO;
+import cz.muni.fi.pa165.msa.dto.RequestDTO;
 import cz.muni.fi.pa165.msa.facade.JobFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.HeroService;
 import cz.muni.fi.pa165.msa.service.JobService;
+import cz.muni.fi.pa165.msa.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.annotations.AfterMethod;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,14 +37,25 @@ public class JobFacadeImpl implements JobFacade {
     private HeroService heroService;
 
     @Autowired
+    private RequestService requestService;
+
+    @Autowired
     private BeanMappingService beanMappingService;
 
     @Override
-    public Long createJob(JobCreateDTO jobDto) {
+    public JobDTO createJob(JobCreateDTO jobDto) {
         validate(jobDto, "Job DTO cannot be null.");
         Job mappedJob = beanMappingService.mapTo(jobDto, Job.class);
         Job newJob = jobService.createJob(mappedJob);
-        return newJob.getId();
+        return beanMappingService.mapTo(newJob, JobDTO.class);
+    }
+
+    @Override
+    public JobDTO createJobFromRequest(JobCreateDTO jobDTO, Long requestId) {
+        Request request = requestService.findById(requestId);
+        RequestDTO requestDTO = beanMappingService.mapTo(request, RequestDTO.class);
+        jobDTO.setRequest(requestDTO);
+        return createJob(jobDTO);
     }
 
     @Override
