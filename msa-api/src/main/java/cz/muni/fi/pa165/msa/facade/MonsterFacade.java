@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.msa.facade;
 
-import cz.muni.fi.pa165.monsterslayeragency.entities.Monster;
 import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
 import cz.muni.fi.pa165.msa.dto.MonsterCreateDTO;
 import cz.muni.fi.pa165.msa.dto.MonsterDTO;
