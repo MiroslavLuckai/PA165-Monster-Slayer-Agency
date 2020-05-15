@@ -2,6 +2,8 @@ import React from 'react'
 import 'styles/ErrorNotification.scss'
 import {connect} from 'react-redux'
 import {hideErrorNotification} from 'ducks/actions/common'
+import Icon from 'components/Icon'
+import {EIcon, EIconStyle} from 'enums/EIcon'
 
 interface IDispatchProps {
     hideErrorNotification: typeof hideErrorNotification,
@@ -21,12 +23,12 @@ const ErrorNotification: React.FC<IProps> = (props) => {
         <div className={'scope__ErrorNotification'}>
             <div className={'error-wrapper'}>
                 <span className={'error-icon-wrapper'}>
-                    <i className={'fas fa-exclamation-circle'} />
+                    <Icon icon={EIcon.WARNING} style={EIconStyle.SOLID} />
                 </span>
                 <span className={'description'}>Something went wrong...</span>
             </div>
             <span className={'close-icon-wrapper'} onClick={() => hideErrorNotification()}>
-                <i className={'fas fa-times'} />
+                <Icon icon={EIcon.CLOSE} style={EIconStyle.SOLID} />
             </span>
         </div>
     )
