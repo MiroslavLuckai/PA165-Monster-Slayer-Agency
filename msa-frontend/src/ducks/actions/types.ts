@@ -1,6 +1,9 @@
 export const FETCH_HEROES = 'FETCH_HEROES'
+export const FETCH_MONSTERS = 'FETCH_MONSTERS'
 export const FETCH_REQUESTS = 'FETCH_REQUESTS'
 export const FETCH_JOBS = 'FETCH_JOBS'
+
+export const FETCH_MONSTER = 'FETCH_MONSTER'
 
 export const SET_ACTIVE_LAYER = 'SET_ACTIVE_LAYER'
 

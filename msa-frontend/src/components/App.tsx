@@ -11,6 +11,9 @@ import SignInPage from 'components/SignInPage'
 import ErrorNotification from 'components/ErrorNotification'
 import {connect} from 'react-redux'
 import {IStore} from 'ducks/reducers'
+import {EPath} from 'enums/EPath'
+import MonsterList from 'components/MonsterList'
+import MonsterPreview from 'components/MonsterPreview'
 
 interface IStateProps {
     isErrorDisplayed: boolean,
@@ -35,11 +38,13 @@ class App extends React.Component<IProps> {
                     <Navigation />
                     {isErrorDisplayed && <ErrorNotification />}
                     <Switch>
-                        <Route path={'/'} exact component={Home} />
-                        <Route path={'/sign-in'} exact component={SignInPage} />
-                        <Route path={'/heroes'} exact component={HeroList} />
-                        <Route path={'/requests'} exact component={RequestList} />
-                        <Route path={'/jobs'} exact component={JobList} />
+                        <Route path={EPath.HOME} exact component={Home} />
+                        <Route path={EPath.SIGN_IN} exact component={SignInPage} />
+                        <Route path={EPath.HEROES} exact component={HeroList} />
+                        <Route path={EPath.MONSTERS} exact component={MonsterList} />
+                        <Route path={EPath.REQUESTS} exact component={RequestList} />
+                        <Route path={EPath.JOBS} exact component={JobList} />
+                        <Route path={`${EPath.MONSTERS}/:id`} exact component={MonsterPreview} />
                     </Switch>
                 </Router>
             </div>

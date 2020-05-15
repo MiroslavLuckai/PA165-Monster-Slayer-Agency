@@ -7,7 +7,7 @@ export interface IMonster {
     name: string,
     size: number,
     resistances: EResistance[],
-    type: EMonsterType,
+    monsterType: EMonsterType,
     image: string,
     food: EMonsterFood,
 }

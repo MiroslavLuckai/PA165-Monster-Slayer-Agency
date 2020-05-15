@@ -1,0 +1,42 @@
+.scope__MonsterCard {
+  .profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+
+  .name {
+    font-size: 20px;
+    margin-left: 15px;
+    font-weight: 800;
+  }
+
+  .size, .type, .food {
+    &__icon {
+      font-size: 20px;
+    }
+
+    &__value {
+      margin-left: 10px;
+    }
+  }
+
+  .type, .food {
+    margin-left: 30px;
+  }
+
+  .resistances {
+    h3 {
+      margin-top: 20px;
+    }
+
+    .resistance {
+      display: flex;
+      align-items: center;
+
+      &__value {
+        margin-left: 10px;
+      }
+    }
+  }
+}
