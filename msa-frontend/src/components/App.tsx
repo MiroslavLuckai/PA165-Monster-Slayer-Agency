@@ -6,7 +6,6 @@ import Navigation from 'components/common/Navigation'
 import HeroList from 'components/heroes/HeroList'
 import JobList from 'components/jobs/JobList'
 import RequestList from 'components/requests/RequestList'
-import Home from 'components/Home'
 import SignInPage from 'components/SignInPage'
 import ErrorNotification from 'components/common/ErrorNotification'
 import {connect} from 'react-redux'
@@ -16,6 +15,7 @@ import MonsterList from 'components/monsters/MonsterList'
 import MonsterPreview from 'components/monsters/MonsterPreview'
 import RequestPreview from 'components/requests/RequestPreview'
 import HeroPreview from 'components/heroes/HeroPreview'
+import Home from 'components/Home'
 
 interface IStateProps {
     isErrorDisplayed: boolean,
@@ -35,7 +35,7 @@ class App extends React.Component<IProps> {
         const {isErrorDisplayed} = this.props
 
         return (
-            <div className={''}>
+            <div className={'scope__App'}>
                 <Router history={history}>
                     <Navigation />
                     {isErrorDisplayed && <ErrorNotification />}

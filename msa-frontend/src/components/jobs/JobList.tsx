@@ -7,9 +7,11 @@ import {IJob} from 'types/IJob'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import JobCard from 'components/jobs/JobCard'
+import SignInPage from 'components/SignInPage'
 
 interface IStateProps {
     jobs: IJob[],
+    isSignedIn: boolean,
 }
 
 interface IDispatchProps {
@@ -22,6 +24,7 @@ interface IProps extends IStateProps, IDispatchProps {}
 const mapStateToProps = (state: IStore) => {
     return {
         jobs: state.jobs.jobsList,
+        isSignedIn: state.auth.isSignedIn,
     }
 
 }
@@ -35,10 +38,22 @@ class JobList extends React.Component<IProps> {
 
     componentDidMount() {
         this.props.setActiveLayer(ELayer.JOB)
-        this.props.fetchJobs()
+        if (this.props.isSignedIn) {
+            this.props.fetchJobs()
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.isSignedIn) {
+            this.props.fetchJobs()
+        }
     }
 
     render() {
+        if (!this.props.isSignedIn) {
+            return <SignInPage />
+        }
+
         return (
             <div className={'scope__JobList'}>
                 <BaseList>

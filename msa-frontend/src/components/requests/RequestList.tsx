@@ -7,9 +7,11 @@ import RequestCard from 'components/requests/RequestCard'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import BaseList from 'components/common/BaseList'
+import SignInPage from 'components/SignInPage'
 
 interface IStateProps {
     requests: IRequest[],
+    isSignedIn: boolean,
 }
 
 interface IDispatchProps {
@@ -22,6 +24,7 @@ interface IProps extends IStateProps, IDispatchProps {}
 const mapStateToProps = (state: IStore) => {
     return {
         requests: state.requests.requestsList,
+        isSignedIn: state.auth.isSignedIn,
     }
 }
 
@@ -34,11 +37,23 @@ class RequestList extends React.Component<IProps> {
 
     componentDidMount() {
         this.props.setActiveLayer(ELayer.REQUEST)
-        this.props.fetchRequests()
+        if (this.props.isSignedIn) {
+            this.props.fetchRequests()
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.isSignedIn) {
+            this.props.fetchRequests()
+        }
     }
 
     render() {
-        const {requests} = this.props
+        const {requests, isSignedIn} = this.props
+
+        if (!isSignedIn) {
+            return <SignInPage />
+        }
 
         return (
             <div className={'scope__RequestList'}>

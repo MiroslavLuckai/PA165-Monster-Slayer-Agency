@@ -4,6 +4,7 @@ import heroesReducer, {IHeroesState} from 'ducks/reducers/heroes'
 import requestsReducer, {IRequestsState} from 'ducks/reducers/requests'
 import monstersReducer, {IMonstersState} from 'ducks/reducers/monsters'
 import jobsReducer, {IJobsState} from 'ducks/reducers/jobs'
+import authReducer, {IAuthState} from 'ducks/reducers/auth'
 import {ICommonState} from 'ducks/reducers/common'
 
 export interface IStore {
@@ -12,6 +13,7 @@ export interface IStore {
     requests: IRequestsState,
     jobs: IJobsState,
     common: ICommonState,
+    auth: IAuthState,
 }
 
 export default combineReducers({
@@ -20,4 +22,5 @@ export default combineReducers({
     requests: requestsReducer,
     jobs: jobsReducer,
     common: commonReducer,
+    auth: authReducer,
 })

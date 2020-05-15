@@ -8,9 +8,11 @@ import BaseList from 'components/common/BaseList'
 import {IHero} from 'types/IHero'
 import HeroCard from 'components/heroes/HeroCard'
 import {fetchHero} from 'ducks/actions/heroes'
+import SignInPage from 'components/SignInPage'
 
 interface IStateProps {
     hero?: IHero,
+    isSignedIn: boolean,
 }
 
 interface IDispatchProps {
@@ -23,6 +25,7 @@ interface IProps extends IStateProps, IDispatchProps, RouteComponentProps<{id: s
 const mapStateToProps = (state: IStore) => {
     return {
         hero: state.heroes.currentHero,
+        isSignedIn: state.auth.isSignedIn,
     }
 }
 
@@ -35,11 +38,23 @@ class HeroPreview extends React.Component<IProps> {
 
     componentDidMount() {
         this.props.setActiveLayer(ELayer.HERO)
-        this.props.fetchHero(this.props.match.params.id)
+        if (this.props.isSignedIn) {
+            this.props.fetchHero(this.props.match.params.id)
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.isSignedIn) {
+            this.props.fetchHero(this.props.match.params.id)
+        }
     }
 
     render() {
-        const {hero} = this.props
+        const {hero, isSignedIn} = this.props
+
+        if (!isSignedIn) {
+            return <SignInPage />
+        }
 
         if (!hero) {
             return null

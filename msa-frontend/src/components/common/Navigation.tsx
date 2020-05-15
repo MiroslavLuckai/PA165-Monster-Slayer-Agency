@@ -7,13 +7,17 @@ import {IStore} from 'ducks/reducers'
 import {connect} from 'react-redux'
 import {ELayer} from 'enums/ELayer'
 import {setActiveLayer} from 'ducks/actions/common'
+import history from '../../history'
+import {signOut} from 'ducks/actions/auth'
 
 interface IStateProps {
     layer: ELayer,
+    isSignedIn: boolean | null,
 }
 
 interface IDispatchProps {
     setActiveLayer: typeof setActiveLayer,
+    signOut: typeof signOut,
 }
 
 interface IOwnProps {}
@@ -23,16 +27,21 @@ interface IProps extends IStateProps, IDispatchProps, IOwnProps {}
 const mapStateToProps = (state: IStore) => {
     return {
         layer: state.common.layer,
+        isSignedIn: state.auth.isSignedIn,
     }
 }
 
 const mapDispatchToProps = {
     setActiveLayer,
+    signOut,
 }
 
 const Navigation: React.FC<IProps> = (props) => {
 
-    const {setActiveLayer, layer} = props
+    const {setActiveLayer, signOut, layer, isSignedIn} = props
+
+    const buttonText = isSignedIn ? 'Sign Out' : 'Sign In'
+    const buttonOnClick = isSignedIn ? () => signOut() : () => history.push(EPath.SIGN_IN)
 
     return (
         <div className={'scope__Navigation'}>
@@ -71,9 +80,9 @@ const Navigation: React.FC<IProps> = (props) => {
             >
                 Jobs
             </Link>
-            <Link className={'sign-in-wrapper'} to={EPath.SIGN_IN}>
-                <button className={'sign-in ui-button'}>Sign In</button>
-            </Link>
+            <div className={'sign-in-wrapper'}>
+                <button className={'sign-in ui-button'} onClick={buttonOnClick}>{buttonText}</button>
+            </div>
         </div>
     )
 }

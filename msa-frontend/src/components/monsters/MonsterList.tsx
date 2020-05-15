@@ -7,9 +7,11 @@ import {IStore} from 'ducks/reducers'
 import {IMonster} from 'types/IMonster'
 import MonsterCard from 'components/monsters/MonsterCard'
 import BaseList from 'components/common/BaseList'
+import SignInPage from 'components/SignInPage'
 
 interface IStateProps {
     monsters: IMonster[],
+    isSignedIn: boolean,
 }
 
 interface IDispatchProps {
@@ -20,6 +22,7 @@ interface IDispatchProps {
 const mapStateToProps = (state: IStore) => {
     return {
         monsters: state.monsters.monstersList,
+        isSignedIn: state.auth.isSignedIn,
     }
 }
 
@@ -34,10 +37,22 @@ class MonsterList extends React.Component<IProps> {
 
     componentDidMount() {
         this.props.setActiveLayer(ELayer.MONSTER)
-        this.props.fetchMonsters()
+        if (this.props.isSignedIn) {
+            this.props.fetchMonsters()
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.isSignedIn) {
+            this.props.fetchMonsters()
+        }
     }
 
     render() {
+        if (!this.props.isSignedIn) {
+            return <SignInPage />
+        }
+
         return (
             <div className={'scope__MonsterList'}>
                 <BaseList>

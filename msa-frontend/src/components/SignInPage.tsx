@@ -1,16 +1,38 @@
 import React from 'react'
 import 'styles/SignInPage.scss'
+import {connect} from 'react-redux'
+import {signIn} from 'ducks/actions/auth'
+import {setActiveLayer} from 'ducks/actions/common'
+import {ELayer} from 'enums/ELayer'
+import {EPath} from 'enums/EPath'
+import history from '../history'
+
+interface IDispatchProps {
+    signIn: typeof signIn,
+    setActiveLayer: typeof setActiveLayer,
+}
+
+interface IProps extends IDispatchProps {}
 
 interface IState {
     emailInputValue: string,
     passwordInputValue: string,
 }
 
-class SignInPage extends React.Component<{}, IState> {
+const mapDispatchToProps = {
+    signIn,
+    setActiveLayer,
+}
+
+class SignInPage extends React.Component<IProps, IState> {
 
     state: IState = {
         emailInputValue: '',
         passwordInputValue: '',
+    }
+
+    componentDidMount() {
+        setActiveLayer(ELayer.HOME)
     }
 
     render() {
@@ -19,7 +41,7 @@ class SignInPage extends React.Component<{}, IState> {
         return (
             <div className={'scope__SignInPage'}>
                 <form className={'sign-in-form'}>
-                    <h2 className={'sign-in-form__title'}>Sign In</h2>
+                    <h2 className={'sign-in-form__title'}>Welcome</h2>
                     <input
                         className={'sign-in-form__email-input'}
                         value={emailInputValue}
@@ -54,9 +76,14 @@ class SignInPage extends React.Component<{}, IState> {
         })
     }
 
-    private signInUser = () => {
-        console.log('sign-in')
+    private signInUser = (event: any) => {
+        event.preventDefault()
+
+        // const email = this.state.emailInputValue
+        // const password = this.state.passwordInputValue
+
+        this.props.signIn()
     }
 }
 
-export default SignInPage
+export default connect(null, mapDispatchToProps)(SignInPage)
