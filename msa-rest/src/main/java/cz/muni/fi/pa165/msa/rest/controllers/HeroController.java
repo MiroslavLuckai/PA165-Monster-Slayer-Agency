@@ -47,11 +47,12 @@ public class HeroController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void removeHero(@PathVariable("id") Long id) {
+    public HeroDTO removeHero(@PathVariable("id") Long id) {
         logger.info("Remove hero with id: \"{}\"", id);
         HeroDTO hero = new HeroDTO();
         hero.setId(id);
         heroFacade.removeHero(hero);
+        return hero;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
