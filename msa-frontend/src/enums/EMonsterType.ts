@@ -1,0 +1,13 @@
+export enum EMonsterType {
+    BEAST = 'BEAST',
+    CURSED_ONE = 'CURSED_ONE',
+    DRACONID = 'DRACONID',
+    ELEMENTA = 'ELEMENTA',
+    HYBRID = 'HYBRID',
+    INSECTOID = 'INSECTOID',
+    NECROPHAGE = 'NECROPHAGE',
+    OGROID = 'OGROID',
+    RELICT = 'RELICT',
+    SPECTER = 'SPECTER',
+    VAMPIRE = 'VAMPIRE',
+}

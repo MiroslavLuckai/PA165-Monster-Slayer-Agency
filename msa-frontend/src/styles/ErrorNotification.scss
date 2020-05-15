@@ -1,0 +1,30 @@
+.scope__ErrorNotification {
+  width: 12%;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  position: absolute;
+  top: 65px; // 50px (header height) + 10px + 5px (top yellow border)
+  right: 10px;
+  opacity: 0.8;
+
+  .error-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .error-icon-wrapper {
+    font-size: 30px;
+  }
+
+  .description {
+    margin-left: 10px;
+  }
+
+  .close-icon-wrapper {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+}

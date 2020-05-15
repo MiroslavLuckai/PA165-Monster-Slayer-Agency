@@ -1,4 +1,4 @@
-.scope__HeroCard {
+.scope__MonsterCard {
   .profile-picture {
     width: 60px;
     height: 60px;
@@ -11,12 +11,26 @@
     font-weight: 800;
   }
 
-  .skills {
-    h3 {
-      margin: 0 0 10px 0;
+  .size, .type, .food {
+    &__icon {
+      font-size: 20px;
     }
 
-    .skill {
+    &__value {
+      margin-left: 10px;
+    }
+  }
+
+  .type, .food {
+    margin-left: 30px;
+  }
+
+  .resistances {
+    h3 {
+      margin-top: 20px;
+    }
+
+    .resistance {
       display: flex;
       align-items: center;
 

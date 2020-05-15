@@ -1,0 +1,96 @@
+.scope__RequestCard {
+
+  .user-credentials-wrapper {
+    margin-left: 15px;
+
+    .username {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .email {
+      opacity: 0.75;
+    }
+  }
+
+  .profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+
+  .claim-button-wrapper {
+    margin: 0 0 0 auto;
+
+    .claim {
+      width: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &__icon {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .location {
+    display: flex;
+    align-items: center;
+
+    &__icon {
+      font-size: 20px;
+    }
+
+    &__name {
+      margin-left: 10px;
+    }
+  }
+
+  .award {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+
+    &__icon {
+      font-size: 20px;
+    }
+
+    &__value {
+      margin-left: 10px;
+    }
+  }
+
+  .monsters {
+    h3 {
+      margin-top: 20px;
+    }
+
+    .monster {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #000;
+
+      &__image {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+
+      &__name {
+        margin-left: 10px;
+      }
+
+      &__icon {
+        margin-left: 10px;
+        opacity: 0;
+
+        &--visible {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
