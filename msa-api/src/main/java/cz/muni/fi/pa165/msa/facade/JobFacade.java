@@ -20,7 +20,15 @@ public interface JobFacade {
      * @return id of the new job
      * @throws IllegalArgumentException when jobDto is null
      */
-    Long createJob(JobCreateDTO jobDto) throws IllegalArgumentException;
+    JobDTO createJob(JobCreateDTO jobDto) throws IllegalArgumentException;
+
+    /**
+     * Create job with request which is already stored in database
+     * @param jobDTO job to be created
+     * @param requestId request which should created job be linked with
+     * @return
+     */
+    JobDTO createJobFromRequest(JobCreateDTO jobDTO, Long requestId);
 
     /**
      * Updates job.
