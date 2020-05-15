@@ -7,6 +7,7 @@ import {IRequest} from 'types/IRequest'
 import RequestCard from 'components/RequestCard'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
+import BaseList from 'components/BaseList'
 
 interface IStateProps {
     requests: IRequest[],
@@ -42,13 +43,15 @@ class RequestList extends React.Component<IProps> {
 
         return (
             <div className={'scope__RequestList'}>
-                {requests.map((request, index) => {
-                    return (
-                        <div className={'card-wrapper'}>
-                            <RequestCard request={request} key={index} />
-                        </div>
-                    )
-                })}
+                <BaseList>
+                    {requests.map((request, index) => {
+                        return (
+                            <div className={'card-wrapper'}>
+                                <RequestCard request={request} key={index} />
+                            </div>
+                        )
+                    })}
+                </BaseList>
             </div>
         )
     }

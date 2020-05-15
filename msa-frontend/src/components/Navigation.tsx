@@ -41,7 +41,7 @@ const Navigation: React.FC<IProps> = (props) => {
                 to={EPath.HOME}
                 onClick={() => setActiveLayer(ELayer.HOME)}
             >
-                <i className={'home icon'}/> Home
+                Home
             </Link>
             <Link
                 className={`item ${layer === ELayer.HERO && 'item--active'}`}
@@ -49,6 +49,13 @@ const Navigation: React.FC<IProps> = (props) => {
                 onClick={() => setActiveLayer(ELayer.HERO)}
             >
                 Heroes
+            </Link>
+            <Link
+                className={`item ${layer === ELayer.MONSTER && 'item--active'}`}
+                to={EPath.MONSTERS}
+                onClick={() => setActiveLayer(ELayer.MONSTER)}
+            >
+                Monsters
             </Link>
             <Link
                 className={`item ${layer === ELayer.REQUEST && 'item--active'}`}
