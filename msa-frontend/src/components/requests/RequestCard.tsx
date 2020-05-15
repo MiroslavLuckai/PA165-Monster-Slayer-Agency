@@ -2,10 +2,10 @@ import React from 'react'
 import 'styles/RequestCard.scss'
 import 'styles/ui.scss'
 import {IRequest} from 'types/IRequest'
-import BasicInfoWrapper from 'components/BasicInfoWrapper'
-import BaseCard from 'components/BaseCard'
-import ResourceImage from 'components/ResourceImage'
-import Icon from 'components/Icon'
+import BasicInfoWrapper from 'components/common/BasicInfoWrapper'
+import BaseCard from 'components/common/BaseCard'
+import ResourceImage from 'components/common/ResourceImage'
+import Icon from 'components/common/Icon'
 import {EIcon, EIconStyle} from 'enums/EIcon'
 import {Link} from 'react-router-dom'
 import {EPath} from 'enums/EPath'
@@ -34,7 +34,7 @@ const RequestCard = (props: IProps) => {
     const renderClaimButton = () => {
         return (
             <div className={'claim-button-wrapper'}>
-                <button className={'claim ui-button ui-button--green'}>
+                <button className={'claim ui-button bg-confirm'}>
                     {isClaimed
                         ? <>
                             <Icon className={'claim__icon'} icon={EIcon.CHECK} style={EIconStyle.SOLID} /> Claimed

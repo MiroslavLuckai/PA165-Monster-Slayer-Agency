@@ -2,7 +2,7 @@ import React from 'react'
 import 'styles/ErrorNotification.scss'
 import {connect} from 'react-redux'
 import {hideErrorNotification} from 'ducks/actions/common'
-import Icon from 'components/Icon'
+import Icon from 'components/common/Icon'
 import {EIcon, EIconStyle} from 'enums/EIcon'
 
 interface IDispatchProps {

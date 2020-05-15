@@ -1,13 +1,12 @@
 import React from 'react'
-import 'styles/RequestList.scss'
 import {connect} from 'react-redux'
 import {IStore} from 'ducks/reducers'
 import {fetchRequests} from 'ducks/actions/requests'
 import {IRequest} from 'types/IRequest'
-import RequestCard from 'components/RequestCard'
+import RequestCard from 'components/requests/RequestCard'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
-import BaseList from 'components/BaseList'
+import BaseList from 'components/common/BaseList'
 
 interface IStateProps {
     requests: IRequest[],

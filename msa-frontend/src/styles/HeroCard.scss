@@ -1,25 +1,28 @@
 .scope__HeroCard {
-  border-radius: 10px;
-  background-color: #fff;
-  padding: 15px 20px;
-  box-shadow: 5px 5px 20px 0 #081D1E;
+  .profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
 
-  .top {
-    width: 100%;
-    display: flex;
-    justify-content: left;
-    align-items: center;
+  .name {
+    font-size: 20px;
+    margin-left: 15px;
+    font-weight: 800;
+  }
 
-    .profile-picture {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
+  .skills {
+    h3 {
+      margin: 0 0 10px 0;
     }
 
-    .name {
-      font-size: 20px;
-      margin-left: 15px;
-      font-weight: 800;
+    .skill {
+      display: flex;
+      align-items: center;
+
+      &__value {
+        margin-left: 10px;
+      }
     }
   }
 }

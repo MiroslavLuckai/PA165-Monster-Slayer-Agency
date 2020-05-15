@@ -10,7 +10,7 @@ const ResourceImage: React.FC<IProps> = (props) => {
     return (
         <img
             className={props.className}
-            src={require(`../../../msa-sample-data/src/main/resources/${props.image}`)}
+            src={require(`../../../../msa-sample-data/src/main/resources/${props.image}`)}
             alt={props.alt} />
     )
 }

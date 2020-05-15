@@ -4,52 +4,52 @@ import {RouteComponentProps} from 'react-router'
 import {IStore} from 'ducks/reducers'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
-import {fetchMonster} from 'ducks/actions/monsters'
-import {IMonster} from 'types/IMonster'
-import MonsterCard from 'components/MonsterCard'
-import BaseList from 'components/BaseList'
+import BaseList from 'components/common/BaseList'
+import {IHero} from 'types/IHero'
+import HeroCard from 'components/heroes/HeroCard'
+import {fetchHero} from 'ducks/actions/heroes'
 
 interface IStateProps {
-    monster?: IMonster,
+    hero?: IHero,
 }
 
 interface IDispatchProps {
     setActiveLayer: typeof setActiveLayer,
-    fetchMonster: any,
+    fetchHero: any,
 }
 
 interface IProps extends IStateProps, IDispatchProps, RouteComponentProps<{id: string}> {}
 
 const mapStateToProps = (state: IStore) => {
     return {
-        monster: state.monsters.currentMonster,
+        hero: state.heroes.currentHero,
     }
 }
 
 const mapDispatchToProps = {
     setActiveLayer,
-    fetchMonster,
+    fetchHero,
 }
 
-class MonsterPreview extends React.Component<IProps> {
+class HeroPreview extends React.Component<IProps> {
 
     componentDidMount() {
-        this.props.setActiveLayer(ELayer.MONSTER)
-        this.props.fetchMonster(this.props.match.params.id)
+        this.props.setActiveLayer(ELayer.HERO)
+        this.props.fetchHero(this.props.match.params.id)
     }
 
     render() {
-        const {monster} = this.props
+        const {hero} = this.props
 
-        if (!monster) {
+        if (!hero) {
             return null
         }
 
         return (
-            <div className={'scope__MonsterPreview'}>
+            <div className={'scope__HeroPreview'}>
                 <BaseList>
                     <div className={'card-wrapper'}>
-                        <MonsterCard monster={monster} />
+                        <HeroCard hero={hero} />
                     </div>
                 </BaseList>
             </div>
@@ -57,4 +57,4 @@ class MonsterPreview extends React.Component<IProps> {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MonsterPreview)
+export default connect(mapStateToProps, mapDispatchToProps)(HeroPreview)

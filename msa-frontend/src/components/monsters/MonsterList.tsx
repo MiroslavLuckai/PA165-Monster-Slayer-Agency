@@ -1,13 +1,12 @@
 import React from 'react'
-import 'styles/MonsterList.scss'
 import {connect} from 'react-redux'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import {fetchMonsters} from 'ducks/actions/monsters'
 import {IStore} from 'ducks/reducers'
 import {IMonster} from 'types/IMonster'
-import MonsterCard from 'components/MonsterCard'
-import BaseList from 'components/BaseList'
+import MonsterCard from 'components/monsters/MonsterCard'
+import BaseList from 'components/common/BaseList'
 
 interface IStateProps {
     monsters: IMonster[],

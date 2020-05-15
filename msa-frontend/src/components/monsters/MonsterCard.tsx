@@ -1,12 +1,12 @@
 import React from 'react'
 import 'styles/MonsterCard.scss'
 import {IMonster} from 'types/IMonster'
-import BasicInfoWrapper from 'components/BasicInfoWrapper'
-import ResourceImage from 'components/ResourceImage'
-import BaseCard from 'components/BaseCard'
-import Icon from 'components/Icon'
+import BasicInfoWrapper from 'components/common/BasicInfoWrapper'
+import ResourceImage from 'components/common/ResourceImage'
+import BaseCard from 'components/common/BaseCard'
+import Icon from 'components/common/Icon'
 import {EIcon, EIconStyle} from 'enums/EIcon'
-import {getMonsterFoodName, getMonsterResistanceName, getMonsterTypeName} from 'utils/monsters'
+import {getDisplayText} from 'utils/common'
 
 interface IProps {
     monster: IMonster,
@@ -34,11 +34,11 @@ const MonsterCard: React.FC<IProps> = (props) => {
                 </div>
                 <div className={'type'}>
                     <Icon className={'type__icon'} icon={EIcon.MONSTER} style={EIconStyle.SOLID} />
-                    <span className={'type__value'}>{getMonsterTypeName(monsterType)}</span>
+                    <span className={'type__value'}>{getDisplayText(monsterType)}</span>
                 </div>
                 <div className={'food'}>
                     <Icon className={'food__icon'} icon={EIcon.FOOD} style={EIconStyle.SOLID} />
-                    <span className={'food__value'}>{getMonsterFoodName(food)}</span>
+                    <span className={'food__value'}>{getDisplayText(food)}</span>
                 </div>
             </BasicInfoWrapper>
         )
@@ -52,7 +52,7 @@ const MonsterCard: React.FC<IProps> = (props) => {
                     return (
                         <div className={'resistance'} key={index}>
                             <Icon className={'resistance__icon'} icon={EIcon[resistance]} style={EIconStyle.SOLID} />
-                            <div className={'resistance__value'}>{getMonsterResistanceName(resistance)}</div>
+                            <div className={'resistance__value'}>{getDisplayText(resistance)}</div>
                         </div>
                     )
                 })}

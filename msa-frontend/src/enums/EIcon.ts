@@ -20,6 +20,7 @@ export enum EIcon {
     POISON = 'skull-crossbones',
     BLEEDING = 'heartbeat',
     SEARCH = 'search',
+    STAR = 'star',
 }
 
 export enum EIconStyle {

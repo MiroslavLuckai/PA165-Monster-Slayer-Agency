@@ -15,8 +15,24 @@
   &:active {
     background-color: #242424;
   }
+}
 
-  &--green {
-    background-color: #4BB462;
-  }
+.ui-badge {
+  background-color: #383838;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+}
+
+.bg-confirm {
+  background-color: #4BB462;
+}
+
+.bg-warning {
+ background-color: #FC9A40;
+}
+
+.bg-error {
+ background-color: #E20338;
 }

@@ -1,12 +1,12 @@
 import React from 'react'
-import 'styles/HeroList.scss'
 import {connect} from 'react-redux'
 import {IStore} from 'ducks/reducers'
 import {fetchHeroes} from 'ducks/actions/heroes'
 import {setActiveLayer} from 'ducks/actions/common'
 import {IHero} from 'types/IHero'
-import HeroCard from 'components/HeroCard'
+import HeroCard from 'components/heroes/HeroCard'
 import {ELayer} from 'enums/ELayer'
+import BaseList from 'components/common/BaseList'
 
 interface IStateProps {
     heroes: IHero[],
@@ -43,13 +43,15 @@ class HeroList extends React.Component<IProps> {
 
         return (
             <div className={'scope__HeroList'}>
-                {heroes.map((hero, index) => {
-                    return (
-                        <div className={'card-wrapper'}>
-                            <HeroCard hero={hero} key={index} />
-                        </div>
-                    )
-                })}
+                <BaseList>
+                    {heroes.map((hero, index) => {
+                        return (
+                            <div className={'card-wrapper'}>
+                                <HeroCard hero={hero} key={index} />
+                            </div>
+                        )
+                    })}
+                </BaseList>
             </div>
         )
     }
