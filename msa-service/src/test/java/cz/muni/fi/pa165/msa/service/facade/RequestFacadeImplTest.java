@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.msa.service.facade;
 
+import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
+import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
 import cz.muni.fi.pa165.msa.dto.RequestDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
@@ -131,6 +133,25 @@ public class RequestFacadeImplTest {
         List<RequestDTO> actualRequestDTO = requestFacade.findAll();
         verify(requestService).findAll();
         Assert.assertEquals(actualRequestDTO, requestDTOs);
+    }
+
+    @Test
+    void matchRequestsToHero() {
+        List<Request> requestList = new ArrayList<>();
+        requestList.add(request1);
+        requestList.add(request2);
+        HeroDTO heroDTO = DummyObjects.getHeroDTODummy1();
+        Hero hero = DummyObjects.getHeroDummy1();
+
+        List<RequestDTO> requestDTOList = new ArrayList<>();
+        requestDTOList.add(requestDTO1);
+        requestDTOList.add(requestDTO2);
+
+        when(beanMappingService.mapTo(heroDTO, Hero.class)).thenReturn(hero);
+        when(requestService.findAll()).thenReturn(requestList);
+        when(beanMappingService.mapTo(requestList, RequestDTO.class)).thenReturn(requestDTOList);
+        List<RequestDTO> matched = requestFacade.matchRequestsToHero(heroDTO);
+        Assert.assertEquals(requestDTOList, matched);
     }
 
 }
