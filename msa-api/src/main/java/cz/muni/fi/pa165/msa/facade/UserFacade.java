@@ -15,11 +15,11 @@ public interface UserFacade {
 
     /**
      * Compare saved user credentials with one entered
-     * @param userDto User to be authenticated
+     * @param email email of the user to be authenticated
      * @param password entered password
      * @return result of authentication
      */
-    boolean authenticateUser(UserDTO userDto, String password);
+    boolean authenticateUser(String email, String password);
 
     /***
      * Updates user in database.
