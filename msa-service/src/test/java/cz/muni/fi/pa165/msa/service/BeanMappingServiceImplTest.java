@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.msa.service;
 
+import cz.muni.fi.pa165.monsterslayeragency.dao.HeroDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.*;
 import cz.muni.fi.pa165.monsterslayeragency.enums.*;
 import cz.muni.fi.pa165.msa.dto.*;
@@ -28,6 +29,8 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
     private Job job;
     private Request request;
     private Monster monster;
+    private HeroDTO heroDTO;
+    private UserDTO userDTO;
 
     @BeforeMethod
     private void setUp() {
@@ -71,6 +74,21 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
         job.setRequest(request);
         job.setEvaluation(5);
         job.setId(2L);
+
+        userDTO = new UserDTO();
+        userDTO.setId(1L);
+        userDTO.setEmail("pepe@gmail.com");
+        userDTO.setPassword("123456");
+        userDTO.setUserName("Pepe");
+        userDTO.setImage("/images/pepe.jpg");
+
+        heroDTO = new HeroDTO();
+        heroDTO.setId(1L);
+        heroDTO.setUser(userDTO);
+        heroDTO.setName("Superpepe");
+        heroDTO.setImage("/images/super.jpg");
+        heroDTO.setSkills(new HashSet<>());
+
     }
 
     @Test
@@ -96,6 +114,12 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
     @Test
     public void mapToHero() {
         HeroDTO heroDTO = beanMappingService.mapTo(hero, HeroDTO.class);
+        assertEqualsHeroDTOtoEntity(heroDTO, hero);
+    }
+
+    @Test
+    public void mapFromHeroDTOtoHero() {
+        Hero hero = beanMappingService.mapTo(heroDTO, Hero.class);
         assertEqualsHeroDTOtoEntity(heroDTO, hero);
     }
 
