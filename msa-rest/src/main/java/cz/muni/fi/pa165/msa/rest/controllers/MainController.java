@@ -17,6 +17,9 @@ public class MainController {
         Map<String, String> resourceMap = new HashMap<>();
         resourceMap.put("Users", "/users");
         resourceMap.put("Requests", "/requests");
+        resourceMap.put("Monsters", "/monsters");
+        resourceMap.put("Heroes", "/heroes");
+        resourceMap.put("Jobs", "/jobs");
         return Collections.unmodifiableMap(resourceMap);
     }
 }
