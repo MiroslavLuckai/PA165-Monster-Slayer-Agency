@@ -42,7 +42,7 @@ public class RequestController {
         return requestFacade.findById(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/match/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<RequestDTO> matchRequestsToHero(@PathVariable("id") Long id) {
         logger.debug("Find Hero({})", id);
         HeroDTO heroDTO = heroFacade.findHero(id);

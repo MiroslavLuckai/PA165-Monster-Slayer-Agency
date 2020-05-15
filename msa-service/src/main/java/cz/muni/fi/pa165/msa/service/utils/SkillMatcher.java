@@ -30,7 +30,7 @@ public class SkillMatcher {
     private static boolean matchesMonster(Hero hero, Monster monster) {
         Set<Skill> skills = hero.getSkills();
         Set<Resistance> resistances = monster.getResistances();
-        return skills.stream().anyMatch(s -> (matchesSkill(s, resistances)));
+        return resistances.isEmpty() || skills.stream().anyMatch(s -> (matchesSkill(s, resistances)));
     }
 
     private static boolean matchesSkill(Skill skill, Set<Resistance> resistance) {
