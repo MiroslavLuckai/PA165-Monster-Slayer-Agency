@@ -1,5 +1,6 @@
 import React from 'react'
 import 'styles/Navigation.scss'
+import 'styles/ui.scss'
 import {Link} from 'react-router-dom'
 import {EPath} from 'enums/EPath'
 import {IStore} from 'ducks/reducers'
@@ -64,7 +65,7 @@ const Navigation: React.FC<IProps> = (props) => {
                 Jobs
             </Link>
             <Link className={'sign-in-wrapper'} to={EPath.SIGN_IN}>
-                <button className={'sign-in'}>Sign In</button>
+                <button className={'sign-in ui-button'}>Sign In</button>
             </Link>
         </div>
     )
