@@ -28,8 +28,8 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public boolean authenticateUser(UserDTO userDto, String password) {
-        User user = mapper.mapTo(userDto, User.class);
+    public boolean authenticateUser(String email, String password) {
+        User user = service.findUserByEmail(email);
         return service.authenticate(user, password);
     }
 

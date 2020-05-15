@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.msa.rest.controllers;
 
 
+import cz.muni.fi.pa165.msa.dto.UserAuthenticationDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
 import cz.muni.fi.pa165.msa.facade.UserFacade;
 import org.slf4j.Logger;
@@ -46,5 +47,13 @@ public class UserController {
 
         logger.debug("Find user({})", username);
         return userFacade.findUserByUsername(username);
+    }
+
+    @RequestMapping(value = "/authenticate", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final boolean authenticateUser(@RequestBody UserAuthenticationDTO dto) {
+
+        logger.debug("Authenticating user with email: {}", dto.getEmail());
+
+        return userFacade.authenticateUser(dto.getEmail(), dto.getPassword());
     }
 }
