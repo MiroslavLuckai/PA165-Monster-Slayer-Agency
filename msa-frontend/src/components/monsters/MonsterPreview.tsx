@@ -8,9 +8,11 @@ import {fetchMonster} from 'ducks/actions/monsters'
 import {IMonster} from 'types/IMonster'
 import MonsterCard from 'components/monsters/MonsterCard'
 import BaseList from 'components/common/BaseList'
+import SignInPage from 'components/SignInPage'
 
 interface IStateProps {
     monster?: IMonster,
+    isSignedIn: boolean,
 }
 
 interface IDispatchProps {
@@ -23,6 +25,7 @@ interface IProps extends IStateProps, IDispatchProps, RouteComponentProps<{id: s
 const mapStateToProps = (state: IStore) => {
     return {
         monster: state.monsters.currentMonster,
+        isSignedIn: state.auth.isSignedIn,
     }
 }
 
@@ -35,11 +38,23 @@ class MonsterPreview extends React.Component<IProps> {
 
     componentDidMount() {
         this.props.setActiveLayer(ELayer.MONSTER)
-        this.props.fetchMonster(this.props.match.params.id)
+        if (this.props.isSignedIn) {
+            this.props.fetchMonster(this.props.match.params.id)
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.isSignedIn) {
+            this.props.fetchMonster(this.props.match.params.id)
+        }
     }
 
     render() {
-        const {monster} = this.props
+        const {monster, isSignedIn} = this.props
+
+        if (!isSignedIn) {
+            return <SignInPage />
+        }
 
         if (!monster) {
             return null

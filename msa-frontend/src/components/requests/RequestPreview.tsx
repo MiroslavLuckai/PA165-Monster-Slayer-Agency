@@ -8,9 +8,11 @@ import RequestCard from 'components/requests/RequestCard'
 import BaseList from 'components/common/BaseList'
 import {ELayer} from 'enums/ELayer'
 import {fetchRequest} from 'ducks/actions/requests'
+import SignInPage from 'components/SignInPage'
 
 interface IStateProps {
     request?: IRequest,
+    isSignedIn: boolean,
 }
 
 interface IDispatchProps {
@@ -23,6 +25,7 @@ interface IProps extends IStateProps, IDispatchProps, RouteComponentProps<{id: s
 const mapStateToProps = (state: IStore) => {
     return {
         request: state.requests.currentRequest,
+        isSignedIn: state.auth.isSignedIn,
     }
 }
 
@@ -35,11 +38,23 @@ class RequestPreview extends React.Component<IProps> {
 
     componentDidMount() {
         this.props.setActiveLayer(ELayer.REQUEST)
-        this.props.fetchRequest(this.props.match.params.id)
+        if (this.props.isSignedIn) {
+            this.props.fetchRequest(this.props.match.params.id)
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.isSignedIn) {
+            this.props.fetchRequest(this.props.match.params.id)
+        }
     }
 
     render() {
-        const {request} = this.props
+        const {request, isSignedIn} = this.props
+
+        if (!isSignedIn) {
+            return <SignInPage />
+        }
 
         if (!request) {
             return null

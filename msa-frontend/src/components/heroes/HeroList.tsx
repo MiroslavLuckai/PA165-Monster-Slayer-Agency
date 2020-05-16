@@ -7,9 +7,11 @@ import {IHero} from 'types/IHero'
 import HeroCard from 'components/heroes/HeroCard'
 import {ELayer} from 'enums/ELayer'
 import BaseList from 'components/common/BaseList'
+import SignInPage from 'components/SignInPage'
 
 interface IStateProps {
     heroes: IHero[],
+    isSignedIn: boolean,
 }
 
 interface IDispatchProps {
@@ -22,6 +24,7 @@ interface IProps extends IStateProps, IDispatchProps {}
 const mapStateToProps = (state: IStore) => {
     return {
         heroes: state.heroes.heroesList,
+        isSignedIn: state.auth.isSignedIn,
     }
 }
 
@@ -33,13 +36,24 @@ const mapDispatchToProps = {
 class HeroList extends React.Component<IProps> {
 
     componentDidMount() {
-        const {fetchHeroes, setActiveLayer} = this.props
-        setActiveLayer(ELayer.HERO)
-        fetchHeroes()
+        this.props.setActiveLayer(ELayer.HERO)
+        if (this.props.isSignedIn) {
+            this.props.fetchHeroes()
+        }
+    }
+
+    componentDidUpdate(prevProps: IProps) {
+        if (!prevProps.isSignedIn && this.props.isSignedIn) {
+            this.props.fetchHeroes()
+        }
     }
 
     render() {
-        const {heroes} = this.props
+        const {heroes, isSignedIn} = this.props
+
+        if (!isSignedIn) {
+            return <SignInPage />
+        }
 
         return (
             <div className={'scope__HeroList'}>
