@@ -8,6 +8,7 @@ import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import BaseList from 'components/common/BaseList'
 import SignInPage from 'components/SignInPage'
+import RequestFilter from 'components/requests/RequestFilter'
 
 interface IStateProps {
     requests: IRequest[],
@@ -58,6 +59,7 @@ class RequestList extends React.Component<IProps> {
         return (
             <div className={'scope__RequestList'}>
                 <BaseList>
+                    <RequestFilter />
                     {requests.map((request, index) => {
                         return (
                             <div className={'card-wrapper'}>
