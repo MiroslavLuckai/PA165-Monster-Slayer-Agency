@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.msa.facade;
 
+import cz.muni.fi.pa165.msa.dto.AuthenticationResponseDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface UserFacade {
      * @param password entered password
      * @return result of authentication
      */
-    boolean authenticateUser(String email, String password);
+    AuthenticationResponseDTO authenticateUser(String email, String password);
 
     /***
      * Updates user in database.
@@ -29,9 +30,9 @@ public interface UserFacade {
 
     /***
      * Removes user from database.
-     * @param user user to be removed
+     * @param id id of the user to be removed
      */
-    void removeUser(UserDTO user);
+    void removeUser(Long id);
 
     /***
      * Finds user in database by id.
