@@ -1,13 +1,17 @@
 package cz.muni.fi.pa165.msa.rest.controllers;
 
 import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
+import cz.muni.fi.pa165.msa.dto.MonsterCreateDTO;
 import cz.muni.fi.pa165.msa.dto.MonsterDTO;
 import cz.muni.fi.pa165.msa.facade.MonsterFacade;
+import cz.muni.fi.pa165.msa.rest.exceptions.ResourceAlreadyExistsException;
+import cz.muni.fi.pa165.msa.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,6 +63,31 @@ public class MonsterController {
 
         logger.debug("Find monsters({})", size);
         return monsterFacade.findBySize(size);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final MonsterDTO createMonster(@RequestBody MonsterCreateDTO monsterCreateDTO) {
+        logger.debug("rest createMonster()");
+
+        try {
+            Long id = monsterFacade.createMonster(monsterCreateDTO);
+            return monsterFacade.findById(id);
+        } catch (Exception e) {
+            throw new ResourceAlreadyExistsException();
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void removeMonster(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        logger.debug("rest removeMonster(monsterId={})", id);
+
+        try {
+            monsterFacade.removeMonster(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException();
+        }
     }
 
 

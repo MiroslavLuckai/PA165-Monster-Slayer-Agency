@@ -1,14 +1,18 @@
 package cz.muni.fi.pa165.msa.rest.controllers;
 
+import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.dto.RequestDTO;
 import cz.muni.fi.pa165.msa.facade.HeroFacade;
 import cz.muni.fi.pa165.msa.facade.RequestFacade;
+import cz.muni.fi.pa165.msa.rest.exceptions.ResourceAlreadyExistsException;
+import cz.muni.fi.pa165.msa.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,5 +52,30 @@ public class RequestController {
         HeroDTO heroDTO = heroFacade.findHero(id);
         logger.debug("Matching");
         return requestFacade.matchRequestsToHero(heroDTO);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final RequestDTO createRequest(@RequestBody RequestCreateDTO requestCreateDTO) {
+        logger.debug("rest createRequest()");
+
+        try {
+            Long id = requestFacade.createRequest(requestCreateDTO);
+            return requestFacade.findById(id);
+        } catch (Exception e) {
+            throw new ResourceAlreadyExistsException();
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void removeRequest(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        logger.debug("rest removeRequest(requestId={})", id);
+
+        try {
+            requestFacade.removeRequest(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException();
+        }
     }
 }
