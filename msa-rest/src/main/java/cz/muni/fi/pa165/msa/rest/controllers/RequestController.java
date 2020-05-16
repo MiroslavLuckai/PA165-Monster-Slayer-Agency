@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
 import cz.muni.fi.pa165.msa.dto.RequestDTO;
 import cz.muni.fi.pa165.msa.facade.RequestFacade;
 import cz.muni.fi.pa165.msa.rest.exceptions.ResourceAlreadyExistsException;
+import cz.muni.fi.pa165.msa.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,18 @@ public class RequestController {
             return requestFacade.findById(id);
         } catch (Exception e) {
             throw new ResourceAlreadyExistsException();
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void removeRequest(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        logger.debug("rest removeRequest(requestId={})", id);
+
+        try {
+            requestFacade.removeRequest(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException();
         }
     }
 }
