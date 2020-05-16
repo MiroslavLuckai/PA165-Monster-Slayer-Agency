@@ -9,10 +9,13 @@ import {ELayer} from 'enums/ELayer'
 import {setActiveLayer} from 'ducks/actions/common'
 import history from '../../history'
 import {signOut} from 'ducks/actions/auth'
+import ResourceImage from 'components/common/ResourceImage'
+import {IUser} from 'types/IUser'
 
 interface IStateProps {
     layer: ELayer,
     isSignedIn: boolean | null,
+    user?: IUser,
 }
 
 interface IDispatchProps {
@@ -28,6 +31,7 @@ const mapStateToProps = (state: IStore) => {
     return {
         layer: state.common.layer,
         isSignedIn: state.auth.isSignedIn,
+        user: state.auth.user,
     }
 }
 
@@ -38,7 +42,7 @@ const mapDispatchToProps = {
 
 const Navigation: React.FC<IProps> = (props) => {
 
-    const {setActiveLayer, signOut, layer, isSignedIn} = props
+    const {setActiveLayer, signOut, layer, isSignedIn, user} = props
 
     const buttonText = isSignedIn ? 'Sign Out' : 'Sign In'
     const buttonOnClick = isSignedIn ? () => signOut() : () => history.push(EPath.SIGN_IN)
@@ -81,6 +85,12 @@ const Navigation: React.FC<IProps> = (props) => {
                 Jobs
             </Link>
             <div className={'sign-in-wrapper'}>
+                {user &&
+                    <div className={'user'}>
+                        <ResourceImage className={'user__image'} image={user?.image} alt={'user'}/>
+                        <span className={'user__name'}>{user?.userName}</span>
+                    </div>
+                }
                 <button className={'sign-in ui-button'} onClick={buttonOnClick}>{buttonText}</button>
             </div>
         </div>

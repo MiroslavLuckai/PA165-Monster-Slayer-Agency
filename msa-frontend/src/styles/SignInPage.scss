@@ -57,5 +57,13 @@ $input-padding: 10px;
         background-color: #242424;
       }
     }
+
+    &__error {
+      border-radius: 5px;
+      border: 1px solid #f1616a;
+      background-color: #f4858c;
+      padding: 5px 10px;
+      color: #fff;
+    }
   }
 }
