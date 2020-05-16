@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.msa.rest.controllers;
 
-
 import cz.muni.fi.pa165.msa.dto.AuthenticationResponseDTO;
 import cz.muni.fi.pa165.msa.dto.UserAuthenticationDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
@@ -83,4 +82,5 @@ public class UserController {
             throw new ResourceNotFoundException();
         }
     }
+
 }
