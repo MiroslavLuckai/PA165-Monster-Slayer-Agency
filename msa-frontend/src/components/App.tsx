@@ -51,6 +51,7 @@ class App extends React.Component<IProps> {
                         <Route path={`${EPath.MONSTERS}/:id`} exact component={MonsterPreview} />
                         <Route path={`${EPath.REQUESTS}/:id`} exact component={RequestPreview} />
                         <Route path={`${EPath.HEROES}/:id`} exact component={HeroPreview} />
+                        <Route path={`${EPath.MONSTERS}/create`} exact component={MonsterCreate} />
                         <Route path={EPath.CREATE_HERO} exact component={HeroCreate} />
                         <Route path={EPath.DELETE_HERO} exact component={HeroDelete} />
                     </Switch>

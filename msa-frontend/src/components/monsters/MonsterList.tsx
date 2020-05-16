@@ -8,6 +8,10 @@ import {IMonster} from 'types/IMonster'
 import MonsterCard from 'components/monsters/MonsterCard'
 import BaseList from 'components/common/BaseList'
 import SignInPage from 'components/SignInPage'
+import 'styles/ui.scss'
+import 'styles/MonsterList.scss'
+import {EPath} from "../../enums/EPath";
+import history from "../../history";
 
 interface IStateProps {
     monsters: IMonster[],
@@ -53,8 +57,12 @@ class MonsterList extends React.Component<IProps> {
             return <SignInPage />
         }
 
+
+
         return (
             <div className={'scope__MonsterList'}>
+                <button className={'create ui-button ui-button--reverted'}
+                        onClick={() => {history.push(`${EPath.MONSTERS}/create`)}}>Create</button>
                 <BaseList>
                     {this.props.monsters.map((monster, index) => {
                         return (
