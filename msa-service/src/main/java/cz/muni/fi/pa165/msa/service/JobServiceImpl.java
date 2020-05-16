@@ -1,12 +1,17 @@
 package cz.muni.fi.pa165.msa.service;
 
 import cz.muni.fi.pa165.monsterslayeragency.dao.JobDao;
+import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
+import cz.muni.fi.pa165.monsterslayeragency.entities.User;
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.service.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Michaela Bajanova (469166)
@@ -46,5 +51,25 @@ public class JobServiceImpl implements JobService {
     @Override
     public List<Job> findAll() {
         return jobDao.findAll();
+    }
+
+    @Override
+    public List<Job> findJobsBySeverity(JobSeverity severity) {
+        Validator.validate(severity, "Cannot search with null severity!");
+        return jobDao.findJobsBySeverity(severity);
+    }
+
+    @Override
+    public List<Job> findJobsByStatus(JobStatus status) {
+        Validator.validate(status, "Cannot search with null status!");
+        return jobDao.findJobsByStatus(status);
+    }
+
+    @Override
+    public List<Job> findHeroJobs(Hero hero) {
+        List<Job> jobs = jobDao.findAll();
+        return jobs.stream()
+                .filter(job -> job.getHeroes().contains(hero))
+                .collect(Collectors.toList());
     }
 }

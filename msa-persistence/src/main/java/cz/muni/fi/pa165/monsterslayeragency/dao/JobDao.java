@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 
 import java.util.List;
 
@@ -37,6 +39,20 @@ public interface JobDao {
      * @throws IllegalArgumentException when jobId is null
      */
     Job findJobById(Long id) throws IllegalArgumentException;
+
+    /**
+     * Find jobs stored in database with requested severity
+     * @param severity current severity of the job
+     * @return List of jobs with requested severity
+     */
+    public List<Job> findJobsBySeverity(JobSeverity severity);
+
+    /**
+     * Find jobs stored in database with requested status
+     * @param status current status of the job
+     * @return List of jobs with requested status
+     */
+    public List<Job> findJobsByStatus(JobStatus status);
 
     /***
      * Lists all job entities in database.

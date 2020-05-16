@@ -139,6 +139,25 @@ public class JobFacadeImpl implements JobFacade {
         jobService.updateJob(job);
     }
 
+    @Override
+    public List<JobDTO> findJobsBySeverity(JobSeverity severity) {
+        List<Job> jobs = jobService.findJobsBySeverity(severity);
+        return beanMappingService.mapTo(jobs, JobDTO.class);
+    }
+
+    @Override
+    public List<JobDTO> findJobsByStatus(JobStatus status) {
+        List<Job> jobs = jobService.findJobsByStatus(status);
+        return beanMappingService.mapTo(jobs, JobDTO.class);
+    }
+
+    @Override
+    public List<JobDTO> findHeroJobs(Long id) {
+        Hero hero = heroService.findHeroById(id);
+        List<Job> jobs = jobService.findHeroJobs(hero);
+        return beanMappingService.mapTo(jobs, JobDTO.class);
+    }
+
     private void validate(Object object, String message) {
         if (object == null) {
             throw new IllegalArgumentException(message);
