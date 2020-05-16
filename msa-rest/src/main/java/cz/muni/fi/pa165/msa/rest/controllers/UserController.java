@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.msa.rest.controllers;
 import cz.muni.fi.pa165.msa.dto.AuthenticationResponseDTO;
 import cz.muni.fi.pa165.msa.dto.UserAuthenticationDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
+import cz.muni.fi.pa165.msa.dto.UserRegistrationDTO;
 import cz.muni.fi.pa165.msa.facade.UserFacade;
 import cz.muni.fi.pa165.msa.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
@@ -81,6 +82,11 @@ public class UserController {
         } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final UserDTO registerUser(@RequestBody UserRegistrationDTO user) {
+        return userFacade.registerUser(user);
     }
 
 }

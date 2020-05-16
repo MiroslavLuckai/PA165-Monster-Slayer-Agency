@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.msa.service.facade;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
+import cz.muni.fi.pa165.msa.dto.UserRegistrationDTO;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.DummyObjects;
 import cz.muni.fi.pa165.msa.service.UserService;
@@ -55,10 +56,16 @@ public class UserFacadeTest {
     @Test
     public void createUserTest() {
         geralt.setId(1L);
+
         Mockito.when(service.registerUser(geralt, "Password1")).thenReturn(geralt);
         Mockito.when(mapper.mapTo(geraltDTO, User.class)).thenReturn(geralt);
+        Mockito.when(mapper.mapTo(geralt, UserDTO.class)).thenReturn(geraltDTO);
 
-        Assert.assertEquals(facade.registerUser(geraltDTO, "Password1"), geralt.getId());
+        UserRegistrationDTO registrationDTO = new UserRegistrationDTO();
+        registrationDTO.setUser(geraltDTO);
+        registrationDTO.setPassword("Password1");
+
+        Assert.assertEquals(facade.registerUser(registrationDTO), geraltDTO);
     }
 
     @Test

@@ -8,11 +8,11 @@ public class UserDTO {
 
     private String email;
 
-    private String password;
-
     private String userName;
 
     private String image;
+
+    private boolean isAdmin;
 
     public Long getId() {
         return id;
@@ -28,14 +28,6 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getUserName() {
@@ -54,21 +46,29 @@ public class UserDTO {
         this.image = image;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserDTO)) return false;
         UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(getId(), userDTO.getId()) &&
-                Objects.equals(getEmail(), userDTO.getEmail()) &&
-                Objects.equals(getPassword(), userDTO.getPassword()) &&
-                Objects.equals(getUserName(), userDTO.getUserName()) &&
-                Objects.equals(getImage(), userDTO.getImage());
+        return isAdmin == userDTO.isAdmin &&
+                Objects.equals(id, userDTO.id) &&
+                Objects.equals(email, userDTO.email) &&
+                Objects.equals(userName, userDTO.userName) &&
+                Objects.equals(image, userDTO.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEmail(), getPassword(), getUserName(), getImage());
+        return Objects.hash(id, email, userName, image, isAdmin);
     }
 
     @Override
@@ -76,9 +76,9 @@ public class UserDTO {
         return "UserDTO{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", userName='" + userName + '\'' +
                 ", image='" + image + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }

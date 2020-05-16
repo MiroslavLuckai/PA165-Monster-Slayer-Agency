@@ -17,6 +17,7 @@ public class DummyObjects {
         user.setImage("test_image");
         user.setPassword("default");
         user.setUserName("Geralt");
+        user.setAdmin(false);
         return user;
     }
 
@@ -24,8 +25,8 @@ public class DummyObjects {
         UserDTO user = new UserDTO();
         user.setEmail("default@mail.com");
         user.setImage("test_image");
-        user.setPassword("default");
         user.setUserName("Geralt");
+        user.setAdmin(false);
         return user;
     }
 
@@ -35,6 +36,7 @@ public class DummyObjects {
         user.setImage("image");
         user.setUserName("Peter");
         user.setPassword("password");
+        user.setAdmin(true);
         return user;
     }
     public static UserDTO getUserDTODummy2() {
@@ -42,7 +44,7 @@ public class DummyObjects {
         user.setEmail("normal@mail.com");
         user.setImage("image");
         user.setUserName("Peter");
-        user.setPassword("password");
+        user.setAdmin(true);
         return user;
     }
 

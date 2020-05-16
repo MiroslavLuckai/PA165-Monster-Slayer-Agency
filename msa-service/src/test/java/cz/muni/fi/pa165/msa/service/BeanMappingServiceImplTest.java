@@ -78,7 +78,6 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
         userDTO = new UserDTO();
         userDTO.setId(1L);
         userDTO.setEmail("pepe@gmail.com");
-        userDTO.setPassword("123456");
         userDTO.setUserName("Pepe");
         userDTO.setImage("/images/pepe.jpg");
 
@@ -108,6 +107,7 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
         Request request = beanMappingService.mapTo(requestCreateDTO, Request.class);
         Request dummyRequest = DummyObjects.getRequestDummy1();
         dummyRequest.setId(null);
+        dummyRequest.getCustomer().setPassword(null);
         Assert.assertEquals(request, dummyRequest);
     }
 
@@ -166,7 +166,6 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
 
     private void assertEqualsUserDTOtoEntity(UserDTO userDTO, User user) {
         Assert.assertEquals(userDTO.getEmail(), user.getEmail());
-        Assert.assertEquals(userDTO.getPassword(), user.getPassword());
         Assert.assertEquals(userDTO.getImage(), user.getImage());
         Assert.assertEquals(userDTO.getUserName(), user.getUserName());
         Assert.assertEquals(userDTO.getId(), user.getId());

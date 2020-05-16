@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.msa.facade;
 
 import cz.muni.fi.pa165.msa.dto.AuthenticationResponseDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
+import cz.muni.fi.pa165.msa.dto.UserRegistrationDTO;
 
 import java.util.List;
 
@@ -9,10 +10,10 @@ public interface UserFacade {
 
     /**
      * Creates new User in database
-     * @param user user to be created
-     * @return id of the newly created User
+     * @param registrationDTO user to be created and password for account
+     * @return newly created User
      */
-    Long registerUser(UserDTO user, String password);
+    UserDTO registerUser(UserRegistrationDTO registrationDTO);
 
     /**
      * Compare saved user credentials with one entered

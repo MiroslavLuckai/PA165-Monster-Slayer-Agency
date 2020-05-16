@@ -45,12 +45,14 @@ public class UserDaoTests extends AbstractTestNGSpringContextTests{
         user1.setImage("test_image");
         user1.setPassword("default");
         user1.setUserName("Geralt");
+        user1.setAdmin(false);
 
         user2 = new User();
         user2.setEmail("normal@mail.com");
         user2.setImage("image");
         user2.setUserName("Peter");
         user2.setPassword("password");
+        user2.setAdmin(true);
     }
 
     @Test

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.msa.service.facade;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import cz.muni.fi.pa165.msa.dto.AuthenticationResponseDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
+import cz.muni.fi.pa165.msa.dto.UserRegistrationDTO;
 import cz.muni.fi.pa165.msa.facade.UserFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.UserService;
@@ -22,10 +23,9 @@ public class UserFacadeImpl implements UserFacade {
     BeanMappingService mapper;
 
     @Override
-    public Long registerUser(UserDTO userDto, String password) {
-        User user = mapper.mapTo(userDto, User.class);
-        service.registerUser(user, password);
-        return user.getId();
+    public UserDTO registerUser(UserRegistrationDTO registrationDTO) {
+        User user = mapper.mapTo(registrationDTO.getUser(), User.class);
+        return mapper.mapTo(service.registerUser(user, registrationDTO.getPassword()), UserDTO.class);
     }
 
     @Override
