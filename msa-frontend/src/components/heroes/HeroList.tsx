@@ -42,8 +42,8 @@ class HeroList extends React.Component<IProps> {
         }
     }
 
-    componentDidUpdate() {
-        if (this.props.isSignedIn) {
+    componentDidUpdate(prevProps: IProps) {
+        if (!prevProps.isSignedIn && this.props.isSignedIn) {
             this.props.fetchHeroes()
         }
     }
