@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.msa.dto.MonsterCreateDTO;
 import cz.muni.fi.pa165.msa.dto.MonsterDTO;
 import cz.muni.fi.pa165.msa.facade.MonsterFacade;
 import cz.muni.fi.pa165.msa.rest.exceptions.ResourceAlreadyExistsException;
+import cz.muni.fi.pa165.msa.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,18 @@ public class MonsterController {
             return monsterFacade.findById(id);
         } catch (Exception e) {
             throw new ResourceAlreadyExistsException();
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void removeMonster(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        logger.debug("rest removeMonster(monsterId={})", id);
+
+        try {
+            monsterFacade.removeMonster(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException();
         }
     }
 
