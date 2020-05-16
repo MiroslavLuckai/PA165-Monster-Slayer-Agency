@@ -6,17 +6,31 @@ import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import {EPath} from 'enums/EPath'
 import history from '../history'
+import {ICredentials} from 'types/ICredentials'
+import {areCredentialsValid} from 'utils/auth'
+import {IStore} from 'ducks/reducers'
+
+interface IStateProps {
+    isAuthenticated: boolean | null,
+}
 
 interface IDispatchProps {
-    signIn: typeof signIn,
+    signIn: any,
     setActiveLayer: typeof setActiveLayer,
 }
 
-interface IProps extends IDispatchProps {}
+interface IProps extends IStateProps, IDispatchProps {}
 
 interface IState {
     emailInputValue: string,
     passwordInputValue: string,
+    isErrorDisplayed: boolean,
+}
+
+const mapStateToProps = (state: IStore) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+    }
 }
 
 const mapDispatchToProps = {
@@ -29,14 +43,27 @@ class SignInPage extends React.Component<IProps, IState> {
     state: IState = {
         emailInputValue: '',
         passwordInputValue: '',
+        isErrorDisplayed: false,
     }
 
     componentDidMount() {
         setActiveLayer(ELayer.HOME)
     }
 
+    componentDidUpdate(prevProps: IProps, prevState: IState) {
+        const {isAuthenticated} = this.props
+
+        if (isAuthenticated) {
+            history.push(EPath.HOME)
+        } else if (!isAuthenticated && isAuthenticated !== null && !prevState.isErrorDisplayed) {
+            this.setState({
+                isErrorDisplayed: true,
+            })
+        }
+    }
+
     render() {
-        const {emailInputValue, passwordInputValue} = this.state
+        const {emailInputValue, passwordInputValue, isErrorDisplayed} = this.state
 
         return (
             <div className={'scope__SignInPage'}>
@@ -56,6 +83,7 @@ class SignInPage extends React.Component<IProps, IState> {
                         type={'password'}
                         placeholder={'Password'}
                     />
+                    {isErrorDisplayed && <div className={'sign-in-form__error'}>Invalid email or password.</div>}
                     <div className={'sign-in-form__confirm-wrapper'}>
                         <button className={'sign-in-form__confirm'} onClick={this.signInUser}>Sign In</button>
                     </div>
@@ -79,11 +107,22 @@ class SignInPage extends React.Component<IProps, IState> {
     private signInUser = (event: any) => {
         event.preventDefault()
 
-        // const email = this.state.emailInputValue
-        // const password = this.state.passwordInputValue
+        const credentials: ICredentials = {
+            email: this.state.emailInputValue,
+            password: this.state.passwordInputValue,
+        }
 
-        this.props.signIn()
+        if (areCredentialsValid(credentials)) {
+            this.setState({
+                isErrorDisplayed: false,
+            })
+            this.props.signIn(credentials)
+        } else {
+            this.setState({
+                isErrorDisplayed: true,
+            })
+        }
     }
 }
 
-export default connect(null, mapDispatchToProps)(SignInPage)
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage)

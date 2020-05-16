@@ -24,3 +24,4 @@ export const HIDE_ERROR_NOTIFICATION = 'HIDE_ERROR_NOTIFICATION'
 // auth
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_OUT = 'SIGN_OUT'
+export const SET_IS_AUTHENTICATED = 'SET_IS_AUTHENTICATED'
