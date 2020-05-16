@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.msa.service.facade;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
+import cz.muni.fi.pa165.msa.dto.AuthenticationResponseDTO;
 import cz.muni.fi.pa165.msa.dto.UserDTO;
 import cz.muni.fi.pa165.msa.facade.UserFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
@@ -28,9 +29,16 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public boolean authenticateUser(UserDTO userDto, String password) {
-        User user = mapper.mapTo(userDto, User.class);
-        return service.authenticate(user, password);
+    public AuthenticationResponseDTO authenticateUser(String email, String password) {
+        User user = service.findUserByEmail(email);
+        AuthenticationResponseDTO response = new AuthenticationResponseDTO();
+        response.setSuccess(service.authenticate(user, password));
+        if (response.isSuccess()) {
+            response.setUser(mapper.mapTo(user, UserDTO.class));
+            return response;
+        }
+        response.setUser(null);
+        return response;
     }
 
     @Override
@@ -40,8 +48,8 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public void removeUser(UserDTO userDto) {
-        User user = mapper.mapTo(userDto, User.class);
+    public void removeUser(Long userId) {
+        User user = service.findUserById(userId);
         service.removeUser(user);
     }
 

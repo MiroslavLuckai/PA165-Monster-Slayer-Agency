@@ -71,17 +71,17 @@ public class UserFacadeTest {
 
     @Test
     public void removeUserTest() {
-        Mockito.when(mapper.mapTo(geraltDTO, User.class)).thenReturn(geralt);
+        Mockito.when(service.findUserById(1L)).thenReturn(geralt);
 
-        facade.removeUser(geraltDTO);
+        facade.removeUser(1L);
         Mockito.verify(service, Mockito.times(1)).removeUser(geralt);
     }
 
     @Test
     public void authenticateUserTest() {
-        Mockito.when(mapper.mapTo(geraltDTO, User.class)).thenReturn(geralt);
+        Mockito.when(service.findUserByEmail("default@mail.com")).thenReturn(geralt);
 
-        facade.authenticateUser(geraltDTO, "Password1");
+        facade.authenticateUser("default@mail.com", "Password1");
         Mockito.verify(service, Mockito.times(1)).authenticate(geralt, "Password1");
     }
 
