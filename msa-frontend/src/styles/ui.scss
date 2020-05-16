@@ -15,6 +15,20 @@
   &:active {
     background-color: #242424;
   }
+
+  &--reverted {
+    background-color: #fff;
+    border: 1px solid #383838;
+    color: #383838;
+
+    &:hover {
+      background-color: #f7f7f7;
+    }
+
+    &:active {
+      background-color: #f0f0f0;
+    }
+  }
 }
 
 .ui-badge {

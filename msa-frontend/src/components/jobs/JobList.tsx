@@ -8,6 +8,7 @@ import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import JobCard from 'components/jobs/JobCard'
 import SignInPage from 'components/SignInPage'
+import JobFilter from 'components/jobs/JobFilter'
 
 interface IStateProps {
     jobs: IJob[],
@@ -57,6 +58,7 @@ class JobList extends React.Component<IProps> {
         return (
             <div className={'scope__JobList'}>
                 <BaseList>
+                    <JobFilter />
                     {this.props.jobs.map((job, index) => {
                         return (
                             <div className={'card-wrapper'}>

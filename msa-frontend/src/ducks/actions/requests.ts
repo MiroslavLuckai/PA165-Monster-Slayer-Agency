@@ -1,6 +1,7 @@
-import {FETCH_REQUEST, FETCH_REQUESTS} from 'ducks/actions/types'
+import {FETCH_RECOMMENDED_REQUESTS, FETCH_REQUEST, FETCH_REQUESTS, SET_REQUEST_FILTER} from 'ducks/actions/types'
 import axios from 'axios'
 import {showErrorNotification} from 'ducks/actions/common'
+import {ERequestFilter} from 'enums/ERequestFilter'
 
 export const fetchRequests = () => async (dispatch: any) => {
     axios.get('http://localhost:8080/pa165/rest/requests')
@@ -28,4 +29,25 @@ export const fetchRequest = (id: string) => async (dispatch: any) => {
             console.error(error)
             dispatch(showErrorNotification())
         })
+}
+
+export const fetchRecommendedRequests = (heroId: string) => async (dispatch: any) => {
+    axios.get(`http://localhost:8080/pa165/rest/requests/match/${heroId}`)
+        .then((response) => {
+            dispatch({
+                type: FETCH_RECOMMENDED_REQUESTS,
+                payload: response.data,
+            })
+        })
+        .catch((error) => {
+            console.error(error)
+            dispatch(showErrorNotification())
+        })
+}
+
+export const setRequestFilter = (filter: ERequestFilter) => {
+    return {
+        type: SET_REQUEST_FILTER,
+        payload: filter,
+    }
 }
