@@ -1,0 +1,20 @@
+.scope__BaseCard {
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 15px 20px;
+  box-shadow: 5px 5px 20px 0 #081D1E;
+
+  .top {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+
+  .body {
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+  }
+}

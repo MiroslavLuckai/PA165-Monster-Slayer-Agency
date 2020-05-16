@@ -2,23 +2,53 @@ import React from 'react'
 import 'styles/App.scss'
 import {Router, Route, Switch} from 'react-router-dom'
 import history from '../history'
-import Navigation from 'components/Navigation'
-import HeroList from 'components/HeroList'
-import JobList from 'components/JobList'
-import RequestList from 'components/RequestList'
+import Navigation from 'components/common/Navigation'
+import HeroList from 'components/heroes/HeroList'
+import JobList from 'components/jobs/JobList'
+import RequestList from 'components/requests/RequestList'
 import Home from 'components/Home'
+import SignInPage from 'components/SignInPage'
+import ErrorNotification from 'components/common/ErrorNotification'
+import {connect} from 'react-redux'
+import {IStore} from 'ducks/reducers'
+import {EPath} from 'enums/EPath'
+import MonsterList from 'components/monsters/MonsterList'
+import MonsterPreview from 'components/monsters/MonsterPreview'
+import RequestPreview from 'components/requests/RequestPreview'
+import HeroPreview from 'components/heroes/HeroPreview'
 
-class App extends React.Component {
+interface IStateProps {
+    isErrorDisplayed: boolean,
+}
+
+interface IProps extends IStateProps {}
+
+const mapStateToProps = (state: IStore) => {
+    return {
+        isErrorDisplayed: state.common.isErrorDisplayed,
+    }
+}
+
+class App extends React.Component<IProps> {
+
     render() {
+        const {isErrorDisplayed} = this.props
+
         return (
             <div className={''}>
                 <Router history={history}>
                     <Navigation />
+                    {isErrorDisplayed && <ErrorNotification />}
                     <Switch>
-                        <Route path={'/'} exact component={Home} />
-                        <Route path={'/heroes'} exact component={HeroList} />
-                        <Route path={'/requests'} exact component={RequestList} />
-                        <Route path={'/jobs'} exact component={JobList} />
+                        <Route path={EPath.HOME} exact component={Home} />
+                        <Route path={EPath.SIGN_IN} exact component={SignInPage} />
+                        <Route path={EPath.HEROES} exact component={HeroList} />
+                        <Route path={EPath.MONSTERS} exact component={MonsterList} />
+                        <Route path={EPath.REQUESTS} exact component={RequestList} />
+                        <Route path={EPath.JOBS} exact component={JobList} />
+                        <Route path={`${EPath.MONSTERS}/:id`} exact component={MonsterPreview} />
+                        <Route path={`${EPath.REQUESTS}/:id`} exact component={RequestPreview} />
+                        <Route path={`${EPath.HEROES}/:id`} exact component={HeroPreview} />
                     </Switch>
                 </Router>
             </div>
@@ -26,4 +56,4 @@ class App extends React.Component {
     }
 }
 
-export default App
+export default connect(mapStateToProps)(App)

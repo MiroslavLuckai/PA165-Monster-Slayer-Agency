@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.msa.facade;
 
-import cz.muni.fi.pa165.msa.dto.MonsterDTO;
-import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
-import cz.muni.fi.pa165.msa.dto.RequestDTO;
-import cz.muni.fi.pa165.msa.dto.UserDTO;
+import cz.muni.fi.pa165.msa.dto.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -74,4 +71,10 @@ public interface RequestFacade {
      */
     void changeAward(RequestDTO request, BigDecimal award);
 
+    /**
+     * Compares hero to all requests and returns compatible requests
+     * @param hero - DTO of the hero to be compared
+     * @return true if hero matches the requiered skillset for the request
+     */
+    List<RequestDTO> matchRequestsToHero(HeroDTO hero);
 }

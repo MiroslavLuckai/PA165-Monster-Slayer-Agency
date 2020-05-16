@@ -1,21 +1,22 @@
 package cz.muni.fi.pa165.msa.service.facade;
 
+import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Monster;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
 import cz.muni.fi.pa165.monsterslayeragency.entities.User;
-import cz.muni.fi.pa165.msa.dto.MonsterDTO;
-import cz.muni.fi.pa165.msa.dto.RequestCreateDTO;
-import cz.muni.fi.pa165.msa.dto.RequestDTO;
-import cz.muni.fi.pa165.msa.dto.UserDTO;
+import cz.muni.fi.pa165.msa.dto.*;
 import cz.muni.fi.pa165.msa.facade.RequestFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.RequestService;
+import cz.muni.fi.pa165.msa.service.utils.SkillMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -84,6 +85,16 @@ public class RequestFacadeImpl implements RequestFacade {
     public void changeAward(RequestDTO request, BigDecimal award) {
         Request mappedRequest = beanMappingService.mapTo(request, Request.class);
         requestService.changeAward(mappedRequest, award);
+    }
+
+    @Override
+    public List<RequestDTO> matchRequestsToHero(HeroDTO hero) {
+        Hero mappedHero = beanMappingService.mapTo(hero, Hero.class);
+        List<Request> requests = requestService.findAll();
+        List<Request> matched = requests.stream()
+                .filter(request -> (SkillMatcher.matchesRequest(mappedHero, request)))
+                .collect(Collectors.toList());
+        return beanMappingService.mapTo(matched, RequestDTO.class);
     }
 
 }

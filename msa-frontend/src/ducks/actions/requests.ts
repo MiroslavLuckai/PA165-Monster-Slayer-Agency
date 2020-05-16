@@ -1,12 +1,12 @@
-import {FETCH_HERO, FETCH_HEROES} from 'ducks/actions/types'
+import {FETCH_REQUEST, FETCH_REQUESTS} from 'ducks/actions/types'
 import axios from 'axios'
 import {showErrorNotification} from 'ducks/actions/common'
 
-export const fetchHeroes = () => async (dispatch: any) => {
-    axios.get('http://localhost:8080/pa165/rest/heroes')
+export const fetchRequests = () => async (dispatch: any) => {
+    axios.get('http://localhost:8080/pa165/rest/requests')
         .then((response) => {
             dispatch({
-                type: FETCH_HEROES,
+                type: FETCH_REQUESTS,
                 payload: response.data,
             })
         })
@@ -16,11 +16,11 @@ export const fetchHeroes = () => async (dispatch: any) => {
         })
 }
 
-export const fetchHero = (id: string) => async (dispatch: any) => {
-    axios.get(`http://localhost:8080/pa165/rest/heroes/${id}`)
+export const fetchRequest = (id: string) => async (dispatch: any) => {
+    axios.get(`http://localhost:8080/pa165/rest/requests/${id}`)
         .then((response) => {
             dispatch({
-                type: FETCH_HERO,
+                type: FETCH_REQUEST,
                 payload: response.data,
             })
         })
