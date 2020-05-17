@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.msa.facade;
 
-import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
@@ -20,7 +19,15 @@ public interface JobFacade {
      * @return id of the new job
      * @throws IllegalArgumentException when jobDto is null
      */
-    Long createJob(JobCreateDTO jobDto) throws IllegalArgumentException;
+    JobDTO createJob(JobCreateDTO jobDto) throws IllegalArgumentException;
+
+    /**
+     * Create job with request which is already stored in database
+     * @param jobDTO job to be created
+     * @param requestId request which should created job be linked with
+     * @return
+     */
+    JobDTO createJobFromRequest(JobCreateDTO jobDTO, Long requestId);
 
     /**
      * Updates job.
@@ -86,4 +93,10 @@ public interface JobFacade {
      * @param severity severity to be set to the job.
      */
     void changeJobSeverity(JobDTO jobDto, JobSeverity severity);
+
+    List<JobDTO> findJobsBySeverity(JobSeverity severity);
+
+    List<JobDTO> findJobsByStatus(JobStatus status);
+
+    List<JobDTO> findHeroJobs(Long id);
 }

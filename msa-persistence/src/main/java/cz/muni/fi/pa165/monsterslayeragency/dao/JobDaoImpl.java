@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -43,6 +45,22 @@ public class JobDaoImpl implements JobDao {
     @Override
     public List<Job> findAll() {
         return em.createQuery("select job from Job job", Job.class).getResultList();
+    }
+
+    @Override
+    public List<Job> findJobsBySeverity(JobSeverity severity) {
+        validate(severity, "Cannot search with null severity!");
+        return em.createQuery("SELECT job FROM Job job WHERE job.severity = :severity", Job.class)
+                .setParameter("severity", severity)
+                .getResultList();
+    }
+
+    @Override
+    public List<Job> findJobsByStatus(JobStatus status) {
+        validate(status, "Cannot search with null status!");
+        return em.createQuery("SELECT job FROM Job job WHERE job.status = :status", Job.class)
+                .setParameter("status", status)
+                .getResultList();
     }
 
     private void validate(Object object, String message) throws IllegalArgumentException {

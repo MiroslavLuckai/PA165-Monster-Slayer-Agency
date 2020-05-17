@@ -77,11 +77,12 @@ public class JobFacadeTest {
     public void testCreateJob() {
         when(jobService.createJob(job)).thenReturn(job);
         when(beanMappingService.mapTo(jobCreateDTO, Job.class)).thenReturn(job);
+        when(beanMappingService.mapTo(job, JobDTO.class)).thenReturn(jobDTO);
 
-        Long id = jobFacade.createJob(jobCreateDTO);
+        JobDTO createdJob = jobFacade.createJob(jobCreateDTO);
 
         verify(jobService, times(1)).createJob(job);
-        assertThat(id).isEqualTo(job.getId());
+        assertThat(createdJob.getId()).isEqualTo(job.getId());
     }
 
     @Test
