@@ -6,7 +6,7 @@ import cz.muni.fi.pa165.msa.RootWebContext;
 import cz.muni.fi.pa165.msa.dto.MonsterCreateDTO;
 import cz.muni.fi.pa165.msa.dto.MonsterDTO;
 import cz.muni.fi.pa165.msa.facade.MonsterFacade;
-import cz.muni.fi.pa165.msa.rest.DummyObjects;
+import cz.muni.fi.pa165.msa.rest.Utils;
 import cz.muni.fi.pa165.msa.rest.exceptions.ResourceNotFoundException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -59,18 +59,18 @@ public class MonsterControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/monsters"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.[?(@.id==1)].location").value("Novigrad"))
-                .andExpect(jsonPath("$.[?(@.id==2)].location").value("Velen"));
+                .andExpect(jsonPath("$.[?(@.id==1)].name").value("Beast Monster"))
+                .andExpect(jsonPath("$.[?(@.id==2)].name").value("Hybrid Monster"));
     }
 
     @Test
     public void getMonsterById() throws Exception {
-        Mockito.doReturn(DummyObjects.getMonsterDTODummy1()).when(facade).findById(1L);
+        Mockito.doReturn(Utils.getMonsterDTODummy1()).when(facade).findById(1L);
 
         mockMvc.perform(get("/monsters/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.[?(@.id==1)].location").value("Novigrad"));
+                .andExpect(jsonPath("$.[?(@.id==1)].name").value("Beast Monster"));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class MonsterControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void createMonster() throws Exception {
-        MonsterDTO monster = DummyObjects.getMonsterDTODummy1();
+        MonsterDTO monster = Utils.getMonsterDTODummy1();
 
         Mockito.doReturn(1L).when(facade).createMonster(
                 any(MonsterCreateDTO.class));
@@ -114,7 +114,7 @@ public class MonsterControllerTest extends AbstractTestNGSpringContextTests {
 
 
     private List<MonsterDTO> createMonsters() {
-        return Arrays.asList(DummyObjects.getMonsterDTODummy1(), DummyObjects.getMonsterDTODummy2());
+        return Arrays.asList(Utils.getMonsterDTODummy1(), Utils.getMonsterDTODummy2());
     }
 
     private static String convertObjectToJsonBytes(Object object)
