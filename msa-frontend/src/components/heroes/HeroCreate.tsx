@@ -54,7 +54,7 @@ class HeroCreate extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-        setActiveLayer(ELayer.REQUEST)
+        setActiveLayer(ELayer.HERO)
     }
 
     render() {
