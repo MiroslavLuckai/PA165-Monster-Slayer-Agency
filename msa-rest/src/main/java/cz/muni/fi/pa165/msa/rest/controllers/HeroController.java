@@ -23,12 +23,23 @@ public class HeroController {
     @Autowired
     HeroFacade heroFacade;
 
+    /**
+     * List all heroes stored in database
+     * curl -i -X GET http://localhost:8080/pa165/rest/heroes
+     * @return List of all heroes stored in database
+     */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<HeroDTO> getAllHeroes() {
         logger.debug("Get all heroes");
         return heroFacade.findAllHeroes();
     }
 
+    /**
+     * Get Hero according his Id
+     * curl -i -X GET http://localhost:8080/pa165/rest/requests/{id}
+     * @param id id of the hero we are looking for
+     * @return Hero with requested id, in case there is no here with this id, exception is thrown
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public HeroDTO getHeroById(@PathVariable("id") Long id) {
         logger.debug("Find hero with id: \"{}\"", id);
@@ -39,6 +50,12 @@ public class HeroController {
         return hero;
     }
 
+    /**
+     * Get hero according his name
+     * curl -i -X GET http://localhost:8080/pa165/rest/requests/name/{name}
+     * @param name name of the hero we are looking for
+     * @return Hero with requested name, in case there is no hero with this name, exception is thrown
+     */
     @RequestMapping(value = "name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public HeroDTO getHeroByName(@PathVariable("name") String name) {
         logger.debug("Find hero with name: \"{}\"", name);
@@ -49,6 +66,12 @@ public class HeroController {
         return hero;
     }
 
+    /**
+     * Get hero according his user's is
+     * curl -i -X GET http://localhost:8080/pa165/rest/heroes/user/{id}
+     * @param id id of the underlying user
+     * @return Hero of the user with requested id, in case there is no hero with this name, exception is thrown
+     */
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public HeroDTO getHeroByUserId(@PathVariable("id") Long id) {
         logger.debug("Find hero with user id: \"{}\"", id);
@@ -59,6 +82,11 @@ public class HeroController {
         return hero;
     }
 
+    /**
+     * Remove hero with requested id
+     * curl -i -X DELETE http://localhost:8080/pa165/rest/requests/{id}
+     * @param id id of the hero we want to remove
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void removeHero(@PathVariable("id") Long id) {
         try {
@@ -69,6 +97,11 @@ public class HeroController {
         }
     }
 
+    /**
+     * Create new hero
+     * @param dto heroDTO which should be added to database
+     * @return Newly created hero
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public HeroDTO createHero(@RequestBody HeroDTO dto) {
@@ -76,6 +109,12 @@ public class HeroController {
         return heroFacade.createHero(dto);
     }
 
+    /**
+     * Update hero in database
+     * @param id id of the hero we want to updated
+     * @param dto new version of the hero instance
+     * @return Hero with changes
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public HeroDTO updateHero(@PathVariable("id") Long id, @RequestBody HeroDTO dto) {
