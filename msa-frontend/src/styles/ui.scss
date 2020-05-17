@@ -81,3 +81,40 @@ $input-padding: 10px;
     border: 1px solid #727272;
   }
 }
+
+.ui-dropdown-button {
+  background-color: #383838;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+
+  .arrow {
+    margin-left: 10px;
+  }
+
+  &:hover {
+    background-color: #2e2e2e;
+  }
+
+  &:active {
+    background-color: #242424;
+  }
+
+  &--reverted {
+    background-color: #fff;
+    border: 1px solid #383838;
+    color: #383838;
+
+    &:hover {
+      background-color: #f7f7f7;
+    }
+
+    &:active {
+      background-color: #f0f0f0;
+    }
+  }
+}

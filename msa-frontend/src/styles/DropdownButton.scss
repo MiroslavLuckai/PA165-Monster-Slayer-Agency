@@ -1,0 +1,39 @@
+.scope__DropdownButton {
+  display: inline;
+  margin-left: 10px;
+  position: relative;
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-left: -100px;
+    background-color: #fafafa;
+    list-style: none;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    &--open {
+      display: block;
+    }
+
+    &__item {
+      padding: 10px 20px;
+      color: #535353;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+
+    &__item:not(:last-child) {
+      padding: 10px 20px;
+      border-bottom: 1px solid #dcdcdc;
+      color: #535353;
+    }
+  }
+}
