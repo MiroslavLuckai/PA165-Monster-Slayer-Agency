@@ -1,16 +1,14 @@
 import React from "react";
-import {setActiveLayer} from "../../ducks/actions/common";
-import {EResistance} from "../../enums/EResistance";
-
-export const CheckBox = props => {
-    return (
-        <li>
-            <input key={props.id} onClick={props.handleCheckChieldElement} type="checkbox" checked={props.isChecked} value={props.value} /> {props.value}
-        </li>
-    )
-}
-
-export default CheckBox
+import 'styles/MonsterCreate.scss'
+import 'styles/ui.scss'
+import {EMonsterType} from 'enums/EMonsterType'
+import {EMonsterFood} from 'enums/EMonsterFood'
+import {setActiveLayer} from 'ducks/actions/common'
+import {EResistance} from 'enums/EResistance'
+import {ELayer} from 'enums/ELayer'
+import {connect} from 'react-redux'
+import {getDisplayText} from 'utils/common'
+import produce from 'immer'
 
 interface IDispatchProps {
     setActiveLayer: typeof setActiveLayer,
@@ -21,66 +19,103 @@ interface IProps extends IDispatchProps {}
 interface IState {
     nameInputValue: string,
     sizeInputValue: string,
-    typeInputValue: string,
-    resistancesInputValue: any,
-    foodInputValue: string,
-    imageInputValue: string
+    resistances: EResistance[],
+    monsterType: EMonsterType | null,
+    imageInputValue: string,
+    food: EMonsterFood | null,
 }
 
 const mapDispatchToProps = {
     setActiveLayer,
 }
 
-class MonsterPreview extends React.Component<IProps, IState> {
+class MonsterCreate extends React.Component<IProps, IState> {
 
     state: IState = {
         nameInputValue: '',
         sizeInputValue: '',
-        typeInputValue: string,
-        resistancesInputValue: [
-            {id: 1, value: EResistance.FIRE, isChecked: false},
-            {id: 2, value: EResistance.ICE, isChecked: false},
-            {id: 3, value: EResistance.WATER, isChecked: false},
-            {id: 5, value: EResistance.WIND, isChecked: false},
-            {id: 6, value: EResistance.LIGHTNING, isChecked: false},
-            {id: 7, value: EResistance.ROCK, isChecked: false},
-            {id: 8, value: EResistance.DARK, isChecked: false},
-            {id: 9, value: EResistance.PSYCHIC, isChecked: false},
-            {id: 10, value: EResistance.GHOST, isChecked: false},
-            {id: 11, value: EResistance.GRASS, isChecked: false},
-            {id: 12, value: EResistance.POISON, isChecked: false},
-            {id: 13, value: EResistance.BLEEDING, isChecked: false}
-        ],
-        foodInputValue: string,
-        imageInputValue: ''
+        resistances: [] as EResistance[],
+        monsterType: null,
+        imageInputValue: '',
+        food: null,
+    }
+
+    componentDidMount() {
+        setActiveLayer(ELayer.MONSTER)
     }
 
     render() {
-        const {emailInputValue, passwordInputValue} = this.state
+        const {nameInputValue, sizeInputValue, resistances, monsterType, imageInputValue, food} = this.state
 
         return (
-            <div className={'scope__SignInPage'}>
-                <form className={'sign-in-form'}>
-                    <h2 className={'sign-in-form__title'}>Welcome</h2>
+            <div className={'scope__MonsterCreate'}>
+                <form className={'create-monster-form'}>
+                    <h2 className={'create-monster-form__title'}>Add a new monster</h2>
                     <input
-                        className={'sign-in-form__email-input'}
-                        value={emailInputValue}
-                        onChange={this.onEmailInputValueChange}
+                        className={'ui-input'}
                         type={'text'}
-                        placeholder={'Email'}
+                        value={nameInputValue}
+                        onChange={this.onNameInputValueChange}
+                        placeholder={'Name'}
                     />
                     <input
-                        className={'sign-in-form__password-input'}
-                        value={passwordInputValue}
-                        onChange={this.onPasswordInputValueChange}
-                        type={'password'}
-                        placeholder={'Password'}
+                        className={'ui-input'}
+                        type={'number'}
+                        value={sizeInputValue ? Number(sizeInputValue) : ''}
+                        onChange={this.onSizeInputValue}
+                        placeholder={'Size'}
                     />
-                    <div className={'sign-in-form__confirm-wrapper'}>
-                        <button className={'sign-in-form__confirm'} onClick={this.signInUser}>Sign In</button>
+                    <h3 className={'create-monster-form__resistances-title'}>Select resistances:</h3>
+                    <div className={'resistances'}>
+                        {Object.values(EResistance).map((resistance, index) => {
+                            return (
+                                <span className={'resistance'}>
+                                    <input
+                                        id={resistance}
+                                        type={'checkbox'}
+                                        value={resistance}
+                                        key={index}
+                                        checked={resistances.includes(resistance)}
+                                        onChange={this.onResistanceCheckboxChange}
+                                    />
+                                    <label htmlFor={resistance}>{getDisplayText(resistance)}</label>
+                                </span>
+                            )
+                        })}
+                    </div>
+                    <div className={'create-monster-form__confirm-wrapper'}>
+                        <button className={'create-monster-form__confirm'} onClick={() => console.log('create hero')}>Submit</button>
                     </div>
                 </form>
             </div>
         )
     }
+
+    private onNameInputValueChange = (event: any) => {
+        this.setState({
+            nameInputValue: event.target.value,
+        })
+    }
+
+    private onSizeInputValue = (event: any) => {
+        this.setState({
+            sizeInputValue: event.target.value,
+        })
+    }
+
+    private onResistanceCheckboxChange = (event: any) => {
+        const targetValue = event.target.value as string
+        const targetResistance = EResistance[targetValue as EResistance]
+
+        this.setState(produce(this.state, draftState => {
+            if (draftState.resistances.includes(targetResistance)) {
+                const index = draftState.resistances.findIndex(resistance => resistance === targetResistance)
+                draftState.resistances = [...draftState.resistances.slice(0, index), ...draftState.resistances.slice(index + 1, draftState.resistances.length)]
+            } else {
+                draftState.resistances = [...draftState.resistances, targetResistance]
+            }
+        }))
+    }
 }
+
+export default connect(null, mapDispatchToProps)(MonsterCreate)
