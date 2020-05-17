@@ -4,7 +4,7 @@ import {EJobStatus} from 'enums/EJobStatus'
 import {EJobSeverity} from 'enums/EJobSeverity'
 
 export interface IJob {
-    id: string,
+    id?: string,
     request: IRequest,
     heroes: IHero[],
     evaluation: number,

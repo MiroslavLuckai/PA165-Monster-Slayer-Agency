@@ -44,6 +44,18 @@
       color: #625200;
     }
   }
+
+  &--green {
+    background-color: #4BB462;
+
+    &:hover {
+      background-color: #3fa958;
+    }
+
+    &:active {
+      background-color: #339f4f;
+    }
+  }
 }
 
 .ui-badge {
@@ -59,11 +71,11 @@
 }
 
 .bg-warning {
- background-color: #FC9A40;
+  background-color: #FC9A40;
 }
 
 .bg-error {
- background-color: #E20338;
+  background-color: #E20338;
 }
 
 $input-padding: 10px;

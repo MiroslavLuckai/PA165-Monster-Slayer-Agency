@@ -1,5 +1,5 @@
 import {IUser} from 'types/IUser'
-import {SET_IS_AUTHENTICATED, SIGN_IN, SIGN_OUT} from 'ducks/actions/types'
+import {SET_IS_AUTHENTICATED, SET_USER, SIGN_IN, SIGN_OUT} from 'ducks/actions/types'
 import produce from 'immer'
 
 export interface IAuthState {
@@ -34,6 +34,12 @@ const setIsAuthenticated = (state: IAuthState, isAuthenticated: boolean) => {
     })
 }
 
+const setUser = (state: IAuthState, user: IUser) => {
+    return produce(state, draft => {
+        draft.user = user
+    })
+}
+
 export default (state: IAuthState = initialState, action: any) => {
     const {type, payload} = action
 
@@ -44,6 +50,8 @@ export default (state: IAuthState = initialState, action: any) => {
             return signOut(state)
         case SET_IS_AUTHENTICATED:
             return setIsAuthenticated(state, payload)
+        case SET_USER:
+            return setUser(state, payload)
         default:
             return state
     }

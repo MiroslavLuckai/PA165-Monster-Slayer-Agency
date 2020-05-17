@@ -2,7 +2,7 @@ import React from 'react'
 import 'styles/HeroCreate.scss'
 import 'styles/ui.scss'
 import {connect} from 'react-redux'
-import {signIn} from 'ducks/actions/auth'
+import {setUser, signIn} from 'ducks/actions/auth'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import {EPath} from 'enums/EPath'
@@ -23,6 +23,7 @@ interface IStateProps {
 
 interface IDispatchProps {
     setActiveLayer: typeof setActiveLayer,
+    setUser: typeof setUser,
 }
 
 interface IProps extends IStateProps, IDispatchProps {}
@@ -42,6 +43,7 @@ const mapStateToProps = (state: IStore) => {
 const mapDispatchToProps = {
     signIn,
     setActiveLayer,
+    setUser,
 }
 
 class HeroCreate extends React.Component<IProps, IState> {
@@ -124,7 +126,15 @@ class HeroCreate extends React.Component<IProps, IState> {
             image: user!.image,
         }
 
-        await createHero(hero).then(() => {history.push(EPath.HEROES)})
+        createHero(hero).then((response) => {
+            if (response.success) {
+                history.push(EPath.HEROES)
+                this.props.setUser({
+                    ...this.props.user!,
+                    hero: true,
+                })
+            }
+        })
     }
 }
 

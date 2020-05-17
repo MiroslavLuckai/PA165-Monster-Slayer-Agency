@@ -2,7 +2,7 @@ import React from 'react'
 import 'styles/HeroDelete.scss'
 import 'styles/ui.scss'
 import {connect} from 'react-redux'
-import {signIn} from 'ducks/actions/auth'
+import {setUser, signIn} from 'ducks/actions/auth'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import {EPath} from 'enums/EPath'
@@ -22,6 +22,7 @@ interface IStateProps {
 
 interface IDispatchProps {
     setActiveLayer: typeof setActiveLayer,
+    setUser: typeof setUser,
 }
 
 interface IProps extends IStateProps, IDispatchProps {}
@@ -39,8 +40,8 @@ const mapStateToProps = (state: IStore) => {
 }
 
 const mapDispatchToProps = {
-    signIn,
     setActiveLayer,
+    setUser,
 }
 
 class HeroDelete extends React.Component<IProps, IState> {
@@ -96,6 +97,10 @@ class HeroDelete extends React.Component<IProps, IState> {
             const {id} = hero
             const deleteResponse = await deleteHero(id)
             if (deleteResponse.success) {
+                this.props.setUser({
+                    ...this.props.user!,
+                    hero: false,
+                })
                 history.push(EPath.HEROES)
             }
         }
