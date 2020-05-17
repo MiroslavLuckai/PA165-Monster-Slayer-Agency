@@ -14,6 +14,8 @@ public class UserDTO {
 
     private boolean isAdmin;
 
+    private boolean isHero;
+
     public Long getId() {
         return id;
     }
@@ -54,12 +56,21 @@ public class UserDTO {
         isAdmin = admin;
     }
 
+    public boolean isHero() {
+        return isHero;
+    }
+
+    public void setHero(boolean hero) {
+        isHero = hero;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserDTO)) return false;
         UserDTO userDTO = (UserDTO) o;
         return isAdmin == userDTO.isAdmin &&
+                isHero == userDTO.isHero &&
                 Objects.equals(id, userDTO.id) &&
                 Objects.equals(email, userDTO.email) &&
                 Objects.equals(userName, userDTO.userName) &&
@@ -68,7 +79,7 @@ public class UserDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, userName, image, isAdmin);
+        return Objects.hash(id, email, userName, image, isAdmin, isHero);
     }
 
     @Override
@@ -79,6 +90,7 @@ public class UserDTO {
                 ", userName='" + userName + '\'' +
                 ", image='" + image + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", isHero=" + isHero +
                 '}';
     }
 }

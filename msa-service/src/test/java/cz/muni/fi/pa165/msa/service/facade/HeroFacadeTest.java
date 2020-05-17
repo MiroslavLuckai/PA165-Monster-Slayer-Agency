@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.DummyObjects;
 import cz.muni.fi.pa165.msa.service.HeroService;
+import cz.muni.fi.pa165.msa.service.UserService;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -26,6 +27,9 @@ public class HeroFacadeTest {
 
     @Mock
     private HeroService service;
+
+    @Mock
+    private UserService userService;
 
     @Mock
     private BeanMappingService mapper;
@@ -54,6 +58,8 @@ public class HeroFacadeTest {
         geralt.setId(1L);
         Mockito.when(service.createHero(geralt)).thenReturn(geralt);
         Mockito.when(mapper.mapTo(geraltDTO, Hero.class)).thenReturn(geralt);
+        Mockito.when(mapper.mapTo(geralt, HeroDTO.class)).thenReturn(geraltDTO);
+        Mockito.when(userService.findUserById(geralt.getUser().getId())).thenReturn(geralt.getUser());
 
         Assert.assertEquals(facade.createHero(geraltDTO), geraltDTO);
         Mockito.verify(service, Mockito.times(1)).createHero(geralt);

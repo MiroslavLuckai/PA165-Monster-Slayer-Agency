@@ -37,14 +37,14 @@ public class SampleDataLoaderImpl implements SampleDataLoader {
     private MonsterService monsterService;
 
     public void populates() throws IOException {
-        User geraltUser =  createUser("geralt@gmail.com", "Geralt of Rivia", "geralt.png", false);
-        User yennefer = createUser("yen@gmail.com", "Yennefer of Vengerberg", "yennefer.jpg", false);
-        User miro = createUser("miroslav.luckai@gmail.com", "Miro Luckai", "miro.jpg", true);
-        User miska = createUser("michaela.bajanova@gmail.com", "Miska Bajanova", "miska.jpg", true);
-        User ludo = createUser("ludovit.kopcsanyi@gmail.com", "Ludo Kopcsanyi", "ludo.jpg", true);
-        User filip = createUser("filip.fedin@gmail.com", "Filip Fedin", "filip.jpg", true);
-        User redBaron = createUser("red.baron@gmail.com", "Red Baron", "redBaron.jpg", false);
-        User kingRadovid = createUser("radovid@gmail.com", "King Radovid V", "radovid.png", false);
+        User geraltUser =  createUser("geralt@gmail.com", "Geralt of Rivia", "geralt.png", false, true);
+        User yennefer = createUser("yen@gmail.com", "Yennefer of Vengerberg", "yennefer.jpg", false, true);
+        User miro = createUser("miroslav.luckai@gmail.com", "Miro Luckai", "miro.jpg", true, true);
+        User miska = createUser("michaela.bajanova@gmail.com", "Miska Bajanova", "miska.jpg", true, true);
+        User ludo = createUser("ludovit.kopcsanyi@gmail.com", "Ludo Kopcsanyi", "ludo.jpg", true, true);
+        User filip = createUser("filip.fedin@gmail.com", "Filip Fedin", "filip.jpg", true, true);
+        User redBaron = createUser("red.baron@gmail.com", "Red Baron", "redBaron.jpg", false, false);
+        User kingRadovid = createUser("radovid@gmail.com", "King Radovid V", "radovid.png", false, false);
         logger.info("Users table populated.");
 
         Monster drowner = createMonster("Drowner", 6, MonsterType.NECROPHAGE, "drowner.jpg", Food.CORPSE, Set.of(Resistance.BLEEDING, Resistance.POISON));
@@ -100,12 +100,13 @@ public class SampleDataLoaderImpl implements SampleDataLoader {
         return hero;
     }
 
-    private User createUser(String email, String name, String image, boolean admin) {
+    private User createUser(String email, String name, String image, boolean admin, boolean hero) {
         User user = new User();
         user.setEmail(email);
         user.setImage(image);
         user.setUserName(name);
         user.setAdmin(admin);
+        user.setHero(hero);
 
         userService.registerUser(user, "Password1");
 

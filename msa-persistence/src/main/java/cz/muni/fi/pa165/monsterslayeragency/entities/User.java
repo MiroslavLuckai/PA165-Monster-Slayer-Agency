@@ -25,6 +25,9 @@ public class User extends AbstractEntity{
     @Column(name = "is_admin")
     private boolean isAdmin;
 
+    @Column(name = "is_hero")
+	private boolean isHero;
+
 	public User() {
 	}
 
@@ -84,6 +87,14 @@ public class User extends AbstractEntity{
 		isAdmin = admin;
 	}
 
+	public boolean isHero() {
+		return isHero;
+	}
+
+	public void setHero(boolean hero) {
+		isHero = hero;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -94,11 +105,12 @@ public class User extends AbstractEntity{
 				Objects.equals(getPassword(), user.getPassword()) &&
 				Objects.equals(getUserName(), user.getUserName()) &&
 				Objects.equals(getImage(), user.getImage()) &&
-				Objects.equals(isAdmin(), user.isAdmin());
+				Objects.equals(isAdmin(), user.isAdmin()) &&
+				Objects.equals(isHero(), user.isHero());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId(), getEmail(), getPassword(), getUserName(), getImage(), isAdmin());
+		return Objects.hash(getId(), getEmail(), getPassword(), getUserName(), getImage(), isAdmin(), isHero());
 	}
 }

@@ -46,6 +46,7 @@ public class UserDaoTests extends AbstractTestNGSpringContextTests{
         user1.setPassword("default");
         user1.setUserName("Geralt");
         user1.setAdmin(false);
+        user1.setHero(true);
 
         user2 = new User();
         user2.setEmail("normal@mail.com");
@@ -53,6 +54,7 @@ public class UserDaoTests extends AbstractTestNGSpringContextTests{
         user2.setUserName("Peter");
         user2.setPassword("password");
         user2.setAdmin(true);
+        user2.setAdmin(false);
     }
 
     @Test
