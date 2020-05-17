@@ -29,3 +29,19 @@ export const deleteMonster = async (monsterId: string): Promise<IResponse> => {
             }
         })
 }
+
+export const findMonsterByName = async (name: string): Promise<IResponse> => {
+    return await axios.get(`http://localhost:8080/pa165/rest/monsters/name/${name}`)
+        .then((response) => {
+            return {
+                success: true,
+                data: response.data,
+            }
+        })
+        .catch((error) => {
+            return {
+                success: false,
+                error: error.message,
+            }
+        })
+}

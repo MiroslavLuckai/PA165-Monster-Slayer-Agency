@@ -1,0 +1,78 @@
+$input-padding: 10px;
+
+.scope__RequestCreate {
+  width: 100%;
+  height: 100vh;
+
+  .create-request-form {
+    width: 35%;
+    background-color: #fff;
+    border-radius: 8px;
+    margin: 10% auto;
+    box-shadow: 5px 5px 20px 0 #081D1E;
+    padding: 20px;
+    border-top: 7px solid #FFD600;
+
+    &__title {
+      font-size: 18px;
+      text-align: center;
+      margin: 0;
+    }
+
+    .monster {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 10px;
+
+      label {
+        white-space:nowrap;
+      }
+
+      .label {
+        margin-left: 5px;
+      }
+    }
+
+    .severity-wrapper {
+      width: 80%;
+    }
+
+    .severity {
+      align-items: center;
+      margin-right: 10px;
+
+      label {
+        white-space:nowrap;
+      }
+
+      .label {
+        margin-left: 5px;
+      }
+    }
+
+    &__confirm-wrapper {
+      width: 100%;
+      margin: 20px auto 0;
+      text-align: center;
+    }
+
+    &__confirm {
+      background-color: #383838;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      outline: none;
+
+      &:hover {
+        background-color: #2e2e2e;
+      }
+
+      &:active {
+        background-color: #242424;
+      }
+    }
+  }
+}
