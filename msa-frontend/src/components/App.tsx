@@ -16,6 +16,7 @@ import MonsterPreview from 'components/monsters/MonsterPreview'
 import RequestPreview from 'components/requests/RequestPreview'
 import HeroPreview from 'components/heroes/HeroPreview'
 import Home from 'components/Home'
+import HeroCreate from 'components/heroes/HeroCreate'
 
 interface IStateProps {
     isErrorDisplayed: boolean,
@@ -49,6 +50,7 @@ class App extends React.Component<IProps> {
                         <Route path={`${EPath.MONSTERS}/:id`} exact component={MonsterPreview} />
                         <Route path={`${EPath.REQUESTS}/:id`} exact component={RequestPreview} />
                         <Route path={`${EPath.HEROES}/:id`} exact component={HeroPreview} />
+                        <Route path={EPath.CREATE_HERO} exact component={HeroCreate} />
                     </Switch>
                 </Router>
             </div>

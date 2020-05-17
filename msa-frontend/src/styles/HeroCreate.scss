@@ -1,10 +1,10 @@
 $input-padding: 10px;
 
-.scope__SignInPage {
+.scope__HeroCreate {
   width: 100%;
   height: 100vh;
 
-  .sign-in-form {
+  .create-hero-form {
     width: 35%;
     background-color: #fff;
     border-radius: 8px;
@@ -19,9 +19,19 @@ $input-padding: 10px;
       margin: 0;
     }
 
+    .skill {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 10px;
+
+      label {
+        margin-left: 5px;
+      }
+    }
+
     &__confirm-wrapper {
       width: 100%;
-      margin: 10px auto 0;
+      margin: 20px auto 0;
       text-align: center;
     }
 
@@ -42,14 +52,6 @@ $input-padding: 10px;
       &:active {
         background-color: #242424;
       }
-    }
-
-    &__error {
-      border-radius: 5px;
-      border: 1px solid #f1616a;
-      background-color: #f4858c;
-      padding: 5px 10px;
-      color: #fff;
     }
   }
 }
