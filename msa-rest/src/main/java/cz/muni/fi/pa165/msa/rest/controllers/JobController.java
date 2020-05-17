@@ -38,7 +38,11 @@ public class JobController {
     public final JobDTO getJobById(@PathVariable("id") Long id) {
 
         logger.debug("Find jobs({})", id);
-        return jobFacade.findById(id);
+        JobDTO job = jobFacade.findById(id);
+        if (job == null) {
+            throw new ResourceNotFoundException();
+        }
+        return job;
     }
 
     @RequestMapping(value = "/status/{status}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
