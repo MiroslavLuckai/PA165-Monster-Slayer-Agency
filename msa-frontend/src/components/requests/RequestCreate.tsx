@@ -7,7 +7,6 @@ import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
 import {EPath} from 'enums/EPath'
 import history from '../../history'
-import {ESkill} from 'enums/ESkill'
 import {getDisplayText} from 'utils/common'
 import produce from 'immer'
 import {createRequest} from 'api/request'
@@ -61,7 +60,7 @@ class RequestCreate extends React.Component<IProps, IState> {
     }
 
     render() {
-        const {locationInputValue, awardInputValue} = this.state
+        const {locationInputValue, awardInputValue, monstersInput} = this.state
 
         if (!this.props.isSignedIn) {
             return <SignInPage />
@@ -95,7 +94,7 @@ class RequestCreate extends React.Component<IProps, IState> {
 
     private createRequest = async (event: any) => {
         event.preventDefault()
-        const {locationInputValue, awardInputValue} = this.state
+        const {locationInputValue, awardInputValue, monstersInput} = this.state
         const {user} = this.props
 
         const request: IRequest = {
