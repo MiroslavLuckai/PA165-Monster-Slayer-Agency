@@ -1,5 +1,6 @@
 import React from 'react'
 import 'styles/SignInPage.scss'
+import 'styles/ui.scss'
 import {connect} from 'react-redux'
 import {signIn} from 'ducks/actions/auth'
 import {setActiveLayer} from 'ducks/actions/common'
@@ -70,14 +71,14 @@ class SignInPage extends React.Component<IProps, IState> {
                 <form className={'sign-in-form'}>
                     <h2 className={'sign-in-form__title'}>Welcome</h2>
                     <input
-                        className={'sign-in-form__email-input'}
+                        className={'sign-in-form__email-input ui-input'}
                         value={emailInputValue}
                         onChange={this.onEmailInputValueChange}
                         type={'text'}
                         placeholder={'Email'}
                     />
                     <input
-                        className={'sign-in-form__password-input'}
+                        className={'sign-in-form__password-input ui-input'}
                         value={passwordInputValue}
                         onChange={this.onPasswordInputValueChange}
                         type={'password'}

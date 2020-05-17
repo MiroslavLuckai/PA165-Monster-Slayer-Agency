@@ -1,4 +1,6 @@
 import React from 'react'
+import 'styles/HeroList.scss'
+import 'styles/ui.scss'
 import {connect} from 'react-redux'
 import {IStore} from 'ducks/reducers'
 import {fetchHeroes} from 'ducks/actions/heroes'
@@ -8,6 +10,8 @@ import HeroCard from 'components/heroes/HeroCard'
 import {ELayer} from 'enums/ELayer'
 import BaseList from 'components/common/BaseList'
 import SignInPage from 'components/SignInPage'
+import history from '../../history'
+import {EPath} from 'enums/EPath'
 
 interface IStateProps {
     heroes: IHero[],
@@ -57,6 +61,12 @@ class HeroList extends React.Component<IProps> {
 
         return (
             <div className={'scope__HeroList'}>
+                <button
+                    className={'create ui-button ui-button--yellow'}
+                    onClick={() => history.push(EPath.CREATE_HERO)}
+                >
+                    Become a Hero
+                </button>
                 <BaseList>
                     {heroes.map((hero, index) => {
                         return (

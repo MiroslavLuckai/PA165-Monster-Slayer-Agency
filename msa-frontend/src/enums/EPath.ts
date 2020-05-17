@@ -5,4 +5,5 @@ export enum EPath {
     MONSTERS = '/monsters',
     REQUESTS = '/requests',
     JOBS = '/jobs',
+    CREATE_HERO = '/create-hero',
 }

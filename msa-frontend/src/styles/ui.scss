@@ -29,6 +29,21 @@
       background-color: #f0f0f0;
     }
   }
+
+  &--yellow {
+    background-color: #FFD600;
+    color: #897300;
+
+    &:hover {
+      background-color: #ebc600;
+      color: #766300;
+    }
+
+    &:active {
+      background-color: #d8b500;
+      color: #625200;
+    }
+  }
 }
 
 .ui-badge {
@@ -49,4 +64,20 @@
 
 .bg-error {
  background-color: #E20338;
+}
+
+$input-padding: 10px;
+
+.ui-input {
+  border-radius: 5px;
+  outline: none;
+  padding: $input-padding;
+  border: 1px solid #b7b7b7;
+  width: calc(100% - 2*#{$input-padding}); // 100% - 2*padding
+  margin: 20px auto 5px;
+  font-size: 12px;
+
+  &:focus {
+    border: 1px solid #727272;
+  }
 }
