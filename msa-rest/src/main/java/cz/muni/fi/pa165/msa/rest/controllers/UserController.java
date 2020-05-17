@@ -23,6 +23,11 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
+    /**
+     * Get list of users stored in database
+     * curl -i -X GET http://localhost:8080/pa165/rest/users
+     * @return list of users stored in database
+     */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<UserDTO> getUsers() {
         try {
@@ -33,36 +38,58 @@ public class UserController {
         }
     }
 
+    /**
+     * Get user by his id
+     * curl -i -X GET http://localhost:8080/pa165/rest/users/{id}
+     * @param id id of the user we are looking for
+     * @return UserDTO we are looking for, exception if user with given id does not exist
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final UserDTO getUserById(@PathVariable("id") Long id) {
-        try {
-            logger.debug("Find user({})", id);
-            return userFacade.findUserById(id);
-        } catch (Exception ex) {
+        logger.debug("Find user({})", id);
+        UserDTO user = userFacade.findUserById(id);
+        if (user == null) {
             throw new ResourceNotFoundException();
         }
+        return user;
     }
 
+    /**
+     * Get user by his email
+     * @param email email of the user we are looking for
+     * @return UserDTO we are looking for, exception is thrown if user with given email does not exist
+     */
     @RequestMapping(value = "/email/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final UserDTO getUserByEmail(@PathVariable("email") String email) {
-        try {
-            logger.debug("Find user({})", email);
-            return userFacade.findUserByEmail(email);
-        } catch (Exception ex) {
+
+        logger.debug("Find user({})", email);
+        UserDTO user = userFacade.findUserByEmail(email);
+        if (user == null) {
             throw new ResourceNotFoundException();
         }
+        return user;
     }
 
+    /**
+     * Get user by his username
+     * @param username username of the user we are looking for
+     * @return UserDTO of the user we are looking for, exception if user with given username does not exist
+     */
     @RequestMapping(value = "/username/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final UserDTO getUserByUsername(@PathVariable("username") String username) {
-        try {
-            logger.debug("Find user({})", username);
-            return userFacade.findUserByUsername(username);
-        } catch (Exception ex) {
+        logger.debug("Find user({})", username);
+        UserDTO user = userFacade.findUserByUsername(username);
+        if (user == null) {
             throw new ResourceNotFoundException();
         }
+        return user;
     }
 
+    /**
+     * Authenticate user
+     * @param dto AuthenticationDTO containing email and password of the user who want to be authenticated
+     * @return Object of the User and information if auth succeeded, null if it did not
+     */
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final AuthenticationResponseDTO authenticateUser(@RequestBody UserAuthenticationDTO dto) {
         try {
@@ -73,6 +100,10 @@ public class UserController {
         }
     }
 
+    /**
+     * Remove user from database
+     * @param id id of the user we want to remove
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public final void removeUser(@PathVariable Long id) {
         try {
@@ -84,6 +115,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Register new user into application
+     * @param user user we are registering and his password
+     * @return newly created user
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final UserDTO registerUser(@RequestBody UserRegistrationDTO user) {
         return userFacade.registerUser(user);
