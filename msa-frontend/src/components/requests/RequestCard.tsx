@@ -94,7 +94,7 @@ class RequestCard extends React.Component<IProps> {
 
     private renderClaimButton = () => {
         const {id} = this.props.request
-        const isClaimed = this.getIsClaimed(id)
+        const isClaimed = this.getIsClaimed(id!)
 
         return (
             <div className={'claim-button-wrapper'}>
@@ -202,10 +202,10 @@ class RequestCard extends React.Component<IProps> {
             heroes: [hero],
             evaluation: 0,
             status: EJobStatus.ASSIGNED,
-            severity: EJobSeverity.MODERATE,
+            severity: request.severity,
         }
 
-        const response = await createJob(request.id, job)
+        const response = await createJob(request.id!, job)
         if (response.success) {
             this.props.fetchJobs()
         }

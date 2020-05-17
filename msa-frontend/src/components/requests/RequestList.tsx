@@ -1,4 +1,5 @@
 import React from 'react'
+import 'styles/RequestList.scss'
 import {connect} from 'react-redux'
 import {IStore} from 'ducks/reducers'
 import {fetchRequests} from 'ducks/actions/requests'
@@ -64,7 +65,7 @@ class RequestList extends React.Component<IProps> {
                     className={'create ui-button ui-button--yellow'}
                     onClick={() => history.push(EPath.CREATE_REQUEST)}
                 >
-                    Create a quest request
+                    Create a Request
                 </button>
                 <BaseList>
                     <RequestFilter />

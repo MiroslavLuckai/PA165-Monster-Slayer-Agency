@@ -19,6 +19,37 @@ $input-padding: 10px;
       margin: 0;
     }
 
+    .monster {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 10px;
+
+      label {
+        white-space:nowrap;
+      }
+
+      .label {
+        margin-left: 5px;
+      }
+    }
+
+    .severity-wrapper {
+      width: 80%;
+    }
+
+    .severity {
+      align-items: center;
+      margin-right: 10px;
+
+      label {
+        white-space:nowrap;
+      }
+
+      .label {
+        margin-left: 5px;
+      }
+    }
+
     &__confirm-wrapper {
       width: 100%;
       margin: 20px auto 0;
