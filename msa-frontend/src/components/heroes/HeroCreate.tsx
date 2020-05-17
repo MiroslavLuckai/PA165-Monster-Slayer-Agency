@@ -74,16 +74,16 @@ class HeroCreate extends React.Component<IProps, IState> {
                         {Object.values(ESkill).map((skill, index) => {
                             return (
                                 <span className={'skill'}>
-                                <input
-                                    id={skill}
-                                    type={'checkbox'}
-                                    value={skill}
-                                    key={index}
-                                    checked={skills.includes(skill)}
-                                    onChange={this.onSkillCheckboxChange}
-                                />
-                                <label htmlFor={skill}>{getDisplayText(skill)}</label>
-                            </span>
+                                    <input
+                                        id={skill}
+                                        type={'checkbox'}
+                                        value={skill}
+                                        key={index}
+                                        checked={skills.includes(skill)}
+                                        onChange={this.onSkillCheckboxChange}
+                                    />
+                                    <label htmlFor={skill}>{getDisplayText(skill)}</label>
+                                </span>
                             )
                         })}
                     </div>

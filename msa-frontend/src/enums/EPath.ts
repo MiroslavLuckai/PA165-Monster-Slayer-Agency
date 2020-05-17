@@ -7,4 +7,6 @@ export enum EPath {
     JOBS = '/jobs',
     CREATE_HERO = '/create-hero',
     DELETE_HERO = '/delete-hero',
+    CREATE_MONSTER = '/create-monster',
+    DELETE_MONSTER = '/delete-monster',
 }

@@ -5,6 +5,7 @@ export const FETCH_HERO = 'FETCH_HERO'
 // monsters
 export const FETCH_MONSTERS = 'FETCH_MONSTERS'
 export const FETCH_MONSTER = 'FETCH_MONSTER'
+export const SET_MONSTER = 'SET_MONSTER'
 
 // requests
 export const FETCH_REQUESTS = 'FETCH_REQUESTS'

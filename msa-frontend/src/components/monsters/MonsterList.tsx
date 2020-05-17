@@ -1,4 +1,5 @@
 import React from 'react'
+import 'styles/MonsterList.scss'
 import {connect} from 'react-redux'
 import {setActiveLayer} from 'ducks/actions/common'
 import {ELayer} from 'enums/ELayer'
@@ -8,6 +9,8 @@ import {IMonster} from 'types/IMonster'
 import MonsterCard from 'components/monsters/MonsterCard'
 import BaseList from 'components/common/BaseList'
 import SignInPage from 'components/SignInPage'
+import history from '../../history'
+import {EPath} from 'enums/EPath'
 
 interface IStateProps {
     monsters: IMonster[],
@@ -55,6 +58,12 @@ class MonsterList extends React.Component<IProps> {
 
         return (
             <div className={'scope__MonsterList'}>
+                <button
+                    className={'create ui-button ui-button--yellow'}
+                    onClick={() => history.push(EPath.CREATE_MONSTER)}
+                >
+                    New monster
+                </button>
                 <BaseList>
                     {this.props.monsters.map((monster, index) => {
                         return (

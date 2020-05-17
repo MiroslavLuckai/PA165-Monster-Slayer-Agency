@@ -87,6 +87,7 @@ const Navigation: React.FC<IProps> = (props) => {
             <div className={'sign-in-wrapper'}>
                 {user &&
                     <div className={'user'}>
+                        {user.admin && <div className={'ui-badge bg-confirm admin'}>Admin</div>}
                         <ResourceImage className={'user__image'} image={user?.image} alt={'user'}/>
                         <span className={'user__name'}>{user?.userName}</span>
                     </div>

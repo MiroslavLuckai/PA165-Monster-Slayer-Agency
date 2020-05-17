@@ -1,5 +1,6 @@
 import React from 'react'
 import 'styles/MonsterCard.scss'
+import 'styles/ui.scss'
 import {IMonster} from 'types/IMonster'
 import BasicInfoWrapper from 'components/common/BasicInfoWrapper'
 import ResourceImage from 'components/common/ResourceImage'
@@ -7,20 +8,64 @@ import BaseCard from 'components/common/BaseCard'
 import Icon from 'components/common/Icon'
 import {EIcon, EIconStyle} from 'enums/EIcon'
 import {getDisplayText} from 'utils/common'
+import {IUser} from 'types/IUser'
+import {IStore} from 'ducks/reducers'
+import {connect} from 'react-redux'
+import {fetchMonsters, setMonster} from 'ducks/actions/monsters'
+import history from '../../history'
+import {EPath} from 'enums/EPath'
 
-interface IProps {
+interface IStateProps {
+    user?: IUser,
+}
+
+interface IDispatchProps {
+    fetchMonsters: any,
+    setMonster: typeof setMonster,
+}
+
+interface IOwnProps {
     monster: IMonster,
+}
+
+interface IProps extends IStateProps, IDispatchProps, IOwnProps {}
+
+const mapStateToProps = (state: IStore) => {
+    return {
+        user: state.auth.user,
+    }
+}
+
+const mapDispatchToProps = {
+    fetchMonsters,
+    setMonster,
 }
 
 const MonsterCard: React.FC<IProps> = (props) => {
 
     const {name, size, resistances, monsterType, image, food} = props.monster
 
+    const onDeleteClick = () => {
+        props.setMonster(props.monster)
+        history.push(EPath.DELETE_MONSTER)
+    }
+
     const renderCardTop = () => {
         return (
             <>
-                <ResourceImage className={'profile-picture'} image={image} alt={'monster'}/>
+                {image.includes('http')
+                    ? <img className={'profile-picture'} src={image} alt={'monster'} />
+                    : <ResourceImage className={'profile-picture'} image={image} alt={'monster'}/>
+                }
                 <span className={'name'}>{name}</span>
+                {props.user!.admin &&
+                    <button
+                        className={'delete ui-button ui-button--reverted'}
+                        onClick={onDeleteClick}
+                    >
+                        Delete
+                    </button>
+                }
             </>
         )
     }
@@ -78,4 +123,4 @@ const MonsterCard: React.FC<IProps> = (props) => {
     )
 }
 
-export default MonsterCard
+export default connect(mapStateToProps, mapDispatchToProps)(MonsterCard)

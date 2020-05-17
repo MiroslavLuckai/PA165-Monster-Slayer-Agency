@@ -1,4 +1,4 @@
-import {FETCH_MONSTER, FETCH_MONSTERS} from 'ducks/actions/types'
+import {FETCH_MONSTER, FETCH_MONSTERS, SET_MONSTER} from 'ducks/actions/types'
 import produce from 'immer'
 import {IMonster} from 'types/IMonster'
 
@@ -30,6 +30,8 @@ export default (state: IMonstersState = initialState, action: any) => {
         case FETCH_MONSTERS:
             return fetchMonsters(state, payload)
         case FETCH_MONSTER:
+            return fetchMonster(state, payload)
+        case SET_MONSTER:
             return fetchMonster(state, payload)
         default:
             return state
