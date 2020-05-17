@@ -9,4 +9,5 @@ export enum EPath {
     DELETE_HERO = '/delete-hero',
     CREATE_MONSTER = '/create-monster',
     DELETE_MONSTER = '/delete-monster',
+    CREATE_REQUEST = '/create-request',
 }

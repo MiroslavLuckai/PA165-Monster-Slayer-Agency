@@ -9,6 +9,8 @@ import {ELayer} from 'enums/ELayer'
 import BaseList from 'components/common/BaseList'
 import SignInPage from 'components/SignInPage'
 import RequestFilter from 'components/requests/RequestFilter'
+import history from "../../history";
+import {EPath} from "../../enums/EPath";
 
 interface IStateProps {
     requests: IRequest[],
@@ -58,6 +60,12 @@ class RequestList extends React.Component<IProps> {
 
         return (
             <div className={'scope__RequestList'}>
+                <button
+                    className={'create ui-button ui-button--yellow'}
+                    onClick={() => history.push(EPath.CREATE_REQUEST)}
+                >
+                    Create a quest request
+                </button>
                 <BaseList>
                     <RequestFilter />
                     {requests.map((request, index) => {
