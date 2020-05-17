@@ -3,7 +3,7 @@ import {EMonsterType} from 'enums/EMonsterType'
 import {EMonsterFood} from 'enums/EMonsterFood'
 
 export interface IMonster {
-    id: string,
+    id?: string,
     name: string,
     size: number,
     resistances: EResistance[],
