@@ -2,6 +2,7 @@ import {FETCH_RECOMMENDED_REQUESTS, FETCH_REQUEST, FETCH_REQUESTS, SET_REQUEST_F
 import axios from 'axios'
 import {showErrorNotification} from 'ducks/actions/common'
 import {ERequestFilter} from 'enums/ERequestFilter'
+import {IRequest} from 'types/IRequest'
 
 export const fetchRequests = () => async (dispatch: any) => {
     axios.get('http://localhost:8080/pa165/rest/requests')
@@ -49,5 +50,12 @@ export const setRequestFilter = (filter: ERequestFilter) => {
     return {
         type: SET_REQUEST_FILTER,
         payload: filter,
+    }
+}
+
+export const setRequest = (request: IRequest) => {
+    return {
+        type: FETCH_REQUEST,
+        payload: request,
     }
 }

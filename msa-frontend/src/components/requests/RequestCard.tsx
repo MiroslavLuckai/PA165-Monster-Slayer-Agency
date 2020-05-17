@@ -20,6 +20,8 @@ import {IUser} from 'types/IUser'
 import {EJobStatus} from 'enums/EJobStatus'
 import {EJobSeverity} from 'enums/EJobSeverity'
 import {getHeroByUserId} from 'utils/hero'
+import history from '../../history'
+import {setRequest} from 'ducks/actions/requests'
 
 interface IStateProps {
     jobs: IJob[],
@@ -28,6 +30,7 @@ interface IStateProps {
 
 interface IDispatchProps {
     fetchJobs: any,
+    setRequest: typeof setRequest,
 }
 
 interface IOwnProps {
@@ -45,6 +48,7 @@ const mapStateToProps = (state: IStore) => {
 
 const mapDispatchToProps = {
     fetchJobs,
+    setRequest,
 }
 
 class RequestCard extends React.Component<IProps> {
@@ -80,18 +84,6 @@ class RequestCard extends React.Component<IProps> {
         return jobs.find(job => job.request.id === requestId) !== undefined
     }
 
-    // private getIsClaimed = (requestId: string): boolean => {
-    //     const {jobs} = this.props
-    //     const job = jobs.find(job => job.request.id === requestId)
-    //     if (!job) {return false}
-    //
-    //     const currentHero = getHeroByUserId(this.props.user!.id)
-    //     console.log(currentHero, 'hero')
-    //     if (!currentHero) {return false}
-    //
-    //     return job.heroes.find(hero => hero.id === currentHero.id) !== undefined
-    // }
-
     private renderClaimButton = () => {
         const {id} = this.props.request
         const isClaimed = this.getIsClaimed(id!)
@@ -113,6 +105,11 @@ class RequestCard extends React.Component<IProps> {
         )
     }
 
+    private onDeleteClick = () => {
+        this.props.setRequest(this.props.request)
+        history.push(EPath.DELETE_REQUEST)
+    }
+
     private renderCardTop = () => {
         const {customer} = this.props.request
         const {image} = customer
@@ -122,6 +119,14 @@ class RequestCard extends React.Component<IProps> {
                 <ResourceImage className={'profile-picture'} image={image} alt={'user'} />
                 {this.renderUserCredentials()}
                 {this.renderClaimButton()}
+                {customer.id === this.props.user!.id &&
+                    <button
+                        className={'delete ui-button ui-button--reverted'}
+                        onClick={this.onDeleteClick}
+                    >
+                        Delete
+                    </button>
+                }
             </>
         )
     }

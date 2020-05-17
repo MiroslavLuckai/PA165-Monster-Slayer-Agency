@@ -10,4 +10,5 @@ export enum EPath {
     CREATE_MONSTER = '/create-monster',
     DELETE_MONSTER = '/delete-monster',
     CREATE_REQUEST = '/create-request',
+    DELETE_REQUEST = '/delete-request',
 }

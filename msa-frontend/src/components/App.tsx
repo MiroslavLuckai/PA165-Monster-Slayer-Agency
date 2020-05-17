@@ -21,6 +21,7 @@ import HeroCreate from 'components/heroes/HeroCreate'
 import HeroDelete from 'components/heroes/HeroDelete'
 import MonsterDelete from 'components/monsters/MonsterDelete'
 import RequestCreate from "./requests/RequestCreate";
+import RequestDelete from 'components/requests/RequestDelete'
 
 interface IStateProps {
     isErrorDisplayed: boolean,
@@ -59,6 +60,7 @@ class App extends React.Component<IProps> {
                         <Route path={EPath.CREATE_MONSTER} exact component={MonsterCreate} />
                         <Route path={EPath.DELETE_MONSTER} exact component={MonsterDelete} />
                         <Route path={EPath.CREATE_REQUEST} exact component={RequestCreate} />
+                        <Route path={EPath.DELETE_REQUEST} exact component={RequestDelete} />
                     </Switch>
                 </Router>
             </div>
