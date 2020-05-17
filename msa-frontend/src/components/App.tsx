@@ -17,6 +17,7 @@ import RequestPreview from 'components/requests/RequestPreview'
 import HeroPreview from 'components/heroes/HeroPreview'
 import Home from 'components/Home'
 import HeroCreate from 'components/heroes/HeroCreate'
+import HeroDelete from 'components/heroes/HeroDelete'
 
 interface IStateProps {
     isErrorDisplayed: boolean,
@@ -51,6 +52,7 @@ class App extends React.Component<IProps> {
                         <Route path={`${EPath.REQUESTS}/:id`} exact component={RequestPreview} />
                         <Route path={`${EPath.HEROES}/:id`} exact component={HeroPreview} />
                         <Route path={EPath.CREATE_HERO} exact component={HeroCreate} />
+                        <Route path={EPath.DELETE_HERO} exact component={HeroDelete} />
                     </Switch>
                 </Router>
             </div>

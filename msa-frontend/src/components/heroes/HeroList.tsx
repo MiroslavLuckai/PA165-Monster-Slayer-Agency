@@ -12,10 +12,12 @@ import BaseList from 'components/common/BaseList'
 import SignInPage from 'components/SignInPage'
 import history from '../../history'
 import {EPath} from 'enums/EPath'
+import {IUser} from 'types/IUser'
 
 interface IStateProps {
     heroes: IHero[],
     isSignedIn: boolean,
+    user?: IUser,
 }
 
 interface IDispatchProps {
@@ -29,6 +31,7 @@ const mapStateToProps = (state: IStore) => {
     return {
         heroes: state.heroes.heroesList,
         isSignedIn: state.auth.isSignedIn,
+        user: state.auth.user,
     }
 }
 
@@ -61,12 +64,7 @@ class HeroList extends React.Component<IProps> {
 
         return (
             <div className={'scope__HeroList'}>
-                <button
-                    className={'create ui-button ui-button--yellow'}
-                    onClick={() => history.push(EPath.CREATE_HERO)}
-                >
-                    Become a Hero
-                </button>
+                {this.renderButton()}
                 <BaseList>
                     {heroes.map((hero, index) => {
                         return (
@@ -78,6 +76,28 @@ class HeroList extends React.Component<IProps> {
                 </BaseList>
             </div>
         )
+    }
+
+    private renderButton = () => {
+        if (this.props.user!.hero) {
+            return (
+                <button
+                    className={'create ui-button ui-button--yellow'}
+                    onClick={() => history.push(EPath.DELETE_HERO)}
+                >
+                    Cancel being a Hero
+                </button>
+            )
+        } else {
+            return (
+                <button
+                    className={'create ui-button ui-button--yellow'}
+                    onClick={() => history.push(EPath.CREATE_HERO)}
+                >
+                    Become a Hero
+                </button>
+            )
+        }
     }
 }
 

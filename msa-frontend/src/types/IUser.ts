@@ -4,4 +4,5 @@ export interface IUser {
     password: string,
     userName: string,
     image: string,
+    hero: boolean,
 }
