@@ -57,6 +57,7 @@ class App extends React.Component<IProps> {
                         <Route path={EPath.DELETE_HERO} exact component={HeroDelete} />
                         <Route path={EPath.CREATE_MONSTER} exact component={MonsterCreate} />
                         <Route path={EPath.DELETE_MONSTER} exact component={MonsterDelete} />
+                        <Route path={EPath.CREATE_REQUEST} exact component={RequestCreate} />
                     </Switch>
                 </Router>
             </div>
