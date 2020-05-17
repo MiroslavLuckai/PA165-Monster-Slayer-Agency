@@ -5,10 +5,11 @@ import {connect} from 'react-redux'
 import {IStore} from 'ducks/reducers'
 import {IUser} from 'types/IUser'
 import {EJobFilter} from 'enums/EJobFilter'
-import {fetchJobs, fetchJobsByStatus, setJobFilter} from 'ducks/actions/jobs'
+import {fetchJobs, fetchJobsBySeverity, fetchJobsByStatus, setJobFilter} from 'ducks/actions/jobs'
 import DropdownButton from 'components/common/DropdownButton'
 import {EJobStatus} from 'enums/EJobStatus'
 import {IDropdownItem} from 'types/IDropdownItem'
+import {EJobSeverity} from "../../enums/EJobSeverity";
 
 interface IStateProps {
     filter: EJobFilter,
@@ -19,6 +20,7 @@ interface IDispatchProps {
     setJobFilter: typeof setJobFilter,
     fetchJobs: any,
     fetchJobsByStatus: any,
+    fetchJobsBySeverity: any
 }
 
 interface IProps extends IStateProps, IDispatchProps {}
@@ -34,6 +36,7 @@ const mapDispatchToProps = {
     setJobFilter,
     fetchJobs,
     fetchJobsByStatus,
+    fetchJobsBySeverity
 }
 
 class JobFilter extends React.Component<IProps> {
@@ -47,6 +50,14 @@ class JobFilter extends React.Component<IProps> {
                 return {
                     value,
                     onClick: this.onStatusSelect,
+                }
+            }
+        )
+
+        const severityDropdownList: IDropdownItem[] = Object.values(EJobSeverity).map(value => {
+                return {
+                    value,
+                    onClick: this.onSeveritySelect,
                 }
             }
         )
@@ -74,6 +85,11 @@ class JobFilter extends React.Component<IProps> {
                                 dropdownList={statusDropdownList}
                                 isSelected={filter === EJobFilter.STATUS}
                             />
+                            <DropdownButton
+                                displayText={'Severity'}
+                                dropdownList={severityDropdownList}
+                                isSelected={filter === EJobFilter.SEVERITY}
+                            />
                         </div>
                     </BaseCard>
                 </div>
@@ -93,6 +109,11 @@ class JobFilter extends React.Component<IProps> {
     private onStatusSelect = (status: EJobStatus) => {
         this.props.setJobFilter(EJobFilter.STATUS)
         this.props.fetchJobsByStatus(status)
+    }
+
+    private onSeveritySelect = (severity: EJobSeverity) => {
+        this.props.setJobFilter(EJobFilter.SEVERITY)
+        this.props.fetchJobsBySeverity(severity)
     }
 }
 
