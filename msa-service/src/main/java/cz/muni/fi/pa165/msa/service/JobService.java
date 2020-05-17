@@ -2,8 +2,7 @@ package cz.muni.fi.pa165.msa.service;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
-import cz.muni.fi.pa165.monsterslayeragency.entities.User;
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,7 @@ public interface JobService {
      * @param severity severity of the jobs we are looking for
      * @return List of jobs with requested severity
      */
-    List<Job> findJobsBySeverity(JobSeverity severity);
+    List<Job> findJobsBySeverity(Severity severity);
 
     /**
      * List all jobs with requested status

@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public interface JobDao {
      * @param severity current severity of the job
      * @return List of jobs with requested severity
      */
-    public List<Job> findJobsBySeverity(JobSeverity severity);
+    public List<Job> findJobsBySeverity(Severity severity);
 
     /**
      * Find jobs stored in database with requested status

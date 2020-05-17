@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.msa.dto;
 
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 
 import javax.validation.constraints.NotNull;
@@ -20,7 +20,7 @@ public class JobCreateDTO {
     private JobStatus status;
 
     @NotNull
-    private JobSeverity severity;
+    private Severity severity;
 
     public RequestDTO getRequest() {
         return request;
@@ -38,7 +38,7 @@ public class JobCreateDTO {
         return status;
     }
 
-    public JobSeverity getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
 
@@ -58,7 +58,7 @@ public class JobCreateDTO {
         this.status = status;
     }
 
-    public void setSeverity(JobSeverity severity) {
+    public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 

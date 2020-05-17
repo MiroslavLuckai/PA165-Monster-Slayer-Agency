@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.msa.service;
 
-import cz.muni.fi.pa165.monsterslayeragency.dao.HeroDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.*;
 import cz.muni.fi.pa165.monsterslayeragency.enums.*;
 import cz.muni.fi.pa165.msa.dto.*;
@@ -70,7 +69,7 @@ public class BeanMappingServiceImplTest extends AbstractTestNGSpringContextTests
         job.setHeroes(new HashSet<>());
         job.addHero(hero);
         job.setStatus(JobStatus.DONE);
-        job.setSeverity(JobSeverity.MODERATE);
+        job.setSeverity(Severity.MODERATE);
         job.setRequest(request);
         job.setEvaluation(5);
         job.setId(2L);

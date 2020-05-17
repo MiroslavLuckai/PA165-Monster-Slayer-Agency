@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 import cz.muni.fi.pa165.monsterslayeragency.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.monsterslayeragency.entities.*;
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,7 @@ public class JobDaoTest extends AbstractTestNGSpringContextTests {
         job.getHeroes().add(hero);
         job.setEvaluation(5);
         job.setRequest(request);
-        job.setSeverity(JobSeverity.MODERATE);
+        job.setSeverity(Severity.MODERATE);
         job.setStatus(JobStatus.DONE);
     }
 

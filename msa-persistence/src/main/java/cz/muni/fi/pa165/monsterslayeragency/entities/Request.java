@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.monsterslayeragency.entities;
 
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,6 +27,9 @@ public class Request extends AbstractEntity {
 
     @Column(name = "award")
     private BigDecimal award;
+
+    @Column(name = "severity")
+    private Severity severity;
 
     public Request() {}
 
@@ -75,20 +80,28 @@ public class Request extends AbstractEntity {
         this.award = award;
     }
 
+    public Severity getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(Severity severity) {
+        this.severity = severity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Request)) return false;
         Request request = (Request) o;
-        return Objects.equals(getId(), request.getId()) &&
-                Objects.equals(getCustomer(), request.getCustomer()) &&
-                Objects.equals(getLocation(), request.getLocation()) &&
-                Objects.equals(getMonsters(), request.getMonsters()) &&
-                Objects.equals(getAward(), request.getAward());
+        return Objects.equals(customer, request.customer) &&
+                Objects.equals(location, request.location) &&
+                Objects.equals(monsters, request.monsters) &&
+                Objects.equals(award, request.award) &&
+                severity == request.severity;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCustomer(), getLocation(), getMonsters(), getAward());
+        return Objects.hash(customer, location, monsters, award, severity);
     }
 }

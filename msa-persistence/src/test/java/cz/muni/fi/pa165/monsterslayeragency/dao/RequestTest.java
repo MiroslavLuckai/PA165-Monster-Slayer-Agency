@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.monsterslayeragency.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Monster;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
 import cz.muni.fi.pa165.monsterslayeragency.enums.MonsterType;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -141,6 +142,7 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
         ghoulRequest.setAward(new BigDecimal(100));
         ghoulRequest.setMonsters(new ArrayList<>());
         ghoulRequest.getMonsters().add(ghoul);
+        ghoulRequest.setSeverity(Severity.MODERATE);
     }
 
     private void createGolemRequest() {
@@ -149,6 +151,7 @@ public class RequestTest extends AbstractTestNGSpringContextTests {
         golemRequest.setAward(new BigDecimal(10000));
         golemRequest.setMonsters(new ArrayList<>());
         golemRequest.getMonsters().add(golem);
+        golemRequest.setSeverity(Severity.MINOR);
     }
 
     private Monster createBasilisk() {
