@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DummyObjects {
+public class Utils {
 
     public static UserDTO getUserDTODummy1() {
         UserDTO user = new UserDTO();
