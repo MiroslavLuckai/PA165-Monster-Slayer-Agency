@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.msa.dto;
 
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 
 import java.util.Objects;
@@ -21,7 +21,7 @@ public class JobDTO {
     
     private JobStatus status;
     
-    private JobSeverity severity;
+    private Severity severity;
 
     public Long getId() {
         return id;
@@ -43,7 +43,7 @@ public class JobDTO {
         return status;
     }
 
-    public JobSeverity getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
 
@@ -67,7 +67,7 @@ public class JobDTO {
         this.status = status;
     }
 
-    public void setSeverity(JobSeverity severity) {
+    public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 

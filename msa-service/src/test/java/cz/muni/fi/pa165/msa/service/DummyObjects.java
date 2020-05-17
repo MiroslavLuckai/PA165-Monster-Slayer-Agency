@@ -209,7 +209,7 @@ public class DummyObjects {
         job.getHeroes().add(getHeroDummy2());
         job.setEvaluation(5);
         job.setRequest(getRequestDummy1());
-        job.setSeverity(JobSeverity.MODERATE);
+        job.setSeverity(Severity.MODERATE);
         job.setStatus(JobStatus.DONE);
         return job;
     }
@@ -220,7 +220,7 @@ public class DummyObjects {
         job.getHeroes().add(getHeroDTODummy2());
         job.setEvaluation(5);
         job.setRequest(getRequestDTODummy1());
-        job.setSeverity(JobSeverity.MODERATE);
+        job.setSeverity(Severity.MODERATE);
         job.setStatus(JobStatus.DONE);
         return job;
     }
@@ -231,7 +231,7 @@ public class DummyObjects {
         job.getHeroes().add(getHeroDummy1());
         job.setEvaluation(10);
         job.setRequest(getRequestDummy2());
-        job.setSeverity(JobSeverity.MINOR);
+        job.setSeverity(Severity.MINOR);
         job.setStatus(JobStatus.IN_PROGRESS);
         return job;
     }
@@ -242,7 +242,7 @@ public class DummyObjects {
         job.getHeroes().add(getHeroDTODummy1());
         job.setEvaluation(10);
         job.setRequest(getRequestDTODummy2());
-        job.setSeverity(JobSeverity.MINOR);
+        job.setSeverity(Severity.MINOR);
         job.setStatus(JobStatus.IN_PROGRESS);
         return job;
     }
@@ -253,7 +253,7 @@ public class DummyObjects {
         job.getHeroes().add(getHeroDTODummy1());
         job.setEvaluation(3);
         job.setRequest(getRequestDTODummy1());
-        job.setSeverity(JobSeverity.CRITICAL);
+        job.setSeverity(Severity.CRITICAL);
         job.setStatus(JobStatus.ASSIGNED);
         return job;
     }

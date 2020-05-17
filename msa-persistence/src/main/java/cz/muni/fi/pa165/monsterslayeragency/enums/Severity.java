@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.monsterslayeragency.enums;
 /**
  * Enum describing how important the job is
  */
-public enum JobSeverity {
+public enum Severity {
 
     /**
      * Job has to be completed no matter what, and can be assigned only to the most suited heroes

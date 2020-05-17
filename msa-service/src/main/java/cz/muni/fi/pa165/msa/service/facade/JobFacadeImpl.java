@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.msa.service.facade;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Request;
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.dto.JobCreateDTO;
@@ -17,7 +17,6 @@ import cz.muni.fi.pa165.msa.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.annotations.AfterMethod;
 
 import java.util.HashSet;
 import java.util.List;
@@ -133,14 +132,14 @@ public class JobFacadeImpl implements JobFacade {
     }
 
     @Override
-    public void changeJobSeverity(JobDTO jobDto, JobSeverity severity) {
+    public void changeJobSeverity(JobDTO jobDto, Severity severity) {
         Job job = jobService.findById(jobDto.getId());
         job.setSeverity(severity);
         jobService.updateJob(job);
     }
 
     @Override
-    public List<JobDTO> findJobsBySeverity(JobSeverity severity) {
+    public List<JobDTO> findJobsBySeverity(Severity severity) {
         List<Job> jobs = jobService.findJobsBySeverity(severity);
         return beanMappingService.mapTo(jobs, JobDTO.class);
     }

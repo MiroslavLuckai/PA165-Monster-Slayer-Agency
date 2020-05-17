@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.monsterslayeragency.entities;
 
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 
 import javax.persistence.*;
@@ -30,7 +30,7 @@ public class Job extends AbstractEntity {
     private JobStatus status;
 
     @Column(name = "severity")
-    private JobSeverity severity;
+    private Severity severity;
 
     public Long getId() {
         return super.id;
@@ -68,7 +68,7 @@ public class Job extends AbstractEntity {
         return status;
     }
 
-    public JobSeverity getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
 
@@ -76,7 +76,7 @@ public class Job extends AbstractEntity {
         this.status = status;
     }
 
-    public void setSeverity(JobSeverity severity) {
+    public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 

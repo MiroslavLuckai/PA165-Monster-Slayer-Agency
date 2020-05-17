@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.msa.rest.controllers;
 
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.dto.JobCreateDTO;
 import cz.muni.fi.pa165.msa.dto.JobDTO;
@@ -52,7 +52,7 @@ public class JobController {
     }
 
     @RequestMapping(value = "/severity/{severity}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<JobDTO> getJobsBySeverity(@PathVariable JobSeverity severity) {
+    public final Collection<JobDTO> getJobsBySeverity(@PathVariable Severity severity) {
         logger.debug("Find jobs by severity: {}", severity);
         return jobFacade.findJobsBySeverity(severity);
     }

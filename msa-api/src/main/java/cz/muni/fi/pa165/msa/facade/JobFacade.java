@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.msa.facade;
 
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.dto.JobCreateDTO;
@@ -92,9 +92,9 @@ public interface JobFacade {
      * @param jobDto job to change job severity
      * @param severity severity to be set to the job.
      */
-    void changeJobSeverity(JobDTO jobDto, JobSeverity severity);
+    void changeJobSeverity(JobDTO jobDto, Severity severity);
 
-    List<JobDTO> findJobsBySeverity(JobSeverity severity);
+    List<JobDTO> findJobsBySeverity(Severity severity);
 
     List<JobDTO> findJobsByStatus(JobStatus status);
 

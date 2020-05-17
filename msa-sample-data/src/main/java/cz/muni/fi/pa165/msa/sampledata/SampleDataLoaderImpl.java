@@ -55,10 +55,10 @@ public class SampleDataLoaderImpl implements SampleDataLoader {
         Monster leshen = createMonster("Leshen", 9, MonsterType.RELICT, "leshen.png", Food.PLANTS, Set.of(Resistance.PSYCHIC));
         logger.info("Monster table populated.");
 
-        Request drownerRequest = createRequest(redBaron, 1000, "Velen", List.of(drowner));
-        Request wraithsRequest = createRequest(redBaron, 500, "Skellige", List.of(wraiths));
-        Request werewolfRequest = createRequest(redBaron, 1500, "Novigrad", List.of(werewolf));
-        Request leshenRequest = createRequest(kingRadovid, 200, "Oxenfurt", List.of(leshen));
+        Request drownerRequest = createRequest(redBaron, 1000, "Velen", List.of(drowner), Severity.MINOR);
+        Request wraithsRequest = createRequest(redBaron, 500, "Skellige", List.of(wraiths), Severity.MODERATE);
+        Request werewolfRequest = createRequest(redBaron, 1500, "Novigrad", List.of(werewolf), Severity.CRITICAL);
+        Request leshenRequest = createRequest(kingRadovid, 200, "Oxenfurt", List.of(leshen), Severity.MODERATE);
         logger.info("Request table populated.");
 
         Hero geraltOfRivia = createHero(geraltUser, "Geralt of Rivia", "geralt.png", Set.of(Skill.MELEE, Skill.ACROBATICS, Skill.BLADES, Skill.MAGIC));
@@ -69,8 +69,8 @@ public class SampleDataLoaderImpl implements SampleDataLoader {
         Hero miroTheMergeMaster = createHero(miro, "Miro the merge master", "miro.jpg", Set.of(Skill.RANGED, Skill.MAGIC));
         logger.info("Hero table populated.");
 
-        Job drownerJob = createJob(drownerRequest, Set.of(geraltOfRivia), 3, JobStatus.IN_PROGRESS, JobSeverity.MINOR);
-        Job werewolfJob = createJob(werewolfRequest, Set.of(miskaTheGitMaster, ludoTheLaptopMaster, filipTheMasterOfIdeas, miroTheMergeMaster), 1, JobStatus.ASSIGNED, JobSeverity.CRITICAL);
+        Job drownerJob = createJob(drownerRequest, Set.of(geraltOfRivia), 3, JobStatus.IN_PROGRESS, Severity.MINOR);
+        Job werewolfJob = createJob(werewolfRequest, Set.of(miskaTheGitMaster, ludoTheLaptopMaster, filipTheMasterOfIdeas, miroTheMergeMaster), 1, JobStatus.ASSIGNED, Severity.CRITICAL);
         logger.info("Job table populated.");
     }
 
@@ -113,19 +113,20 @@ public class SampleDataLoaderImpl implements SampleDataLoader {
         return user;
     }
 
-    private Request createRequest(User user, int award, String location, List<Monster> monsters) {
+    private Request createRequest(User user, int award, String location, List<Monster> monsters, Severity severity) {
         Request request = new Request();
         request.setAward(new BigDecimal(award));
         request.setCustomer(user);
         request.setLocation(location);
         request.setMonsters(monsters);
+        request.setSeverity(severity);
 
         requestService.create(request);
 
         return request;
     }
 
-    private Job createJob(Request request, Set<Hero> heroes, int evaluation, JobStatus status, JobSeverity severity) {
+    private Job createJob(Request request, Set<Hero> heroes, int evaluation, JobStatus status, Severity severity) {
         Job job = new Job();
         job.setHeroes(heroes);
         job.setEvaluation(evaluation);

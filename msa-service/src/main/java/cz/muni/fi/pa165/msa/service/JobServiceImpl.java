@@ -3,8 +3,7 @@ package cz.muni.fi.pa165.msa.service;
 import cz.muni.fi.pa165.monsterslayeragency.dao.JobDao;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
-import cz.muni.fi.pa165.monsterslayeragency.entities.User;
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.service.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<Job> findJobsBySeverity(JobSeverity severity) {
+    public List<Job> findJobsBySeverity(Severity severity) {
         Validator.validate(severity, "Cannot search with null severity!");
         return jobDao.findJobsBySeverity(severity);
     }

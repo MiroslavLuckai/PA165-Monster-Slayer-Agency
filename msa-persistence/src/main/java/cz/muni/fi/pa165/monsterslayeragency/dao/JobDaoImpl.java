@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.monsterslayeragency.dao;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import org.springframework.stereotype.Repository;
 
@@ -48,7 +48,7 @@ public class JobDaoImpl implements JobDao {
     }
 
     @Override
-    public List<Job> findJobsBySeverity(JobSeverity severity) {
+    public List<Job> findJobsBySeverity(Severity severity) {
         validate(severity, "Cannot search with null severity!");
         return em.createQuery("SELECT job FROM Job job WHERE job.severity = :severity", Job.class)
                 .setParameter("severity", severity)

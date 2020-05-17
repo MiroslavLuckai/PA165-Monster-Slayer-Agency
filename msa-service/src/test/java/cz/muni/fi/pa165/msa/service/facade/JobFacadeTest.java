@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.msa.service.facade;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
 import cz.muni.fi.pa165.monsterslayeragency.entities.Job;
-import cz.muni.fi.pa165.monsterslayeragency.enums.JobSeverity;
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
 import cz.muni.fi.pa165.monsterslayeragency.enums.JobStatus;
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.dto.JobCreateDTO;
@@ -222,7 +222,7 @@ public class JobFacadeTest {
 
         when(jobService.findById(job.getId())).thenReturn(job);
 
-        jobFacade.changeJobSeverity(jobDTO, JobSeverity.CRITICAL);
+        jobFacade.changeJobSeverity(jobDTO, Severity.CRITICAL);
 
         verify(jobService, times(1)).updateJob(job);
     }
