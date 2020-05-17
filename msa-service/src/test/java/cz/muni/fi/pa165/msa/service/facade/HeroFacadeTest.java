@@ -75,9 +75,9 @@ public class HeroFacadeTest {
 
     @Test
     public void removeHeroTest() {
-        Mockito.when(mapper.mapTo(geraltDTO, Hero.class)).thenReturn(geralt);
+        Mockito.when(service.findHeroByUserId(1L)).thenReturn(geralt);
 
-        facade.removeHero(geraltDTO);
+        facade.removeHero(1L);
         Mockito.verify(service, Mockito.times(1)).removeHero(geralt);
     }
 

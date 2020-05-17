@@ -31,12 +31,9 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
 
     @Override
-    public boolean removeMonster(Long id) {
+    public void removeMonster(Long id) {
         Monster monster = monsterService.findById(id);
-        if (monster == null)
-            return false;
         monsterService.delete(monster);
-        return true;
     }
 
     @Override

@@ -1,13 +1,16 @@
-package cz.muni.fi.pa165.msa.rest.controllers;
+package cz.muni.fi.pa165.msa.rest;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.muni.fi.pa165.monsterslayeragency.enums.*;
 import cz.muni.fi.pa165.msa.dto.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DummyObjects {
+public class Utils {
 
     public static UserDTO getUserDTODummy1() {
         UserDTO user = new UserDTO();
@@ -29,6 +32,7 @@ public class DummyObjects {
 
     public static MonsterDTO getMonsterDTODummy1() {
         MonsterDTO monster = new MonsterDTO();
+        monster.setId(1L);
         monster.setName("Beast Monster");
         monster.setSize(10);
         Set<Resistance> resistanceSet = new HashSet<>();
@@ -41,6 +45,7 @@ public class DummyObjects {
 
     public static MonsterDTO getMonsterDTODummy2() {
         MonsterDTO monster = new MonsterDTO();
+        monster.setId(2L);
         monster.setName("Hybrid Monster");
         monster.setSize(15);
         Set<Resistance> resistanceSet = new HashSet<>();
@@ -52,6 +57,7 @@ public class DummyObjects {
 
     public static MonsterDTO getMonsterDTODummy3() {
         MonsterDTO monster = new MonsterDTO();
+        monster.setId(3L);
         monster.setName("Ghoul");
         monster.setSize(10);
         monster.setMonsterType(MonsterType.NECROPHAGE);
@@ -64,6 +70,7 @@ public class DummyObjects {
 
     public static HeroDTO getHeroDTODummy1() {
         HeroDTO hero = new HeroDTO();
+        hero.setId(1L);
         hero.setName("Witcher");
         hero.setUser(getUserDTODummy1());
         hero.setImage("test");
@@ -76,6 +83,7 @@ public class DummyObjects {
 
     public static HeroDTO getHeroDTODummy2() {
         HeroDTO hero = new HeroDTO();
+        hero.setId(2L);
         hero.setName("Vesemir");
         hero.setUser(getUserDTODummy2());
         hero.setImage("testimage");
@@ -112,6 +120,7 @@ public class DummyObjects {
 
     public static JobDTO getJobDTODummy1() {
         JobDTO job = new JobDTO();
+        job.setId(1L);
         job.setHeroes(new HashSet<>());
         job.getHeroes().add(getHeroDTODummy2());
         job.setEvaluation(5);
@@ -123,6 +132,7 @@ public class DummyObjects {
 
     public static JobDTO getJobDTODummy2() {
         JobDTO job = new JobDTO();
+        job.setId(2L);
         job.setHeroes(new HashSet<>());
         job.getHeroes().add(getHeroDTODummy1());
         job.setEvaluation(10);
@@ -141,5 +151,12 @@ public class DummyObjects {
         job.setSeverity(JobSeverity.CRITICAL);
         job.setStatus(JobStatus.ASSIGNED);
         return job;
+    }
+
+    public static String convertObjectToJsonBytes(Object object)
+            throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return mapper.writeValueAsString(object);
     }
 }

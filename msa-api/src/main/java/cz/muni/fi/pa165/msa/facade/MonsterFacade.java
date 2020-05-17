@@ -20,7 +20,7 @@ public interface MonsterFacade {
      * Removes monster.
      * @param id id of a monster to be removed
      */
-    boolean removeMonster(Long id);
+    void removeMonster(Long id);
 
     /**
      * Find request by id.
