@@ -9,10 +9,10 @@ import {ELayer} from 'enums/ELayer'
 import {connect} from 'react-redux'
 import {getDisplayText} from 'utils/common'
 import produce from 'immer'
-import history from "../../history";
-import {EPath} from "../../enums/EPath";
-import {IMonster} from "../../types/IMonster";
-import {createMonster} from "api/monster";
+import history from '../../history'
+import {EPath} from 'enums/EPath'
+import {IMonster} from 'types/IMonster'
+import {createMonster} from "api/monster"
 
 interface IDispatchProps {
     setActiveLayer: typeof setActiveLayer,
@@ -69,38 +69,42 @@ class MonsterCreate extends React.Component<IProps, IState> {
                         onChange={this.onSizeInputValue}
                         placeholder={'Size'}
                     />
-                    <h3 className={'create-monster-form__monster-type-title'}>Select the type of the monster:</h3>
-                    <div className={'monster-type'}>
+                    <h3 className={'create-monster-form__monster-type-title'}>Select monster type:</h3>
+                    <div className={'monster-type-wrapper'}>
                         {Object.values(EMonsterType).map((type, index) => {
                             return (
                                 <span className={'monster-type'}>
-                                    <input
-                                        id={type}
-                                        type={'radio'}
-                                        value={type}
-                                        key={index}
-                                        checked={monsterType === type}
-                                        onChange={this.onMonsterTypeCheckboxChange}
-                                    />
-                                    <label htmlFor={type}>{getDisplayText(type)}</label>
+                                    <label htmlFor={type}>
+                                        <input
+                                            id={type}
+                                            type={'radio'}
+                                            value={type}
+                                            key={index}
+                                            checked={monsterType === type}
+                                            onChange={this.onMonsterTypeCheckboxChange}
+                                        />
+                                        <span className={'label'}>{getDisplayText(type)}</span>
+                                    </label>
                                 </span>
                             )
                         })}
                     </div>
-                    <h3 className={'create-monster-form__food-title'}>Select food of the monster:</h3>
-                    <div className={'food'}>
+                    <h3 className={'create-monster-form__food-title'}>Select monster food:</h3>
+                    <div className={'food-wrapper'}>
                         {Object.values(EMonsterFood).map((foodInput, index) => {
                             return (
                                 <span className={'food'}>
-                                    <input
-                                        id={foodInput}
-                                        type={'radio'}
-                                        value={foodInput}
-                                        key={index}
-                                        checked={foodInput === food}
-                                        onChange={this.onFoodCheckboxChange}
-                                    />
-                                    <label htmlFor={foodInput}>{getDisplayText(foodInput)}</label>
+                                    <label htmlFor={foodInput}>
+                                        <input
+                                            id={foodInput}
+                                            type={'radio'}
+                                            value={foodInput}
+                                            key={index}
+                                            checked={foodInput === food}
+                                            onChange={this.onFoodCheckboxChange}
+                                        />
+                                        <span className={'label'}>{getDisplayText(foodInput)}</span>
+                                    </label>
                                 </span>
                             )
                         })}
@@ -110,15 +114,17 @@ class MonsterCreate extends React.Component<IProps, IState> {
                         {Object.values(EResistance).map((resistance, index) => {
                             return (
                                 <span className={'resistance'}>
-                                    <input
-                                        id={resistance}
-                                        type={'checkbox'}
-                                        value={resistance}
-                                        key={index}
-                                        checked={resistances.includes(resistance)}
-                                        onChange={this.onResistanceCheckboxChange}
-                                    />
-                                    <label htmlFor={resistance}>{getDisplayText(resistance)}</label>
+                                    <label htmlFor={resistance}>
+                                        <input
+                                            id={resistance}
+                                            type={'checkbox'}
+                                            value={resistance}
+                                            key={index}
+                                            checked={resistances.includes(resistance)}
+                                            onChange={this.onResistanceCheckboxChange}
+                                        />
+                                        <span className={'label'}>{getDisplayText(resistance)}</span>
+                                    </label>
                                 </span>
                             )
                         })}
@@ -197,10 +203,8 @@ class MonsterCreate extends React.Component<IProps, IState> {
             food: food!
         }
 
-        await createMonster(monster).then(() => {history.push(EPath.MONSTERS)})
+         createMonster(monster).then(() => {history.push(EPath.MONSTERS)})
     }
-
-
 }
 
 export default connect(null, mapDispatchToProps)(MonsterCreate)

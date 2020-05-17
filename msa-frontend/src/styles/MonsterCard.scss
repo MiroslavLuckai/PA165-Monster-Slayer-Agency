@@ -11,6 +11,10 @@
     font-weight: 800;
   }
 
+  .delete {
+    margin: 0 0 0 auto;
+  }
+
   .size, .type, .food {
     &__icon {
       font-size: 20px;

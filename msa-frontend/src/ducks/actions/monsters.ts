@@ -1,6 +1,7 @@
 import axios from 'axios'
-import {FETCH_MONSTER, FETCH_MONSTERS} from 'ducks/actions/types'
+import {FETCH_MONSTER, FETCH_MONSTERS, SET_MONSTER} from 'ducks/actions/types'
 import {showErrorNotification} from 'ducks/actions/common'
+import {IMonster} from 'types/IMonster'
 
 export const fetchMonsters = () => async (dispatch: any) => {
     axios.get('http://localhost:8080/pa165/rest/monsters')
@@ -28,4 +29,11 @@ export const fetchMonster = (id: string) => async (dispatch: any) => {
             console.error(error)
             dispatch(showErrorNotification())
         })
+}
+
+export const setMonster = (monster: IMonster) => {
+    return {
+        type: SET_MONSTER,
+        payload: monster,
+    }
 }

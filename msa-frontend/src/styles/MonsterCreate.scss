@@ -5,10 +5,10 @@ $input-padding: 10px;
   height: 100vh;
 
   .create-monster-form {
-    width: 35%;
+    width: 40%;
     background-color: #fff;
     border-radius: 8px;
-    margin: 10% auto;
+    margin: 3% auto;
     box-shadow: 5px 5px 20px 0 #081D1E;
     padding: 20px;
     border-top: 7px solid #FFD600;
@@ -25,18 +25,42 @@ $input-padding: 10px;
       margin-right: 10px;
 
       label {
+        white-space:nowrap;
+      }
+
+      .label {
         margin-left: 5px;
       }
+    }
+
+    .monster-type-wrapper {
+      width: 80%;
     }
 
     .monster-type {
       align-items: center;
       margin-right: 10px;
+
+      label {
+        white-space:nowrap;
+      }
+
+      .label {
+        margin-left: 5px;
+      }
     }
 
     .food {
       align-items: center;
       margin-right: 10px;
+
+      label {
+        white-space:nowrap;
+      }
+
+      .label {
+        margin-left: 5px;
+      }
     }
 
     &__confirm-wrapper {

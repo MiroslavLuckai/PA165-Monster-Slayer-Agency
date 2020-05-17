@@ -5,4 +5,5 @@ export interface IUser {
     userName: string,
     image: string,
     hero: boolean,
+    admin: boolean,
 }
