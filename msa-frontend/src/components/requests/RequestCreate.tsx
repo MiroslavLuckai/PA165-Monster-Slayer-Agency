@@ -15,6 +15,8 @@ import {IUser} from 'types/IUser'
 import {IStore} from 'ducks/reducers'
 import SignInPage from 'components/SignInPage'
 import {IRequest} from "../../types/IRequest";
+import {IMonster} from "../../types/IMonster";
+import monsters from "../../ducks/reducers/monsters";
 
 interface IStateProps {
     user?: IUser,
@@ -30,6 +32,7 @@ interface IProps extends IStateProps, IDispatchProps {}
 interface IState {
     locationInputValue: string,
     awardInputValue: string,
+    monstersInput: IMonster[],
 
 }
 
@@ -45,11 +48,12 @@ const mapDispatchToProps = {
     setActiveLayer,
 }
 
-class HeroCreate extends React.Component<IProps, IState> {
+class RequestCreate extends React.Component<IProps, IState> {
 
     state: IState = {
         locationInputValue: '',
         awardInputValue: '',
+        monstersInput: [],
     }
 
     componentDidMount() {
@@ -98,6 +102,7 @@ class HeroCreate extends React.Component<IProps, IState> {
             customer: user!,
             location: locationInputValue,
             award: Number(awardInputValue),
+            monsters: monstersInput,
         }
 
         await createRequest(request).then(() => {history.push(EPath.REQUESTS)})
