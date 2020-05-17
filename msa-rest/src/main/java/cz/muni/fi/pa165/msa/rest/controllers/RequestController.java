@@ -32,6 +32,11 @@ public class RequestController {
     @Autowired
     private HeroFacade heroFacade;
 
+    /**
+     * Get all requests stored in database
+     * curl -i -X GET http://localhost:8080/pa165/rest/requests
+     * @return List of RequestDTO
+     */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<RequestDTO> getRequests() {
 
@@ -39,13 +44,29 @@ public class RequestController {
         return requestFacade.findAll();
     }
 
+    /**
+     * Get Request by its id
+     * curl -i -X GET http://localhost:8080/pa165/rest/requests/{id}
+     * @param id id of the request
+     * @return request DTO
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final RequestDTO getRequestById(@PathVariable("id") Long id) {
 
         logger.debug("Find request({})", id);
-        return requestFacade.findById(id);
+        RequestDTO request = requestFacade.findById(id);
+        if (request == null) {
+            throw new ResourceNotFoundException();
+        }
+        return request;
     }
 
+    /**
+     * Get list of request doable for a hero
+     * curl -i -X GET http://localhost:8080/pa165/rest/requests/match/{id}
+     * @param id id of the hero we are looking requests for
+     * @return List of Requests
+     */
     @RequestMapping(value = "/match/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<RequestDTO> matchRequestsToHero(@PathVariable("id") Long id) {
         logger.debug("Find Hero({})", id);
@@ -54,6 +75,12 @@ public class RequestController {
         return requestFacade.matchRequestsToHero(heroDTO);
     }
 
+    /**
+     * Create new request
+     * curl -X POST -i -H "Content-Type: application/json" --data '{data}' http://localhost:8080/pa165/rest/requests/create
+     * @param requestCreateDTO RequestDto we want to create
+     * @return newly created request
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final RequestDTO createRequest(@RequestBody RequestCreateDTO requestCreateDTO) {
@@ -67,8 +94,13 @@ public class RequestController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Delete request from database
+     * curl -i -X DELETE http://localhost:8080/pa165/rest/requests/{id}
+     * @param id id of the request we want to delete
+     * @throws ResourceNotFoundException when request with id was not found
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void removeRequest(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest removeRequest(requestId={})", id);
 
