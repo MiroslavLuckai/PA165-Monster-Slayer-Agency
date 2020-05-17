@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.msa.dto;
 
+import cz.muni.fi.pa165.monsterslayeragency.enums.Severity;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
@@ -13,6 +15,7 @@ public class RequestCreateDTO {
     private String location;
     private Set<MonsterDTO> monsters;
     private BigDecimal award;
+    private Severity severity;
 
     public UserDTO getCustomer() {
         return customer;
@@ -46,20 +49,29 @@ public class RequestCreateDTO {
         this.award = award;
     }
 
+    public Severity getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(Severity severity) {
+        this.severity = severity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof RequestCreateDTO)) return false;
         RequestCreateDTO that = (RequestCreateDTO) o;
-        return Objects.equals(getCustomer(), that.getCustomer()) &&
-                Objects.equals(getLocation(), that.getLocation()) &&
-                Objects.equals(getMonsters(), that.getMonsters()) &&
-                Objects.equals(getAward(), that.getAward());
+        return Objects.equals(customer, that.customer) &&
+                Objects.equals(location, that.location) &&
+                Objects.equals(monsters, that.monsters) &&
+                Objects.equals(award, that.award) &&
+                severity == that.severity;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCustomer(), getLocation(), getMonsters(), getAward());
+        return Objects.hash(customer, location, monsters, award, severity);
     }
 
     @Override
@@ -69,6 +81,7 @@ public class RequestCreateDTO {
                 ", location='" + location + '\'' +
                 ", monsters=" + monsters +
                 ", award=" + award +
+                ", severity=" + severity +
                 '}';
     }
 }
