@@ -5,7 +5,10 @@ import {connect} from 'react-redux'
 import {IStore} from 'ducks/reducers'
 import {IUser} from 'types/IUser'
 import {EJobFilter} from 'enums/EJobFilter'
-import {fetchJobs, setJobFilter} from 'ducks/actions/jobs'
+import {fetchJobs, fetchJobsByStatus, setJobFilter} from 'ducks/actions/jobs'
+import DropdownButton from 'components/common/DropdownButton'
+import {EJobStatus} from 'enums/EJobStatus'
+import {IDropdownItem} from 'types/IDropdownItem'
 
 interface IStateProps {
     filter: EJobFilter,
@@ -15,6 +18,7 @@ interface IStateProps {
 interface IDispatchProps {
     setJobFilter: typeof setJobFilter,
     fetchJobs: any,
+    fetchJobsByStatus: any,
 }
 
 interface IProps extends IStateProps, IDispatchProps {}
@@ -29,6 +33,7 @@ const mapStateToProps = (state: IStore) => {
 const mapDispatchToProps = {
     setJobFilter,
     fetchJobs,
+    fetchJobsByStatus,
 }
 
 class JobFilter extends React.Component<IProps> {
@@ -37,6 +42,14 @@ class JobFilter extends React.Component<IProps> {
         const {filter} = this.props
         const allJobsButtonClass = `all ui-button ${filter !== EJobFilter.ALL ? 'ui-button--reverted' : ''}`
         const ownJobsButtonClass = `own ui-button ${filter !== EJobFilter.OWN ? 'ui-button--reverted' : ''}`
+
+        const statusDropdownList: IDropdownItem[] = Object.values(EJobStatus).map(value => {
+                return {
+                    value,
+                    onClick: this.onStatusSelect,
+                }
+            }
+        )
 
         return (
             <div className={'scope__JobFilter'}>
@@ -56,6 +69,11 @@ class JobFilter extends React.Component<IProps> {
                             >
                                 My jobs
                             </button>
+                            <DropdownButton
+                                displayText={'Status'}
+                                dropdownList={statusDropdownList}
+                                isSelected={filter === EJobFilter.STATUS}
+                            />
                         </div>
                     </BaseCard>
                 </div>
@@ -65,10 +83,16 @@ class JobFilter extends React.Component<IProps> {
 
     private onAllJobsClick = () => {
         this.props.setJobFilter(EJobFilter.ALL)
+        this.props.fetchJobs()
     }
 
     private onOwnJobsClick = () => {
         this.props.setJobFilter(EJobFilter.OWN)
+    }
+
+    private onStatusSelect = (status: EJobStatus) => {
+        this.props.setJobFilter(EJobFilter.STATUS)
+        this.props.fetchJobsByStatus(status)
     }
 }
 

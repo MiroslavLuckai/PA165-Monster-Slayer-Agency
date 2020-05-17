@@ -21,6 +21,7 @@ export enum EIcon {
     BLEEDING = 'heartbeat',
     SEARCH = 'search',
     STAR = 'star',
+    CARET_DOWN = 'caret-down',
 }
 
 export enum EIconStyle {

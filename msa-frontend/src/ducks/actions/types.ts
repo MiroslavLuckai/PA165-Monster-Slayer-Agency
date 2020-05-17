@@ -14,6 +14,7 @@ export const SET_REQUEST_FILTER = 'SET_REQUEST_FILTER'
 
 // jobs
 export const FETCH_JOBS = 'FETCH_JOBS'
+export const FETCH_JOBS_BY_STATUS = 'FETCH_JOBS_BY_STATUS'
 export const SET_JOB_FILTER = 'SET_JOB_FILTER'
 
 // common
