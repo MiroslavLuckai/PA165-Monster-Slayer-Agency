@@ -30,6 +30,11 @@ public class MonsterController {
     @Autowired
     private MonsterFacade monsterFacade;
 
+    /**
+     * List all monsters stored in database
+     * curl -i -X GET http://localhost:8080/pa165/rest/monsters
+     * @return List of monsters
+     */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<MonsterDTO> getMonsters() {
 
@@ -37,6 +42,12 @@ public class MonsterController {
         return monsterFacade.findAll();
     }
 
+    /**
+     * Get monster by its Id
+     * curl -i -X GET http://localhost:8080/pa165/rest/monsters/{id}
+     * @param id id of the monster we are looking for
+     * @return Monster with requested id, in case there is no monster with this Id in database, exception is thrown
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final MonsterDTO getMonsterById(@PathVariable("id") Long id) {
 
@@ -48,6 +59,12 @@ public class MonsterController {
         return monster;
     }
 
+    /**
+     * Get monster by its name
+     * curl -i -X GET http://localhost:8080/pa165/rest/monsters/name/{name}
+     * @param name name of the monster we are looking for
+     * @return Monster with requested name, in case there is no monster with this name in database, exception is thrown
+     */
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final MonsterDTO getMonsterByName(@PathVariable("name") String name) {
 
@@ -55,6 +72,12 @@ public class MonsterController {
         return monsterFacade.findByName(name);
     }
 
+    /**
+     * Get list of monsters according their type
+     * curl -i -X GET http://localhost:8080/pa165/rest/monsters/type/{monsterType}
+     * @param monsterType monsterType of monsters we are looking for
+     * @return List of monsters
+     */
     @RequestMapping(value = "/type/{monsterType}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<MonsterDTO> getMonstersByType(@PathVariable("monsterType") MonsterType monsterType) {
 
@@ -62,6 +85,12 @@ public class MonsterController {
         return monsterFacade.findByMonsterType(monsterType);
     }
 
+    /**
+     * Get list of monsters according their size
+     * curl -i -X GET http://localhost:8080/pa165/rest/monsters/size/{size}
+     * @param size size of the monsters we are looking for
+     * @return List of monsters
+     */
     @RequestMapping(value = "/size/{size}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<MonsterDTO> getMonstersBySize(@PathVariable("size") int size) {
 
@@ -69,6 +98,11 @@ public class MonsterController {
         return monsterFacade.findBySize(size);
     }
 
+    /**
+     * Create new monster in a database
+     * @param monsterCreateDTO monster we want to create
+     * @return newly created monster
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final MonsterDTO createMonster(@RequestBody MonsterCreateDTO monsterCreateDTO) {
@@ -82,6 +116,12 @@ public class MonsterController {
         }
     }
 
+    /**
+     * Remove monster with id from database
+     * curl -i -X DELETE http://localhost:8080/pa165/rest/monsters/{id}
+     * @param id id of the monster we want to remove
+     * @throws ResourceNotFoundException in case there is no monster with requested id
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public final void removeMonster(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest removeMonster(monsterId={})", id);
