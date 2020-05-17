@@ -34,7 +34,7 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public void removeHero(Hero hero) throws IllegalArgumentException {
         validate(hero, "Hero cannot be null!");
-        em.remove(findHero(hero.getId()));
+        em.remove(hero);
     }
 
     @Override

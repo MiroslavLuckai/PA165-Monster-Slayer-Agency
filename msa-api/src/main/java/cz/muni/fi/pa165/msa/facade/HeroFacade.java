@@ -21,9 +21,9 @@ public interface HeroFacade {
 
     /**
      * Remove hero from the database
-     * @param heroDTO hero which should be removed
+     * @param id id of the hero which should be removed
      */
-    void removeHero(HeroDTO heroDTO);
+    void removeHero(Long id);
 
     /**
      * find hero by requested id

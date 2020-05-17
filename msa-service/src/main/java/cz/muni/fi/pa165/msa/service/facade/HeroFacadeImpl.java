@@ -47,9 +47,12 @@ public class HeroFacadeImpl implements HeroFacade {
     }
 
     @Override
-    public void removeHero(HeroDTO heroDTO) {
-        Hero hero = mapper.mapTo(heroDTO, Hero.class);
+    public void removeHero(Long id) {
+        Hero hero = service.findHeroById(id);
         service.removeHero(hero);
+        User user = hero.getUser();
+        user.setHero(false);
+        userService.updateUser(user);
     }
 
     @Override

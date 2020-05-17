@@ -41,7 +41,11 @@ public class MonsterController {
     public final MonsterDTO getMonsterById(@PathVariable("id") Long id) {
 
         logger.debug("Find monster({})", id);
-        return monsterFacade.findById(id);
+        MonsterDTO monster = monsterFacade.findById(id);
+        if (monster == null) {
+            throw new ResourceNotFoundException();
+        }
+        return monster;
     }
 
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -78,8 +82,7 @@ public class MonsterController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public final void removeMonster(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest removeMonster(monsterId={})", id);
 
@@ -89,8 +92,4 @@ public class MonsterController {
             throw new ResourceNotFoundException();
         }
     }
-
-
-
-
 }
