@@ -20,6 +20,7 @@ import MonsterCreate from 'components/monsters/MonsterCreate'
 import HeroCreate from 'components/heroes/HeroCreate'
 import HeroDelete from 'components/heroes/HeroDelete'
 import MonsterDelete from 'components/monsters/MonsterDelete'
+import RequestCreate from "./requests/RequestCreate";
 
 interface IStateProps {
     isErrorDisplayed: boolean,
