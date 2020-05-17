@@ -1,7 +1,8 @@
-import {SET_IS_AUTHENTICATED, SIGN_IN, SIGN_OUT} from 'ducks/actions/types'
+import {SET_IS_AUTHENTICATED, SET_USER, SIGN_IN, SIGN_OUT} from 'ducks/actions/types'
 import {ICredentials} from 'types/ICredentials'
 import {showErrorNotification} from 'ducks/actions/common'
 import axios from 'axios'
+import {IUser} from 'types/IUser'
 
 export const signIn = (credentials: ICredentials) => async (dispatch: any) => {
     axios.post('http://localhost:8080/pa165/rest/users/authenticate', credentials)
@@ -36,5 +37,12 @@ export const setIsAuthenticated = (isAuthenticated: boolean) => {
     return {
         type: SET_IS_AUTHENTICATED,
         payload: isAuthenticated,
+    }
+}
+
+export const setUser = (user: IUser) => {
+    return {
+        type: SET_USER,
+        payload: user,
     }
 }

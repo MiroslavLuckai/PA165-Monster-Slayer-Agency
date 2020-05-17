@@ -6,4 +6,5 @@ export enum EPath {
     REQUESTS = '/requests',
     JOBS = '/jobs',
     CREATE_HERO = '/create-hero',
+    DELETE_HERO = '/delete-hero',
 }

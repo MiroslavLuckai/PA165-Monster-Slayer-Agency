@@ -5,11 +5,12 @@ import {connect} from 'react-redux'
 import {IStore} from 'ducks/reducers'
 import {IUser} from 'types/IUser'
 import {EJobFilter} from 'enums/EJobFilter'
-import {fetchJobs, fetchJobsBySeverity, fetchJobsByStatus, setJobFilter} from 'ducks/actions/jobs'
+import {fetchJobs, fetchJobsBySeverity, fetchJobsByHero, fetchJobsByStatus, setJobFilter} from 'ducks/actions/jobs'
 import DropdownButton from 'components/common/DropdownButton'
 import {EJobStatus} from 'enums/EJobStatus'
 import {IDropdownItem} from 'types/IDropdownItem'
 import {EJobSeverity} from "../../enums/EJobSeverity";
+import {findHeroByUserId} from 'api/hero'
 
 interface IStateProps {
     filter: EJobFilter,
@@ -19,6 +20,7 @@ interface IStateProps {
 interface IDispatchProps {
     setJobFilter: typeof setJobFilter,
     fetchJobs: any,
+    fetchJobsByHero: any,
     fetchJobsByStatus: any,
     fetchJobsBySeverity: any
 }
@@ -35,6 +37,7 @@ const mapStateToProps = (state: IStore) => {
 const mapDispatchToProps = {
     setJobFilter,
     fetchJobs,
+    fetchJobsByHero,
     fetchJobsByStatus,
     fetchJobsBySeverity
 }
@@ -102,8 +105,14 @@ class JobFilter extends React.Component<IProps> {
         this.props.fetchJobs()
     }
 
-    private onOwnJobsClick = () => {
+    private onOwnJobsClick = async () => {
         this.props.setJobFilter(EJobFilter.OWN)
+
+        const response = await findHeroByUserId(this.props.user!.id)
+        if (response.success) {
+            const {id: heroId} = response.data
+            this.props.fetchJobsByHero(heroId)
+        }
     }
 
     private onStatusSelect = (status: EJobStatus) => {

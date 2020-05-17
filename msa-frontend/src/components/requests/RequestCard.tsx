@@ -10,19 +10,63 @@ import {EIcon, EIconStyle} from 'enums/EIcon'
 import {Link} from 'react-router-dom'
 import {EPath} from 'enums/EPath'
 import {IMonster} from 'types/IMonster'
+import {IJob} from 'types/IJob'
+import {IStore} from 'ducks/reducers'
+import {fetchJobs} from 'ducks/actions/jobs'
+import {connect} from 'react-redux'
+import {createJob, deleteJob} from 'api/job'
+import {findHeroByUserId} from 'api/hero'
+import {IUser} from 'types/IUser'
+import {EJobStatus} from 'enums/EJobStatus'
+import {EJobSeverity} from 'enums/EJobSeverity'
+import {getHeroByUserId} from 'utils/hero'
 
-interface IProps {
+interface IStateProps {
+    jobs: IJob[],
+    user?: IUser,
+}
+
+interface IDispatchProps {
+    fetchJobs: any,
+}
+
+interface IOwnProps {
     request: IRequest,
 }
 
-const RequestCard = (props: IProps) => {
+interface IProps extends IStateProps, IDispatchProps, IOwnProps {}
 
-    const {customer, location, monsters, award} = props.request
-    const {image, userName, email} = customer
+const mapStateToProps = (state: IStore) => {
+    return {
+        jobs: state.jobs.jobsList,
+        user: state.auth.user,
+    }
+}
 
-    const isClaimed = true
+const mapDispatchToProps = {
+    fetchJobs,
+}
 
-    const renderUserCredentials = () => {
+class RequestCard extends React.Component<IProps> {
+
+    componentDidMount() {
+        this.props.fetchJobs()
+    }
+
+    render() {
+        return (
+            <div className={'scope__RequestCard'}>
+                <BaseCard top={this.renderCardTop()}>
+                    {this.renderCardBody()}
+                </BaseCard>
+            </div>
+        )
+    }
+
+    private renderUserCredentials = () => {
+        const {customer} = this.props.request
+        const {userName, email} = customer
+
         return (
             <div className={'user-credentials-wrapper'}>
                 <div className={'username'}>{userName}</div>
@@ -31,10 +75,33 @@ const RequestCard = (props: IProps) => {
         )
     }
 
-    const renderClaimButton = () => {
+    private getIsClaimed = (requestId: string): boolean => {
+        const {jobs} = this.props
+        return jobs.find(job => job.request.id === requestId) !== undefined
+    }
+
+    // private getIsClaimed = (requestId: string): boolean => {
+    //     const {jobs} = this.props
+    //     const job = jobs.find(job => job.request.id === requestId)
+    //     if (!job) {return false}
+    //
+    //     const currentHero = getHeroByUserId(this.props.user!.id)
+    //     console.log(currentHero, 'hero')
+    //     if (!currentHero) {return false}
+    //
+    //     return job.heroes.find(hero => hero.id === currentHero.id) !== undefined
+    // }
+
+    private renderClaimButton = () => {
+        const {id} = this.props.request
+        const isClaimed = this.getIsClaimed(id)
+
         return (
             <div className={'claim-button-wrapper'}>
-                <button className={'claim ui-button bg-confirm'}>
+                <button
+                    className={`claim ui-button ${isClaimed ? 'ui-button--green' : ''}`}
+                    onClick={!isClaimed ? this.onClaimClick: this.onUnclaimClick}
+                >
                     {isClaimed
                         ? <>
                             <Icon className={'claim__icon'} icon={EIcon.CHECK} style={EIconStyle.SOLID} /> Claimed
@@ -46,17 +113,22 @@ const RequestCard = (props: IProps) => {
         )
     }
 
-    const renderCardTop = () => {
+    private renderCardTop = () => {
+        const {customer} = this.props.request
+        const {image} = customer
+
         return (
             <>
                 <ResourceImage className={'profile-picture'} image={image} alt={'user'} />
-                {renderUserCredentials()}
-                {renderClaimButton()}
+                {this.renderUserCredentials()}
+                {this.renderClaimButton()}
             </>
         )
     }
 
-    const renderBasicInfo = () => {
+    private renderBasicInfo = () => {
+        const {location, award} = this.props.request
+
         return (
             <BasicInfoWrapper>
                 <div className={'location'}>
@@ -71,30 +143,32 @@ const RequestCard = (props: IProps) => {
         )
     }
 
-    const Monster: React.FC<{monster: IMonster, index: number}> = (props) => {
-        const [isHovered, setIsHovered] = React.useState(false)
-        const {id, image, name} = props.monster
+    private renderMonsters = () => {
+        const Monster: React.FC<{monster: IMonster, index: number}> = (props) => {
+            const [isHovered, setIsHovered] = React.useState(false)
+            const {id, image, name} = props.monster
 
-        return (
-            <Link
-                className={'monster'}
-                to={`${EPath.MONSTERS}/${id}`}
-                key={props.index}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-            >
-                <ResourceImage className={'monster__image'} image={image} alt={'monster'} />
-                <div className={'monster__name'}>{name}</div>
-                <Icon
-                    className={`monster__icon ${isHovered ? 'monster__icon--visible' : ''}`}
-                    icon={EIcon.SEARCH}
-                    style={EIconStyle.SOLID}
-                />
-            </Link>
-        )
-    }
+            return (
+                <Link
+                    className={'monster'}
+                    to={`${EPath.MONSTERS}/${id}`}
+                    key={props.index}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <ResourceImage className={'monster__image'} image={image} alt={'monster'} />
+                    <div className={'monster__name'}>{name}</div>
+                    <Icon
+                        className={`monster__icon ${isHovered ? 'monster__icon--visible' : ''}`}
+                        icon={EIcon.SEARCH}
+                        style={EIconStyle.SOLID}
+                    />
+                </Link>
+            )
+        }
 
-    const renderMonsters = () => {
+        const {monsters} = this.props.request
+
         return (
             <div className={'monsters'}>
                 <h3>Monsters</h3>
@@ -105,22 +179,46 @@ const RequestCard = (props: IProps) => {
         )
     }
 
-    const renderCardBody = () => {
+    private renderCardBody = () => {
         return (
             <>
-                {renderBasicInfo()}
-                {renderMonsters()}
+                {this.renderBasicInfo()}
+                {this.renderMonsters()}
             </>
         )
     }
 
-    return (
-        <div className={'scope__RequestCard'}>
-            <BaseCard top={renderCardTop()}>
-                {renderCardBody()}
-            </BaseCard>
-        </div>
-    )
+    private onClaimClick = async () => {
+        const {request} = this.props
+
+        const heroResponse = await findHeroByUserId(this.props.user!.id)
+        let hero
+        if (heroResponse.success) {
+            hero = heroResponse.data
+        }
+
+        const job: IJob = {
+            request,
+            heroes: [hero],
+            evaluation: 0,
+            status: EJobStatus.ASSIGNED,
+            severity: EJobSeverity.MODERATE,
+        }
+
+        const response = await createJob(request.id, job)
+        if (response.success) {
+            this.props.fetchJobs()
+        }
+    }
+
+    private onUnclaimClick = async () => {
+        const {jobs} = this.props
+        const job = jobs.find(job => job.request.id === this.props.request.id)
+        const response = await deleteJob(job!.id!)
+        if (response.success) {
+            this.props.fetchJobs()
+        }
+    }
 }
 
-export default RequestCard
+export default connect(mapStateToProps, mapDispatchToProps)(RequestCard)
