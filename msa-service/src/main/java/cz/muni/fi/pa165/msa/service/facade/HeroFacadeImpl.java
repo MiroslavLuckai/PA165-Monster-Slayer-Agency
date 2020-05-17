@@ -1,10 +1,12 @@
 package cz.muni.fi.pa165.msa.service.facade;
 
 import cz.muni.fi.pa165.monsterslayeragency.entities.Hero;
+import cz.muni.fi.pa165.monsterslayeragency.entities.User;
 import cz.muni.fi.pa165.msa.dto.HeroDTO;
 import cz.muni.fi.pa165.msa.facade.HeroFacade;
 import cz.muni.fi.pa165.msa.service.BeanMappingService;
 import cz.muni.fi.pa165.msa.service.HeroService;
+import cz.muni.fi.pa165.msa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +24,20 @@ public class HeroFacadeImpl implements HeroFacade {
     HeroService service;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     BeanMappingService mapper;
 
     @Override
     public HeroDTO createHero(HeroDTO heroDTO) {
         Hero hero = mapper.mapTo(heroDTO, Hero.class);
         service.createHero(hero);
-        heroDTO.setId(hero.getId());
-        return heroDTO;
+        User user = userService.findUserById(hero.getUser().getId());
+        user.setHero(true);
+        userService.updateUser(user);
+        hero.setUser(user);
+        return mapper.mapTo(hero, HeroDTO.class);
     }
 
     @Override
