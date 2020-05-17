@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.msa.rest.controllers;
+package cz.muni.fi.pa165.msa.rest;
 
 import cz.muni.fi.pa165.monsterslayeragency.enums.*;
 import cz.muni.fi.pa165.msa.dto.*;
