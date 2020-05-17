@@ -14,6 +14,7 @@ public class Utils {
 
     public static UserDTO getUserDTODummy1() {
         UserDTO user = new UserDTO();
+        user.setId(1L);
         user.setEmail("default@mail.com");
         user.setImage("test_image");
         user.setUserName("Geralt");
@@ -23,6 +24,7 @@ public class Utils {
 
     public static UserDTO getUserDTODummy2() {
         UserDTO user = new UserDTO();
+        user.setId(2L);
         user.setEmail("normal@mail.com");
         user.setImage("image");
         user.setUserName("Peter");
