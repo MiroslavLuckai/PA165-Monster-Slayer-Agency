@@ -34,7 +34,7 @@ public class UserController {
             logger.debug("Get all users");
             return userFacade.getAllUsers();
         } catch (Exception ex) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find User." + ex.getMessage(), ex);
         }
     }
 
@@ -49,7 +49,7 @@ public class UserController {
         logger.debug("Find user({})", id);
         UserDTO user = userFacade.findUserById(id);
         if (user == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find User with the given ID.");
         }
         return user;
     }
@@ -65,7 +65,7 @@ public class UserController {
         logger.debug("Find user({})", email);
         UserDTO user = userFacade.findUserByEmail(email);
         if (user == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find User with the given email.");
         }
         return user;
     }
@@ -80,7 +80,7 @@ public class UserController {
         logger.debug("Find user({})", username);
         UserDTO user = userFacade.findUserByUsername(username);
         if (user == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find User with the given name.");
         }
         return user;
     }
@@ -96,7 +96,7 @@ public class UserController {
             logger.debug("Authenticating user with email: {}", dto.getEmail());
             return userFacade.authenticateUser(dto.getEmail(), dto.getPassword());
         } catch (Exception ex) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot authenticate user." + ex.getMessage(), ex);
         }
     }
 
@@ -111,7 +111,7 @@ public class UserController {
 
             userFacade.removeUser(id);
         } catch (Exception ex) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot remove user with the giver ID." + ex.getMessage(), ex);
         }
     }
 

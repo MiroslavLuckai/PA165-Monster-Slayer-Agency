@@ -56,7 +56,7 @@ public class RequestController {
         logger.debug("Find request({})", id);
         RequestDTO request = requestFacade.findById(id);
         if (request == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find request with the given ID.");
         }
         return request;
     }
@@ -89,8 +89,8 @@ public class RequestController {
         try {
             Long id = requestFacade.createRequest(requestCreateDTO);
             return requestFacade.findById(id);
-        } catch (Exception e) {
-            throw new ResourceAlreadyExistsException();
+        } catch (Exception ex) {
+            throw new ResourceAlreadyExistsException("Request already exists." + ex.getMessage(), ex);
         }
     }
 
@@ -107,7 +107,7 @@ public class RequestController {
         try {
             requestFacade.removeRequest(id);
         } catch (Exception ex) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find Request with the given ID." + ex.getMessage(), ex);
         }
     }
 }

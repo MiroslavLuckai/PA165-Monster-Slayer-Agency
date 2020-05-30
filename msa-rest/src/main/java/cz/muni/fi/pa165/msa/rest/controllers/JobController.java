@@ -51,7 +51,7 @@ public class JobController {
         logger.debug("Find jobs({})", id);
         JobDTO job = jobFacade.findById(id);
         if (job == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find Job with the given ID.");
         }
         return job;
     }
@@ -102,7 +102,7 @@ public class JobController {
             logger.debug("Delete job with id: {}", id);
             jobFacade.removeJob(id);
         } catch (Exception ex) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Job not found." + ex.getMessage(), ex);
         }
     }
 
@@ -132,7 +132,7 @@ public class JobController {
             logger.debug("Create job");
             return jobFacade.createJobFromRequest(job, id);
         } catch (Exception ex) {
-            throw new ResourceAlreadyExistsException();
+            throw new ResourceAlreadyExistsException("Job already exists." + ex.getMessage(), ex);
         }
     }
 }
