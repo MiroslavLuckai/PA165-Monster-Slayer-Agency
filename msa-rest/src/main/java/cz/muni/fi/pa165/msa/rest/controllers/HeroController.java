@@ -21,7 +21,7 @@ public class HeroController {
     final static Logger logger = LoggerFactory.getLogger(MonsterController.class);
 
     @Autowired
-    HeroFacade heroFacade;
+    private HeroFacade heroFacade;
 
     /**
      * List all heroes stored in database
