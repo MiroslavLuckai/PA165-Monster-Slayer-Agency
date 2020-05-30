@@ -149,9 +149,13 @@ class RequestCreate extends React.Component<IProps, IState> {
     }
 
     private onAwardInputChange = (event: any) => {
-        this.setState({
-            awardInputValue: event.target.value,
-        })
+        if (isNaN(event.target.value)) {
+            // upozornenie
+        } else {
+            this.setState({
+                awardInputValue: event.target.value,
+            })
+        }
     }
 
     private onMonsterCheckboxChange = async (event: any) => {
