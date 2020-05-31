@@ -45,7 +45,7 @@ public class HeroController {
         logger.debug("Find hero with id: \"{}\"", id);
         HeroDTO hero = heroFacade.findHero(id);
         if (hero == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find Hero with the given ID.");
         }
         return hero;
     }
@@ -61,7 +61,7 @@ public class HeroController {
         logger.debug("Find hero with name: \"{}\"", name);
         HeroDTO hero = heroFacade.findByHeroName(name);
         if (hero == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find Hero with the given name.");
         }
         return hero;
     }
@@ -77,7 +77,7 @@ public class HeroController {
         logger.debug("Find hero with user id: \"{}\"", id);
         HeroDTO hero = heroFacade.findByUserId(id);
         if (hero == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find Hero with the given user ID.");
         }
         return hero;
     }
@@ -93,7 +93,7 @@ public class HeroController {
             logger.info("Remove hero with id: \"{}\"", id);
             heroFacade.removeHero(id);
         } catch (Exception ex) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find Hero with the given ID." + ex.getMessage(), ex);
         }
     }
 

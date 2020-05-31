@@ -54,7 +54,7 @@ public class MonsterController {
         logger.debug("Find monster({})", id);
         MonsterDTO monster = monsterFacade.findById(id);
         if (monster == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find Monster with the given ID.");
         }
         return monster;
     }
@@ -111,8 +111,8 @@ public class MonsterController {
         try {
             Long id = monsterFacade.createMonster(monsterCreateDTO);
             return monsterFacade.findById(id);
-        } catch (Exception e) {
-            throw new ResourceAlreadyExistsException();
+        } catch (Exception ex) {
+            throw new ResourceAlreadyExistsException("Monster already exists." + ex.getMessage(), ex);
         }
     }
 
@@ -129,7 +129,7 @@ public class MonsterController {
         try {
             monsterFacade.removeMonster(id);
         } catch (Exception ex) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Cannot find Monster with the given ID." + ex.getMessage(), ex);
         }
     }
 }
