@@ -13,12 +13,18 @@ import history from '../../history'
 import {EPath} from 'enums/EPath'
 import {IMonster} from 'types/IMonster'
 import {createMonster} from "api/monster"
+import SignInPage from 'components/SignInPage'
+import {IStore} from 'ducks/reducers'
+
+interface IStateProps {
+    isSignedIn: boolean,
+}
 
 interface IDispatchProps {
     setActiveLayer: typeof setActiveLayer,
 }
 
-interface IProps extends IDispatchProps {}
+interface IProps extends IStateProps, IDispatchProps {}
 
 interface IState {
     nameInputValue: string,
@@ -27,6 +33,12 @@ interface IState {
     monsterType: EMonsterType | null,
     imageInputValue: string,
     food: EMonsterFood | null,
+}
+
+const mapStateToProps = (state: IStore) => {
+    return {
+        isSignedIn: state.auth.isSignedIn,
+    }
 }
 
 const mapDispatchToProps = {
@@ -51,6 +63,10 @@ class MonsterCreate extends React.Component<IProps, IState> {
     render() {
         const {nameInputValue, sizeInputValue, resistances, monsterType, imageInputValue, food} = this.state
 
+        if (!this.props.isSignedIn) {
+            return <SignInPage />
+        }
+
         return (
             <div className={'scope__MonsterCreate'}>
                 <form className={'create-monster-form'}>
@@ -66,7 +82,7 @@ class MonsterCreate extends React.Component<IProps, IState> {
                         className={'ui-input'}
                         type={'number'}
                         value={sizeInputValue ? Number(sizeInputValue) : ''}
-                        onChange={this.onSizeInputValue}
+                        onChange={this.onSizeInputValueChange}
                         placeholder={'Size'}
                     />
                     <h3 className={'create-monster-form__monster-type-title'}>Select monster type:</h3>
@@ -137,7 +153,13 @@ class MonsterCreate extends React.Component<IProps, IState> {
                         placeholder={'Image path'}
                     />
                     <div className={'create-monster-form__confirm-wrapper'}>
-                        <button className={'create-monster-form__confirm'} onClick={this.createMonster}>Submit</button>
+                        <button
+                            className={'create-monster-form__confirm'}
+                            onClick={this.createMonster}
+                            disabled={Boolean(!nameInputValue || !sizeInputValue || !monsterType || !imageInputValue || !food)}
+                        >
+                            Submit
+                        </button>
                     </div>
                 </form>
             </div>
@@ -150,7 +172,7 @@ class MonsterCreate extends React.Component<IProps, IState> {
         })
     }
 
-    private onSizeInputValue = (event: any) => {
+    private onSizeInputValueChange = (event: any) => {
         if (event.target.value >= 0) {
             this.setState({
                 sizeInputValue: event.target.value,
@@ -207,4 +229,4 @@ class MonsterCreate extends React.Component<IProps, IState> {
     }
 }
 
-export default connect(null, mapDispatchToProps)(MonsterCreate)
+export default connect(mapStateToProps, mapDispatchToProps)(MonsterCreate)
