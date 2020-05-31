@@ -34,7 +34,7 @@ import java.util.Locale;
 @Configuration
 @Import({ServiceConfiguration.class, MSAWithSampleDataConfiguration.class})
 @ComponentScan(basePackages = {"cz.muni.fi.pa165.msa.rest.controllers"})
-public class RootWebContext extends WebMvcConfigurerAdapter {
+public class RootWebContext implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -60,6 +60,7 @@ public class RootWebContext extends WebMvcConfigurerAdapter {
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }
+    
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(customJackson2HttpMessageConverter());
