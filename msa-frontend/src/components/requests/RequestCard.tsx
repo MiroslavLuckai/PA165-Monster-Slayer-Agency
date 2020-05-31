@@ -161,7 +161,10 @@ class RequestCard extends React.Component<IProps> {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
-                    <ResourceImage className={'monster__image'} image={image} alt={'monster'} />
+                    {image.includes('http')
+                        ? <img className={'monster__image'} src={image} alt={'monster'} />
+                        : <ResourceImage className={'monster__image'} image={image} alt={'monster'}/>
+                    }
                     <div className={'monster__name'}>{name}</div>
                     <Icon
                         className={`monster__icon ${isHovered ? 'monster__icon--visible' : ''}`}

@@ -89,7 +89,7 @@ class RequestCreate extends React.Component<IProps, IState> {
                     />
                     <input
                         className={'award-input ui-input'}
-                        type={'text'}
+                        type={'number'}
                         value={awardInputValue}
                         onChange={this.onAwardInputChange}
                         placeholder={'Award'}
@@ -135,7 +135,13 @@ class RequestCreate extends React.Component<IProps, IState> {
                         })}
                     </div>
                     <div className={'create-request-form__confirm-wrapper'}>
-                        <button className={'create-request-form__confirm'} onClick={this.createRequest}>Submit</button>
+                        <button
+                            className={'create-request-form__confirm'}
+                            onClick={this.createRequest}
+                            disabled={!locationInputValue || !awardInputValue || !monsters || !severity}
+                        >
+                            Submit
+                        </button>
                     </div>
                 </form>
             </div>
@@ -149,9 +155,11 @@ class RequestCreate extends React.Component<IProps, IState> {
     }
 
     private onAwardInputChange = (event: any) => {
-        this.setState({
-            awardInputValue: event.target.value,
-        })
+        if (event.target.value >= 0) {
+            this.setState({
+                awardInputValue: event.target.value,
+            })
+        }
     }
 
     private onMonsterCheckboxChange = async (event: any) => {

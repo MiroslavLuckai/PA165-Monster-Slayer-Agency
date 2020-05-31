@@ -88,7 +88,13 @@ class HeroCreate extends React.Component<IProps, IState> {
                         })}
                     </div>
                     <div className={'create-hero-form__confirm-wrapper'}>
-                        <button className={'create-hero-form__confirm'} onClick={this.createHero}>Submit</button>
+                        <button
+                            className={'create-hero-form__confirm'}
+                            onClick={this.createHero}
+                            disabled={!nameInputValue}
+                        >
+                            Submit
+                        </button>
                     </div>
                 </form>
             </div>

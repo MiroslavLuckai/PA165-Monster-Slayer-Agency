@@ -73,6 +73,15 @@ $input-padding: 10px;
       &:active {
         background-color: #242424;
       }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        &:hover {
+          background-color: #383838;
+        }
+      }
     }
   }
 }
